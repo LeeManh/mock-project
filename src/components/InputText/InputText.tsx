@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { UseFormRegister, FieldValues } from "react-hook-form";
-import { Path } from "react-hook-form/dist/types";
+import type { UseFormRegister, FieldPath, FieldValues } from "react-hook-form";
+
 import {
   Container,
   ErrorMessage,
@@ -11,16 +11,20 @@ import {
   InputWrap,
 } from "./InputText.styled";
 
-interface Props<Data extends FieldValues>
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> extends React.InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   isHaveEyeIcon?: boolean;
-  register?: UseFormRegister<Data>;
+  register?: UseFormRegister<TFieldValues>;
+  name?: TName;
 }
 
-export default function InputText<Data extends FieldValues>(
-  props: Props<Data>
-) {
+export default function InputText<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>(props: Props<TFieldValues, TName>) {
   const {
     register,
     errorMessage,
@@ -34,7 +38,7 @@ export default function InputText<Data extends FieldValues>(
 
   const typeInput = type === "password" && showPassword ? "text" : type;
 
-  const registerResult = register && name ? register(name as Path<Data>) : {};
+  const registerResult = register && name ? register(name) : {};
 
   return (
     <Container>
@@ -59,5 +63,3 @@ export default function InputText<Data extends FieldValues>(
     </Container>
   );
 }
-
-// export default InputText;

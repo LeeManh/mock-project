@@ -15,6 +15,8 @@ import qrDownLoad from "assets/images/qrDownLoad.png";
 import appGallery from "assets/images/app-gallery.png";
 import ggPlay from "assets/images/gg-play.png";
 import apple from "assets/images/apple.png";
+import googleIcon from "assets/images/google-icon.png";
+import appleIcon from "assets/images/apple-icon.png";
 
 const images = {
   bgAuth,
@@ -34,6 +36,8 @@ const images = {
   appGallery,
   ggPlay,
   apple,
+  googleIcon,
+  appleIcon,
 };
 
 export default images;

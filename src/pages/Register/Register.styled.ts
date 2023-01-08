@@ -57,17 +57,7 @@ export const ButtonLogin = styled.button`
   outline: none;
   cursor: pointer;
 `;
-export const FormActions = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: ${colors.blue};
-  font-size: 1.2rem;
 
-  div {
-    cursor: pointer;
-  }
-`;
 export const Divider = styled.div`
   display: flex;
   align-items: center;
@@ -87,7 +77,7 @@ export const DividerText = styled.div`
 
 export const SocialButtonList = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 
   @media screen and (max-width: ${breakPonits.md}) {
@@ -117,5 +107,18 @@ export const FormFooter = styled.div`
     text-decoration: none;
     color: ${colors.orange};
     margin-left: 4px;
+  }
+`;
+export const RulesWrap = styled.div`
+  text-align: center;
+  font-size: 1.2rem;
+  color: ${colors.black};
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .link {
+    color: ${colors.orange};
+    cursor: pointer;
   }
 `;

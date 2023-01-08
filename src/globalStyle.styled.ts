@@ -1,3 +1,4 @@
+import breakPonits from "constants/breakPoints";
 import styled, { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
@@ -9,6 +10,10 @@ const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 62.5%;
+    
+    @media screen and (max-width : ${breakPonits.md}) {
+    font-size: 56.25%;
+    }
   }
 
   body {

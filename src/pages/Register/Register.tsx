@@ -9,7 +9,6 @@ import {
   ButtonLogin,
   Container,
   Form,
-  FormActions,
   FormContent,
   TitleForm,
   Wrap,
@@ -20,7 +19,8 @@ import {
   FormFooter,
   SocialButton,
   SocialIcon,
-} from "./Login.styled";
+  RulesWrap,
+} from "./Register.styled";
 import { authShema } from "utils/rules";
 import type { AuthSchema } from "utils/rules";
 
@@ -35,16 +35,11 @@ const socialIcons = [
     alt: "googleIcon",
     title: "Google",
   },
-  {
-    src: images.appleIcon,
-    alt: "appleIcon",
-    title: "Apple",
-  },
 ];
 
 type FormInputs = Pick<AuthSchema, "email" | "password">;
 
-const Login = () => {
+const Register = () => {
   const {
     register,
     handleSubmit,
@@ -59,7 +54,7 @@ const Login = () => {
     <Container>
       <Wrap>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <TitleForm>Đăng nhập</TitleForm>
+          <TitleForm>Đăng ký</TitleForm>
 
           <FormContent>
             <InputText
@@ -76,12 +71,8 @@ const Login = () => {
               isHaveEyeIcon={true}
               errorMessage={errors.password?.message}
             />
-            <ButtonLogin>Đăng nhập</ButtonLogin>
 
-            <FormActions>
-              <div>Quên mật khẩu</div>
-              <div>Đăng nhập với SMS</div>
-            </FormActions>
+            <ButtonLogin>Đăng ký</ButtonLogin>
 
             <Divider>
               <DividerLine></DividerLine>
@@ -97,11 +88,20 @@ const Login = () => {
                 </SocialButton>
               ))}
             </SocialButtonList>
+
+            <RulesWrap>
+              <div>Bằng việc đăng kí, bạn đã đồng ý với Shopee về</div>
+              <div>
+                <span className="link">Điều khoản dịch vụ</span>
+                <span> & </span>
+                <span className="link">Chính sách bảo mật</span>
+              </div>
+            </RulesWrap>
           </FormContent>
 
           <FormFooter>
-            <span>Bạn mới biết đến Shopee?</span>
-            <Link to={routePaths.register}>Đăng ký</Link>
+            <span>Bạn đã có tài khoản?</span>
+            <Link to={routePaths.login}>Đăng nhập</Link>
           </FormFooter>
         </Form>
       </Wrap>
@@ -109,4 +109,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

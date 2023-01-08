@@ -1,3 +1,4 @@
+import breakPonits from "constants/breakPoints";
 import styled, { css } from "styled-components";
 import colors from "constants/colors";
 
@@ -19,6 +20,18 @@ export const Container = styled.footer`
 export const FooterTop = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+
+  @media screen and (max-width: ${breakPonits.xl}) {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 3rem;
+  }
+  @media screen and (max-width: ${breakPonits.md}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: ${breakPonits.sm}) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const FooterItem = styled.div``;

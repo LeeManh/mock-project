@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { UseFormRegister } from "react-hook-form";
+import type { UseFormRegister, FieldPath, FieldValues } from "react-hook-form";
+
 import {
   Container,
   ErrorMessage,
@@ -10,13 +11,20 @@ import {
   InputWrap,
 } from "./InputText.styled";
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> extends React.InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   isHaveEyeIcon?: boolean;
-  register?: UseFormRegister<any>;
+  register?: UseFormRegister<TFieldValues>;
+  name?: TName;
 }
 
-const InputText = (props: Props) => {
+export default function InputText<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>(props: Props<TFieldValues, TName>) {
   const {
     register,
     errorMessage,
@@ -34,8 +42,14 @@ const InputText = (props: Props) => {
 
   return (
     <Container>
-      <InputWrap>
-        <Input type={typeInput} name={name} {...rest} {...registerResult} />
+      <InputWrap isError={Boolean(errorMessage)}>
+        <Input
+          type={typeInput}
+          name={name}
+          {...rest}
+          {...registerResult}
+          autoComplete="off"
+        />
         <IconEyeWrap>
           {isHaveEyeIcon && type === "password" && !showPassword && (
             <IconEyeClose onClick={() => setShowPassword(true)} />
@@ -48,6 +62,4 @@ const InputText = (props: Props) => {
       <ErrorMessage>{errorMessage}</ErrorMessage>
     </Container>
   );
-};
-
-export default InputText;
+}

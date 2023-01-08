@@ -8,7 +8,10 @@ export const Container = styled.div`
   overflow: hidden;
 `;
 export const InputWrap = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.26);
+  border: ${(props: { isError?: boolean }) =>
+    props.isError
+      ? `1px solid ${colors.orange}`
+      : "1px solid rgba(0, 0, 0, 0.26)"};
   border-radius: 2px;
   box-shadow: inset 0 2px 0 rgb(0 0 0 / 2%);
   height: 4rem;
@@ -19,7 +22,10 @@ export const InputWrap = styled.div`
   align-items: center;
 
   &:focus-within {
-    border: 1px solid rgba(0, 0, 0, 0.54);
+    border: ${(props: { isError?: boolean }) =>
+      props.isError
+        ? `1px solid ${colors.orange}`
+        : "1px solid rgba(0, 0, 0, 0.54)"};
     box-shadow: 0 0 4px rgb(0 0 0 / 14%);
   }
 `;
@@ -36,6 +42,7 @@ export const ErrorMessage = styled.div`
   font-size: 1.3rem;
   min-height: 1.5rem;
   margin-top: 0.5rem;
+  user-select: none;
 `;
 export const IconEyeWrap = styled.div`
   height: 100%;

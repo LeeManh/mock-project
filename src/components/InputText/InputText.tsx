@@ -13,18 +13,18 @@ import {
 
 interface Props<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > extends React.InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   isHaveEyeIcon?: boolean;
   register?: UseFormRegister<TFieldValues>;
-  name?: TName;
+  name?: TFieldName;
 }
 
 export default function InputText<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->(props: Props<TFieldValues, TName>) {
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>(props: Props<TFieldValues, TFieldName>) {
   const {
     register,
     errorMessage,

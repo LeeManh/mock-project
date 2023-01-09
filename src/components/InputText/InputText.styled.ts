@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import colors from "constants/colors";
-import { ReactComponent as EyeCloseIcon } from "assets/images/eye-close-icon.svg";
-import { ReactComponent as EyeOpenIcon } from "assets/images/eye-open-icon.svg";
+import { ReactComponent as EyeCloseIcon } from "assets/svgs/eye-close-icon.svg";
+import { ReactComponent as EyeOpenIcon } from "assets/svgs/eye-open-icon.svg";
 
 export const Container = styled.div`
   width: 100%;

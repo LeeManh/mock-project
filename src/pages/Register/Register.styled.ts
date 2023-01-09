@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const Wrap = styled(Wrapper)`
   display: flex;
   align-items: center;
-  background-image: url(${images.bgAuth});
+  background-image: url(${images.background.bgAuth});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

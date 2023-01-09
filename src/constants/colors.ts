@@ -5,6 +5,7 @@ const colors = {
   white: "#ffffff",
   background: "#f5f5f5",
   orange: "#ee4d2d",
+  "orange-light": "#fb5533",
   blue: "#05a",
 } as const;
 

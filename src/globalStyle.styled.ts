@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 62.5%;
-    
+
     @media screen and (max-width : ${breakPonits.md}) {
     font-size: 56.25%;
     }
@@ -20,9 +20,20 @@ const GlobalStyles = createGlobalStyle`
     font-family:  Helvetica,Arial, sans-serif;
     font-size: 1.4rem;
     color: #000000cc;
+ 
   }
+
   li {
     list-style: none;
+  }
+
+  input {
+    color: inherit;
+    font: inherit;
+  }
+
+  img {
+    max-width: 100%;
   }
 `;
 

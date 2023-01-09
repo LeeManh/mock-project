@@ -18,6 +18,10 @@ const Container = styled.div`
 const CustomSwiper = styled(Swiper)`
   position: relative;
 
+  .swiper-slide {
+    cursor: pointer;
+  }
+
   .swiper-pagination-bullet {
     width: 1rem;
     height: 1rem;

@@ -1,3 +1,4 @@
+import colors from "constants/colors";
 import breakPonits from "constants/breakPoints";
 import styled, { createGlobalStyle } from "styled-components";
 
@@ -20,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
     font-family:  Helvetica,Arial, sans-serif;
     font-size: 1.4rem;
     color: #000000cc;
- 
+    background-color: #f5f5f5
   }
 
   li {
@@ -35,6 +36,23 @@ const GlobalStyles = createGlobalStyle`
   img {
     max-width: 100%;
   }
+
+  .custom-dropdown {
+    
+    li.ant-dropdown-menu-item.ant-dropdown-menu-item-only-child {
+    background-color: transparent !important;
+
+    &:hover {
+      color: ${colors.orange};
+    }
+
+    &.ant-dropdown-menu-item-selected {
+      color: ${colors.orange};
+    }
+  }
+  }
+ 
+ 
 `;
 
 export default GlobalStyles;

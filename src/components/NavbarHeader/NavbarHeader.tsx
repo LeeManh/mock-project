@@ -1,3 +1,6 @@
+import type { MenuProps } from "antd";
+import { Dropdown } from "antd";
+
 import images from "assets/images";
 import {
   ArrowDownIcon,
@@ -13,7 +16,31 @@ import {
   RightNavbar,
   Wrap,
 } from "./NavbarHeader.styled";
-import Popover from "components/Popover";
+
+const languages: MenuProps["items"] = [
+  {
+    key: "vn",
+    label: <div>Tiếng Việt</div>,
+  },
+  {
+    key: "en",
+    label: <div>English</div>,
+  },
+];
+const userMenu: MenuProps["items"] = [
+  {
+    key: "1",
+    label: <div>Tài khoản của tôi</div>,
+  },
+  {
+    key: "2",
+    label: <div>Đơn mua</div>,
+  },
+  {
+    key: "3",
+    label: <div>Đăng xuất</div>,
+  },
+];
 
 const NavbarHeader = () => {
   return (
@@ -40,19 +67,51 @@ const NavbarHeader = () => {
             <span>Thông báo</span>
           </NavbarItem>
 
-          <NavbarItem>
-            <GlobalIcon />
-            <span>Tiếng Việt</span>
-            <ArrowDownIcon />
-          </NavbarItem>
+          <Dropdown
+            menu={{
+              items: languages,
+              selectable: true,
+              defaultSelectedKeys: ["vn"],
+              style: {
+                borderRadius: "2px",
+              },
+              className: "custom-dropdown",
+            }}
+            placement="topRight"
+            arrow
+            overlayStyle={{
+              minWidth: "20rem",
+            }}
+          >
+            <NavbarItem>
+              <GlobalIcon />
+              <span>Tiếng Việt</span>
+              <ArrowDownIcon />
+            </NavbarItem>
+          </Dropdown>
 
-          <AvartarWrap>
-            <AvartarImage
-              src="https://cf.shopee.vn/file/2d7d51ffc7af8cdc00d086c882d5e020_tn"
-              alt="avatar"
-            />
-            <NameUser>lemanh</NameUser>
-          </AvartarWrap>
+          <Dropdown
+            menu={{
+              items: userMenu,
+              style: {
+                borderRadius: "2px",
+              },
+              className: "custom-dropdown",
+            }}
+            placement="topRight"
+            arrow
+            overlayStyle={{
+              minWidth: "20rem",
+            }}
+          >
+            <AvartarWrap>
+              <AvartarImage
+                src="https://cf.shopee.vn/file/2d7d51ffc7af8cdc00d086c882d5e020_tn"
+                alt="avatar"
+              />
+              <NameUser>lemanh</NameUser>
+            </AvartarWrap>
+          </Dropdown>
         </RightNavbar>
       </Wrap>
     </Container>

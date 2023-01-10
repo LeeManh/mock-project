@@ -7,12 +7,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import images from "assets/images";
 import colors from "constants/colors";
 
 const Container = styled.div`
   width: 100%;
-  background-color: red;
+  height: 100%;
 `;
 
 const CustomSwiper = styled(Swiper)`
@@ -20,6 +19,11 @@ const CustomSwiper = styled(Swiper)`
 
   .swiper-slide {
     cursor: pointer;
+    user-select: none;
+  }
+
+  img {
+    display: flex;
   }
 
   .swiper-pagination-bullet {
@@ -34,7 +38,11 @@ const CustomSwiper = styled(Swiper)`
   }
 `;
 
-const Slide = () => {
+interface Props {
+  datas: { label: string; alt?: string }[];
+}
+
+const Slide = ({ datas }: Props) => {
   return (
     <Container>
       <CustomSwiper
@@ -51,24 +59,11 @@ const Slide = () => {
         modules={[Navigation, Pagination, Autoplay]}
         navigation={true}
       >
-        <SwiperSlide>
-          <img src={images.slides.slide1} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={images.slides.slide1} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={images.slides.slide1} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={images.slides.slide1} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={images.slides.slide1} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={images.slides.slide1} alt="" />
-        </SwiperSlide>
+        {datas.map((data) => (
+          <SwiperSlide>
+            <img src={data.label} alt={data.alt} />
+          </SwiperSlide>
+        ))}
       </CustomSwiper>
     </Container>
   );

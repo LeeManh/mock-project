@@ -25,9 +25,9 @@ export const abouts = [
   "Liên Hệ Với Truyền Thông",
 ];
 export const socials = [
-  { icon: images.facebookSmallIcon, title: "Facebook" },
-  { icon: images.instagramSmallIcon, title: "Instagram" },
-  { icon: images.linkedinSmallIcon, title: "LinkedIn" },
+  { icon: images.icons.facebookSmallIcon, title: "Facebook" },
+  { icon: images.icons.instagramSmallIcon, title: "Instagram" },
+  { icon: images.icons.linkedinSmallIcon, title: "LinkedIn" },
 ];
 export const payments = [
   { image: images.visa },

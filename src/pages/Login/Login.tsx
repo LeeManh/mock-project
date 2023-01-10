@@ -26,17 +26,17 @@ import type { AuthSchema } from "utils/rules";
 
 const socialIcons = [
   {
-    src: images.fbIcon,
+    src: images.icons.fbIcon,
     alt: "facebook-icon",
     title: "Facebook",
   },
   {
-    src: images.googleIcon,
+    src: images.icons.googleIcon,
     alt: "googleIcon",
     title: "Google",
   },
   {
-    src: images.appleIcon,
+    src: images.icons.appleIcon,
     alt: "appleIcon",
     title: "Apple",
   },

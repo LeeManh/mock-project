@@ -1,11 +1,11 @@
-import { useRoutes } from "react-router-dom";
+import { useRoutes } from 'react-router-dom'
 
-import routePaths from "constants/routePaths";
-import Login from "pages/Login";
-import AuthLayout from "layouts/AuthLayout";
-import Register from "pages/Register";
-import MainLayout from "layouts/MainLayout";
-import Home from "pages/Home";
+import routePaths from 'constants/routePaths'
+import Login from 'pages/Login'
+import AuthLayout from 'layouts/AuthLayout'
+import Register from 'pages/Register'
+import MainLayout from 'layouts/MainLayout'
+import Home from 'pages/Home'
 
 const useRouteElement = () => {
   const elements = useRoutes([
@@ -15,7 +15,7 @@ const useRouteElement = () => {
         <MainLayout>
           <Home />
         </MainLayout>
-      ),
+      )
     },
     {
       path: routePaths.login,
@@ -23,7 +23,7 @@ const useRouteElement = () => {
         <AuthLayout>
           <Login />
         </AuthLayout>
-      ),
+      )
     },
     {
       path: routePaths.register,
@@ -31,11 +31,11 @@ const useRouteElement = () => {
         <AuthLayout>
           <Register />
         </AuthLayout>
-      ),
-    },
-  ]);
+      )
+    }
+  ])
 
-  return elements;
-};
+  return elements
+}
 
-export default useRouteElement;
+export default useRouteElement

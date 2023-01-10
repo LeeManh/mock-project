@@ -1,6 +1,6 @@
-import breakPonits from "constants/breakPoints";
-import styled, { css } from "styled-components";
-import colors from "constants/colors";
+import breakPonits from 'constants/breakPoints'
+import styled, { css } from 'styled-components'
+import colors from 'constants/colors'
 
 export const ImageStyles = css`
   cursor: pointer;
@@ -9,13 +9,13 @@ export const ImageStyles = css`
   background-color: white;
   object-fit: contain;
   flex-shrink: 0;
-`;
+`
 
 export const Container = styled.footer`
   padding-top: 4rem;
   padding-bottom: 4rem;
   background-color: ${colors.background};
-`;
+`
 
 export const FooterTop = styled.div`
   display: grid;
@@ -32,23 +32,23 @@ export const FooterTop = styled.div`
   @media screen and (max-width: ${breakPonits.sm}) {
     grid-template-columns: repeat(1, 1fr);
   }
-`;
+`
 
-export const FooterItem = styled.div``;
+export const FooterItem = styled.div``
 export const FooterItemTitle = styled.div`
   text-transform: uppercase;
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 2rem;
   margin-top: ${(props: { mt?: string }) => props.mt};
-`;
+`
 export const FooterItemList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 
   ${(props: { type?: string }) => {
-    if (props.type === "imgList") {
+    if (props.type === 'imgList') {
       return css`
         flex-direction: row;
         flex-wrap: wrap;
@@ -59,7 +59,7 @@ export const FooterItemList = styled.ul`
           height: 3rem;
           ${ImageStyles}
         }
-      `;
+      `
     }
   }}
 
@@ -67,7 +67,7 @@ export const FooterItemList = styled.ul`
     width: fit-content;
     cursor: pointer;
     font-size: 1.2rem;
-    color: ${colors["gray-2"]};
+    color: ${colors['gray-2']};
     display: flex;
     align-items: center;
     gap: 5px;
@@ -76,17 +76,17 @@ export const FooterItemList = styled.ul`
       color: ${colors.orange};
     }
   }
-`;
+`
 
 export const DownLoadWrap = styled.div`
   display: flex;
   gap: 5px;
-`;
+`
 export const QrDownLoad = styled.img`
   width: 10rem;
   height: 10rem;
   ${ImageStyles}
-`;
+`
 export const AppsWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -98,4 +98,4 @@ export const AppsWrap = styled.div`
     height: 3rem;
     ${ImageStyles}
   }
-`;
+`

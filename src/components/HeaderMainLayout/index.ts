@@ -1,3 +1,3 @@
-import HeaderMainLayout from "./HeaderMainLayout";
+import HeaderMainLayout from './HeaderMainLayout'
 
-export default HeaderMainLayout;
+export default HeaderMainLayout

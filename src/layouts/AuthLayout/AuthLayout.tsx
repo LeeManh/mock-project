@@ -1,5 +1,5 @@
-import Footer from "components/Footer";
-import HeaderAuthLayout from "components/HeaderAuthLayout";
+import Footer from 'components/Footer'
+import HeaderAuthLayout from 'components/HeaderAuthLayout'
 
 const AuthLayout = ({ children }: { children?: React.ReactNode }) => {
   return (
@@ -10,7 +10,7 @@ const AuthLayout = ({ children }: { children?: React.ReactNode }) => {
 
       <Footer />
     </>
-  );
-};
+  )
+}
 
-export default AuthLayout;
+export default AuthLayout

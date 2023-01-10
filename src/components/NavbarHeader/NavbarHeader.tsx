@@ -1,7 +1,7 @@
-import type { MenuProps } from "antd";
-import { Dropdown } from "antd";
+import type { MenuProps } from 'antd'
+import { Dropdown } from 'antd'
 
-import images from "assets/images";
+import images from 'assets/images'
 import {
   ArrowDownIcon,
   AvartarImage,
@@ -14,33 +14,33 @@ import {
   NameUser,
   NavbarItem,
   RightNavbar,
-  Wrap,
-} from "./NavbarHeader.styled";
+  Wrap
+} from './NavbarHeader.styled'
 
-const languages: MenuProps["items"] = [
+const languages: MenuProps['items'] = [
   {
-    key: "vn",
-    label: <div>Tiếng Việt</div>,
+    key: 'vn',
+    label: <div>Tiếng Việt</div>
   },
   {
-    key: "en",
-    label: <div>English</div>,
-  },
-];
-const userMenu: MenuProps["items"] = [
+    key: 'en',
+    label: <div>English</div>
+  }
+]
+const userMenu: MenuProps['items'] = [
   {
-    key: "1",
-    label: <div>Tài khoản của tôi</div>,
-  },
-  {
-    key: "2",
-    label: <div>Đơn mua</div>,
+    key: '1',
+    label: <div>Tài khoản của tôi</div>
   },
   {
-    key: "3",
-    label: <div>Đăng xuất</div>,
+    key: '2',
+    label: <div>Đơn mua</div>
   },
-];
+  {
+    key: '3',
+    label: <div>Đăng xuất</div>
+  }
+]
 
 const NavbarHeader = () => {
   return (
@@ -50,14 +50,8 @@ const NavbarHeader = () => {
           <NavbarItem>Tải ứng dụng</NavbarItem>
           <NavbarItem>
             <span>Kết nối</span>
-            <ImageSocical
-              src={images.icons.facebookSmallIcon}
-              alt="facebookSmallIcon"
-            />
-            <ImageSocical
-              src={images.icons.instagramSmallIcon}
-              alt="instagramSmallIcon"
-            />
+            <ImageSocical src={images.icons.facebookSmallIcon} alt='facebookSmallIcon' />
+            <ImageSocical src={images.icons.instagramSmallIcon} alt='instagramSmallIcon' />
           </NavbarItem>
         </LeftNavbar>
 
@@ -71,16 +65,16 @@ const NavbarHeader = () => {
             menu={{
               items: languages,
               selectable: true,
-              defaultSelectedKeys: ["vn"],
+              defaultSelectedKeys: ['vn'],
               style: {
-                borderRadius: "2px",
+                borderRadius: '2px'
               },
-              className: "custom-dropdown",
+              className: 'custom-dropdown'
             }}
-            placement="topRight"
+            placement='topRight'
             arrow
             overlayStyle={{
-              minWidth: "20rem",
+              minWidth: '20rem'
             }}
           >
             <NavbarItem>
@@ -94,28 +88,25 @@ const NavbarHeader = () => {
             menu={{
               items: userMenu,
               style: {
-                borderRadius: "2px",
+                borderRadius: '2px'
               },
-              className: "custom-dropdown",
+              className: 'custom-dropdown'
             }}
-            placement="topRight"
+            placement='topRight'
             arrow
             overlayStyle={{
-              minWidth: "20rem",
+              minWidth: '20rem'
             }}
           >
             <AvartarWrap>
-              <AvartarImage
-                src="https://cf.shopee.vn/file/2d7d51ffc7af8cdc00d086c882d5e020_tn"
-                alt="avatar"
-              />
+              <AvartarImage src='https://cf.shopee.vn/file/2d7d51ffc7af8cdc00d086c882d5e020_tn' alt='avatar' />
               <NameUser>lemanh</NameUser>
             </AvartarWrap>
           </Dropdown>
         </RightNavbar>
       </Wrap>
     </Container>
-  );
-};
+  )
+}
 
-export default NavbarHeader;
+export default NavbarHeader

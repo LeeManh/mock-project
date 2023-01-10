@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-import InputText from "components/InputText";
-import images from "assets/images";
-import routePaths from "constants/routePaths";
+import InputText from 'components/InputText'
+import images from 'assets/images'
+import routePaths from 'constants/routePaths'
 import {
   ButtonLogin,
   Container,
@@ -19,41 +19,41 @@ import {
   SocialButtonList,
   FormFooter,
   SocialButton,
-  SocialIcon,
-} from "./Login.styled";
-import { authShema } from "utils/rules";
-import type { AuthSchema } from "utils/rules";
+  SocialIcon
+} from './Login.styled'
+import { authShema } from 'utils/rules'
+import type { AuthSchema } from 'utils/rules'
 
 const socialIcons = [
   {
     src: images.icons.fbIcon,
-    alt: "facebook-icon",
-    title: "Facebook",
+    alt: 'facebook-icon',
+    title: 'Facebook'
   },
   {
     src: images.icons.googleIcon,
-    alt: "googleIcon",
-    title: "Google",
+    alt: 'googleIcon',
+    title: 'Google'
   },
   {
     src: images.icons.appleIcon,
-    alt: "appleIcon",
-    title: "Apple",
-  },
-];
+    alt: 'appleIcon',
+    title: 'Apple'
+  }
+]
 
-type FormInputs = Pick<AuthSchema, "email" | "password">;
+type FormInputs = Pick<AuthSchema, 'email' | 'password'>
 
 const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<FormInputs>({
-    resolver: yupResolver(authShema),
-  });
+    resolver: yupResolver(authShema)
+  })
 
-  const onSubmit = (data: FormInputs) => console.log(data);
+  const onSubmit = (data: FormInputs) => console.log(data)
 
   return (
     <Container>
@@ -64,15 +64,15 @@ const Login = () => {
           <FormContent>
             <InputText
               register={register}
-              name="email"
-              placeholder="Email/Số điện thoại/Tên đăng nhập"
+              name='email'
+              placeholder='Email/Số điện thoại/Tên đăng nhập'
               errorMessage={errors.email?.message}
             />
             <InputText
               register={register}
-              name="password"
-              type="password"
-              placeholder="Mật khẩu"
+              name='password'
+              type='password'
+              placeholder='Mật khẩu'
               isHaveEyeIcon={true}
               errorMessage={errors.password?.message}
             />
@@ -106,7 +106,7 @@ const Login = () => {
         </Form>
       </Wrap>
     </Container>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

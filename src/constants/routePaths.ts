@@ -1,7 +1,7 @@
 const routePaths = {
-  home: "/",
-  login: "/login",
-  register: "/register",
-} as const;
+  home: '/',
+  login: '/login',
+  register: '/register'
+} as const
 
-export default routePaths;
+export default routePaths

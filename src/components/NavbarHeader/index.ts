@@ -1,3 +1,3 @@
-import NavbarHeader from "./NavbarHeader";
+import NavbarHeader from './NavbarHeader'
 
-export default NavbarHeader;
+export default NavbarHeader

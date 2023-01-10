@@ -9,17 +9,14 @@ import {
   PriceProduct,
   PriceProductWrap,
   SalesTag,
-  TitleProduct,
-} from "./ProductCard.styled";
+  TitleProduct
+} from './ProductCard.styled'
 
 const ProductCard = () => {
   return (
     <Container>
       <ImageProductWrap>
-        <ImageProduct
-          src="https://cf.shopee.vn/file/3f7fbc266959a8c2bb4c056073555957_tn"
-          alt=""
-        />
+        <ImageProduct src='https://cf.shopee.vn/file/3f7fbc266959a8c2bb4c056073555957_tn' alt='' />
         <SalesTag>
           <span>20</span>
           <span>Giảm</span>
@@ -27,8 +24,8 @@ const ProductCard = () => {
       </ImageProductWrap>
       <Content>
         <TitleProduct>
-          [Giá hủy diệt] Áo khoác nam mùa đông lót lông cừu, vải nhung tăm [Giá
-          hủy diệt] Áo khoác nam mùa đông lót lông cừu, vải nhung tăm
+          [Giá hủy diệt] Áo khoác nam mùa đông lót lông cừu, vải nhung tăm [Giá hủy diệt] Áo khoác nam mùa đông lót lông
+          cừu, vải nhung tăm
         </TitleProduct>
         <FooterProduct>
           <PriceProductWrap>
@@ -39,7 +36,7 @@ const ProductCard = () => {
         </FooterProduct>
       </Content>
     </Container>
-  );
-};
+  )
+}
 
-export default ProductCard;
+export default ProductCard

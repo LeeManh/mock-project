@@ -1,5 +1,5 @@
-import Footer from "components/Footer";
-import HeaderMainLayout from "components/HeaderMainLayout";
+import Footer from 'components/Footer'
+import HeaderMainLayout from 'components/HeaderMainLayout'
 
 const MainLayout = ({ children }: { children?: React.ReactNode }) => {
   return (
@@ -8,7 +8,7 @@ const MainLayout = ({ children }: { children?: React.ReactNode }) => {
       {children}
       <Footer />
     </>
-  );
-};
+  )
+}
 
-export default MainLayout;
+export default MainLayout

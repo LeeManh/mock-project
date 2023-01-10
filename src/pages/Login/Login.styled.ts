@@ -1,13 +1,13 @@
-import colors from "constants/colors";
-import { Wrapper } from "globalStyle.styled";
-import styled from "styled-components";
-import images from "assets/images";
-import breakPonits from "constants/breakPoints";
+import colors from 'constants/colors'
+import { Wrapper } from 'globalStyle.styled'
+import styled from 'styled-components'
+import images from 'assets/images'
+import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.div`
   height: 60rem;
   background-color: ${colors.orange};
-`;
+`
 export const Wrap = styled(Wrapper)`
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@ export const Wrap = styled(Wrapper)`
     background-image: none;
     background-color: ${colors.orange};
   }
-`;
+`
 export const Form = styled.form`
   background-color: ${colors.white};
   width: 40rem;
@@ -36,17 +36,17 @@ export const Form = styled.form`
     max-width: 40rem;
     width: 100%;
   }
-`;
+`
 export const TitleForm = styled.div`
   font-size: 2rem;
   color: ${colors.black};
   margin-bottom: 3rem;
-`;
+`
 export const FormContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-`;
+`
 export const ButtonLogin = styled.button`
   background-color: ${colors.orange};
   height: 4rem;
@@ -56,7 +56,7 @@ export const ButtonLogin = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-`;
+`
 export const FormActions = styled.div`
   display: flex;
   align-items: center;
@@ -67,23 +67,23 @@ export const FormActions = styled.div`
   div {
     cursor: pointer;
   }
-`;
+`
 export const Divider = styled.div`
   display: flex;
   align-items: center;
-`;
+`
 export const DividerLine = styled.div`
   height: 1px;
   background-color: #dbdbdb;
   flex: 1;
-`;
+`
 
 export const DividerText = styled.div`
   font-size: 1.2rem;
   text-transform: uppercase;
   color: ${colors.gray};
   padding: 0 1.6rem;
-`;
+`
 
 export const SocialButtonList = styled.div`
   display: grid;
@@ -93,7 +93,7 @@ export const SocialButtonList = styled.div`
   @media screen and (max-width: ${breakPonits.md}) {
     grid-template-columns: 1fr;
   }
-`;
+`
 export const SocialButton = styled.button`
   cursor: pointer;
   display: flex;
@@ -102,12 +102,12 @@ export const SocialButton = styled.button`
   height: 4rem;
   gap: 5px;
   border: 1px solid rgba(0, 0, 0, 0.26);
-`;
+`
 export const SocialIcon = styled.img`
   width: 2.2rem;
   height: 2.2rem;
   object-fit: contain;
-`;
+`
 export const FormFooter = styled.div`
   text-align: center;
   color: ${colors.gray};
@@ -118,4 +118,4 @@ export const FormFooter = styled.div`
     color: ${colors.orange};
     margin-left: 4px;
   }
-`;
+`

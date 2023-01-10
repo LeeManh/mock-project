@@ -1,18 +1,18 @@
-import styled from "styled-components";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper";
+import styled from 'styled-components'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Autoplay } from 'swiper'
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
-import colors from "constants/colors";
+import colors from 'constants/colors'
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
-`;
+`
 
 const CustomSwiper = styled(Swiper)`
   position: relative;
@@ -36,10 +36,10 @@ const CustomSwiper = styled(Swiper)`
     background: ${colors.orange};
     opacity: 1;
   }
-`;
+`
 
 interface Props {
-  datas: { label: string; alt?: string }[];
+  datas: { label: string; alt?: string }[]
 }
 
 const Slide = ({ datas }: Props) => {
@@ -49,12 +49,12 @@ const Slide = ({ datas }: Props) => {
         slidesPerView={1}
         centeredSlides={true}
         pagination={{
-          clickable: true,
+          clickable: true
         }}
         loop={true}
         autoplay={{
           delay: 2500,
-          disableOnInteraction: false,
+          disableOnInteraction: false
         }}
         modules={[Navigation, Pagination, Autoplay]}
         navigation={true}
@@ -66,7 +66,7 @@ const Slide = ({ datas }: Props) => {
         ))}
       </CustomSwiper>
     </Container>
-  );
-};
+  )
+}
 
-export default Slide;
+export default Slide

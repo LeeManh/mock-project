@@ -1,3 +1,3 @@
-import HeaderAuthLayout from "./HeaderAuthLayout";
+import HeaderAuthLayout from './HeaderAuthLayout'
 
-export default HeaderAuthLayout;
+export default HeaderAuthLayout

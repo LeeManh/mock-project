@@ -1,21 +1,15 @@
-import { Link } from "react-router-dom";
-import { Dropdown, MenuProps } from "antd";
-import styled from "styled-components";
+import { Link } from 'react-router-dom'
+import { Dropdown, MenuProps } from 'antd'
+import styled from 'styled-components'
 
-import { ReactComponent as LogoShopee } from "assets/svgs/logo-shopee.svg";
-import NavbarHeader from "components/NavbarHeader";
-import colors from "constants/colors";
-import routePaths from "constants/routePaths";
-import InputSearch from "components/InputSearch";
+import { ReactComponent as LogoShopee } from 'assets/svgs/logo-shopee.svg'
+import NavbarHeader from 'components/NavbarHeader'
+import colors from 'constants/colors'
+import routePaths from 'constants/routePaths'
+import InputSearch from 'components/InputSearch'
 
-import {
-  CartIcon,
-  Container,
-  HeaderMain,
-  HeaderMainWrap,
-  ShoppingCartIconWrap,
-} from "./HeaderMainLayout.styled";
-import images from "assets/images";
+import { CartIcon, Container, HeaderMain, HeaderMainWrap, ShoppingCartIconWrap } from './HeaderMainLayout.styled'
+import images from 'assets/images'
 
 const ContainerCartEmpty = styled.div`
   min-height: 26rem;
@@ -29,23 +23,23 @@ const ContainerCartEmpty = styled.div`
     width: 10rem;
     height: 10rem;
   }
-`;
+`
 
 const EmptyCart = () => {
   return (
     <ContainerCartEmpty>
-      <img src={images.cart.cartEmpty} alt="cartEmpty" />
+      <img src={images.cart.cartEmpty} alt='cartEmpty' />
       <div>Chưa có sản phẩm</div>
     </ContainerCartEmpty>
-  );
-};
+  )
+}
 
-const cartMenuEmpty: MenuProps["items"] = [
+const cartMenuEmpty: MenuProps['items'] = [
   {
-    key: "1",
-    label: <EmptyCart />,
-  },
-];
+    key: '1',
+    label: <EmptyCart />
+  }
+]
 
 const HeaderMainLayout = () => {
   return (
@@ -53,11 +47,8 @@ const HeaderMainLayout = () => {
       <NavbarHeader />
       <HeaderMain>
         <HeaderMainWrap>
-          <Link to={routePaths.home} style={{ display: "flex" }}>
-            <LogoShopee
-              fill={colors.white}
-              style={{ cursor: "pointer", height: "5rem" }}
-            />
+          <Link to={routePaths.home} style={{ display: 'flex' }}>
+            <LogoShopee fill={colors.white} style={{ cursor: 'pointer', height: '5rem' }} />
           </Link>
 
           <InputSearch />
@@ -67,15 +58,15 @@ const HeaderMainLayout = () => {
               menu={{
                 items: cartMenuEmpty,
                 selectable: true,
-                defaultSelectedKeys: ["vn"],
+                defaultSelectedKeys: ['vn'],
                 style: {
-                  borderRadius: "2px",
-                },
+                  borderRadius: '2px'
+                }
               }}
-              placement="bottomRight"
+              placement='bottomRight'
               arrow
               overlayStyle={{
-                minWidth: "40rem",
+                minWidth: '40rem'
               }}
             >
               <CartIcon />
@@ -84,7 +75,7 @@ const HeaderMainLayout = () => {
         </HeaderMainWrap>
       </HeaderMain>
     </Container>
-  );
-};
+  )
+}
 
-export default HeaderMainLayout;
+export default HeaderMainLayout

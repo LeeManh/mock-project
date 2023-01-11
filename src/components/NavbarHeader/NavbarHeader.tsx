@@ -27,17 +27,18 @@ const languages: MenuProps['items'] = [
     label: <div>English</div>
   }
 ]
+
 const userMenu: MenuProps['items'] = [
   {
-    key: '1',
+    key: 'user-1',
     label: <div>Tài khoản của tôi</div>
   },
   {
-    key: '2',
+    key: 'user-2',
     label: <div>Đơn mua</div>
   },
   {
-    key: '3',
+    key: 'user-3',
     label: <div>Đăng xuất</div>
   }
 ]
@@ -71,7 +72,7 @@ const NavbarHeader = () => {
               },
               className: 'custom-dropdown'
             }}
-            placement='topRight'
+            placement='bottomRight'
             arrow
             overlayStyle={{
               minWidth: '20rem'
@@ -89,10 +90,9 @@ const NavbarHeader = () => {
               items: userMenu,
               style: {
                 borderRadius: '2px'
-              },
-              className: 'custom-dropdown'
+              }
             }}
-            placement='topRight'
+            placement='bottomRight'
             arrow
             overlayStyle={{
               minWidth: '20rem'

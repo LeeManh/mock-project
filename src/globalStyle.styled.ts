@@ -32,6 +32,9 @@ const GlobalStyles = createGlobalStyle`
     color: inherit;
     font: inherit;
   }
+  a {
+    color: inherit;
+  }
 
   img {
     max-width: 100%;

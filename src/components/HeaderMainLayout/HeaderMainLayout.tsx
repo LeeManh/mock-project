@@ -36,7 +36,7 @@ const EmptyCart = () => {
 
 const cartMenuEmpty: MenuProps['items'] = [
   {
-    key: '1',
+    key: 'cart-1',
     label: <EmptyCart />
   }
 ]

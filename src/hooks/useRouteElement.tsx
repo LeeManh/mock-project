@@ -6,6 +6,7 @@ import AuthLayout from 'layouts/AuthLayout'
 import Register from 'pages/Register'
 import MainLayout from 'layouts/MainLayout'
 import Home from 'pages/Home'
+import DetailsProduct from 'pages/DetailsProduct'
 
 const useRouteElement = () => {
   const elements = useRoutes([
@@ -14,6 +15,14 @@ const useRouteElement = () => {
       element: (
         <MainLayout>
           <Home />
+        </MainLayout>
+      )
+    },
+    {
+      path: routePaths.detailsProduct,
+      element: (
+        <MainLayout>
+          <DetailsProduct />
         </MainLayout>
       )
     },

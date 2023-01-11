@@ -1,5 +1,7 @@
-import colors from 'constants/colors'
 import styled from 'styled-components'
+
+import colors from 'constants/colors'
+import { ReactComponent as FreeShip } from 'assets/svgs/free-ship.svg'
 
 export const Container = styled.div`
   border: 1px solid transparent;
@@ -33,6 +35,7 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  flex-grow: 1;
 `
 export const TitleProduct = styled.div`
   min-height: 2.8rem;
@@ -49,6 +52,7 @@ export const FooterProduct = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 2rem;
+  margin-top: auto;
 `
 export const PriceProductWrap = styled.div`
   display: flex;
@@ -75,6 +79,32 @@ export const SalesTag = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  text-transform: uppercase;
   text-align: center;
+  font-size: 1.2rem;
+  color: ${colors.white};
+  background-color: ${colors.yellow};
+  padding: 4px 2px;
+  width: 3.6rem;
+  height: 3.2rem;
+
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    left: 0;
+    bottom: -4px;
+    position: absolute;
+    border-color: transparent ${colors.yellow};
+    border-style: solid;
+    border-width: 0 18px 4px;
+  }
 `
+export const SalesPercentTag = styled.span`
+  color: ${colors.orange};
+`
+
+export const FreeShipIcon = styled(FreeShip)``

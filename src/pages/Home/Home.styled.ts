@@ -2,12 +2,14 @@ import colors from 'constants/colors'
 import styled, { css } from 'styled-components'
 import { Wrapper } from 'globalStyle.styled'
 import images from 'assets/images'
+import { Pagination } from 'antd'
 
 export const Container = styled.div`
   background: url(${images.background.backgroundMain}) center top / 100% no-repeat;
   min-width: 1200px;
   margin: 11.9rem auto 0;
   min-height: 50rem;
+  padding-bottom: 3rem;
 `
 export const HomeWrap = styled(Wrapper)``
 export const BannerWrap = styled.div`
@@ -54,13 +56,8 @@ export const Title = styled.div`
   }}
 `
 
-export const CategoryList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-top: 0;
-`
 export const CategoryItem = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,6 +69,7 @@ export const CategoryItem = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   text-transform: capitalize;
   text-align: center;
+  font-size: 1.3rem;
 
   img {
     height: 8rem;
@@ -92,18 +90,23 @@ export const HeaderSection = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   background-color: white;
 `
-export const TopSellList = styled.div`
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(6, 1fr);
-`
+
 export const TopSearchCard = styled.div`
   cursor: pointer;
   position: relative;
   padding-bottom: 2rem;
 `
-export const TopSearchCardImage = styled.img``
+export const TopSearchCardImageWrap = styled.div`
+  position: relative;
+`
+export const TopSearchCardImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`
 export const TopSearchCardNumber = styled.div`
+  position: absolute;
+  bottom: 1rem;
   color: ${colors.white};
   text-align: center;
   background-color: rgba(0, 0, 0, 0.26);
@@ -113,7 +116,7 @@ export const TopSearchCardNumber = styled.div`
 `
 export const TopSearchCardTitle = styled.div`
   padding: 1rem;
-  font-weight: bold;
+  font-weight: 500;
   text-align: center;
 `
 export const IconTop = styled.div`
@@ -139,7 +142,7 @@ export const SeeAllLink = styled.div`
   }
 `
 
-export const DiscoveryWrap = styled.div`
+export const ListProductWrap = styled.div`
   ${WrapStyles}
 
   background-color: transparent;
@@ -151,11 +154,7 @@ export const ListDiscoveryProduct = styled.div`
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
 `
-export const ButtonSeeMoreWrap = styled.div`
-  display: flex;
-  margin-top: 3rem;
-  justify-content: center;
-`
+
 export const ButtonSeeMore = styled.button`
   border: 1px solid rgba(0, 0, 0, 0.09);
   box-shadow: 0 1px 1px 0 rgb(0 0 0 / 3%);
@@ -168,5 +167,49 @@ export const ButtonSeeMore = styled.button`
 
   &:hover {
     background-color: ${colors['gray-light']};
+  }
+`
+export const PaginationWrap = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+`
+export const PaginationCustom = styled(Pagination)`
+  li {
+    width: 4rem;
+    height: 3rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+
+    &:not(:last-child) {
+      margin-right: 1.5rem;
+    }
+
+    &.ant-pagination-item {
+      a {
+        color: ${colors['gray-3']};
+      }
+    }
+
+    &.ant-pagination-item-active {
+      border: none;
+      outline: none;
+      border-radius: 2px;
+      background-color: ${colors.orange};
+      color: ${colors.white};
+
+      &:hover {
+        a {
+          color: inherit;
+        }
+      }
+
+      a {
+        color: inherit;
+      }
+    }
+  }
+  .anticon {
+    font-size: 1.4rem;
   }
 `

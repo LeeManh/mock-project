@@ -1,5 +1,4 @@
 import bgAuth from './bg-auth.png'
-import fbIcon from './facebook-icon.png'
 import facebookSmallIcon from './facebook-small-icon.png'
 import instagramSmallIcon from './instagram-small-icon.png'
 import linkedinSmallIcon from './linkedin-small-icon.png'
@@ -15,8 +14,6 @@ import qrDownLoad from './qrDownLoad.png'
 import appGallery from './app-gallery.png'
 import ggPlay from './gg-play.png'
 import apple from './apple.png'
-import googleIcon from './google-icon.png'
-import appleIcon from './apple-icon.png'
 import topIcon from './top-icon.png'
 import backgroundMain from './background-main.png'
 import slide1 from './slide-1.png'
@@ -31,12 +28,9 @@ const images = {
     backgroundMain
   },
   icons: {
-    fbIcon,
     facebookSmallIcon,
     instagramSmallIcon,
     linkedinSmallIcon,
-    googleIcon,
-    appleIcon,
     topIcon
   },
   banner: {

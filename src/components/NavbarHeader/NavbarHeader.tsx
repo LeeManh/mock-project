@@ -90,7 +90,8 @@ const NavbarHeader = () => {
               items: userMenu,
               style: {
                 borderRadius: '2px'
-              }
+              },
+              className: 'custom-dropdown'
             }}
             placement='bottomRight'
             arrow

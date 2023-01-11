@@ -3,46 +3,14 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import InputText from 'components/InputText'
-import images from 'assets/images'
 import routePaths from 'constants/routePaths'
-import {
-  ButtonLogin,
-  Container,
-  Form,
-  FormActions,
-  FormContent,
-  TitleForm,
-  Wrap,
-  Divider,
-  DividerLine,
-  DividerText,
-  SocialButtonList,
-  FormFooter,
-  SocialButton,
-  SocialIcon
-} from './Login.styled'
+import { ButtonLogin, Container, Form, FormActions, FormContent, TitleForm, Wrap, FormFooter } from './Login.styled'
 import { authShema } from 'utils/rules'
 import type { AuthSchema } from 'utils/rules'
 
-const socialIcons = [
-  {
-    src: images.icons.fbIcon,
-    alt: 'facebook-icon',
-    title: 'Facebook'
-  },
-  {
-    src: images.icons.googleIcon,
-    alt: 'googleIcon',
-    title: 'Google'
-  },
-  {
-    src: images.icons.appleIcon,
-    alt: 'appleIcon',
-    title: 'Apple'
-  }
-]
-
 type FormInputs = Pick<AuthSchema, 'email' | 'password'>
+
+const loginSchema = authShema.pick(['email', 'password'])
 
 const Login = () => {
   const {
@@ -50,7 +18,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<FormInputs>({
-    resolver: yupResolver(authShema)
+    resolver: yupResolver(loginSchema)
   })
 
   const onSubmit = (data: FormInputs) => console.log(data)
@@ -80,23 +48,7 @@ const Login = () => {
 
             <FormActions>
               <div>Quên mật khẩu</div>
-              <div>Đăng nhập với SMS</div>
             </FormActions>
-
-            <Divider>
-              <DividerLine></DividerLine>
-              <DividerText>Hoặc</DividerText>
-              <DividerLine></DividerLine>
-            </Divider>
-
-            <SocialButtonList>
-              {socialIcons.map((item, index) => (
-                <SocialButton key={index}>
-                  <SocialIcon src={item.src} alt={item.alt} />
-                  <div>{item.title}</div>
-                </SocialButton>
-              ))}
-            </SocialButtonList>
           </FormContent>
 
           <FormFooter>

@@ -25,7 +25,7 @@ export const Wrap = styled(Wrapper)`
 export const Form = styled.form`
   background-color: ${colors.white};
   width: 40rem;
-  min-height: 43rem;
+  min-height: 38rem;
   border-radius: 4px;
   padding: 3rem;
   margin-left: auto;
@@ -68,46 +68,7 @@ export const FormActions = styled.div`
     cursor: pointer;
   }
 `
-export const Divider = styled.div`
-  display: flex;
-  align-items: center;
-`
-export const DividerLine = styled.div`
-  height: 1px;
-  background-color: #dbdbdb;
-  flex: 1;
-`
 
-export const DividerText = styled.div`
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  color: ${colors.gray};
-  padding: 0 1.6rem;
-`
-
-export const SocialButtonList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-
-  @media screen and (max-width: ${breakPonits.md}) {
-    grid-template-columns: 1fr;
-  }
-`
-export const SocialButton = styled.button`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 4rem;
-  gap: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.26);
-`
-export const SocialIcon = styled.img`
-  width: 2.2rem;
-  height: 2.2rem;
-  object-fit: contain;
-`
 export const FormFooter = styled.div`
   text-align: center;
   color: ${colors.gray};

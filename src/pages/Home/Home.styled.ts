@@ -9,7 +9,6 @@ export const Container = styled.div`
   min-width: 1200px;
   margin: 11.9rem auto 0;
   min-height: 50rem;
-  padding-bottom: 3rem;
 `
 export const HomeWrap = styled(Wrapper)``
 export const BannerWrap = styled.div`
@@ -129,17 +128,6 @@ export const IconTop = styled.div`
   position: absolute;
   top: 1rem;
   left: 1rem;
-`
-export const SeeAllLink = styled.div`
-  cursor: pointer;
-  color: ${colors.orange};
-  display: flex;
-  align-items: center;
-  gap: 5px;
-
-  svg {
-    font-size: 1.3rem;
-  }
 `
 
 export const ListProductWrap = styled.div`

@@ -66,3 +66,15 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   padding: 0 8px;
 `
+
+export const SeeAllLink = styled.div`
+  cursor: pointer;
+  color: ${colors.orange};
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  svg {
+    font-size: 1.3rem;
+  }
+`

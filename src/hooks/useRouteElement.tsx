@@ -12,19 +12,17 @@ const useRouteElement = () => {
   const elements = useRoutes([
     {
       path: routePaths.home,
-      element: (
-        <MainLayout>
-          <Home />
-        </MainLayout>
-      )
-    },
-    {
-      path: routePaths.detailsProduct,
-      element: (
-        <MainLayout>
-          <DetailsProduct />
-        </MainLayout>
-      )
+      element: <MainLayout />,
+      children: [
+        {
+          path: routePaths.home,
+          element: <Home />
+        },
+        {
+          path: routePaths.detailsProduct,
+          element: <DetailsProduct />
+        }
+      ]
     },
     {
       path: routePaths.login,

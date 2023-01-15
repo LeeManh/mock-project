@@ -4,9 +4,12 @@ import { Swiper, SwiperProps } from 'swiper/react'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 // import required modules
-import { Navigation } from 'swiper'
+import { Navigation, Pagination, Autoplay } from 'swiper'
+
+import colors from 'constants/colors'
 
 const Container = styled.div`
   width: 100%;
@@ -24,6 +27,16 @@ const CustomSwiper = styled(Swiper)`
     height: 100%;
     object-fit: cover;
   }
+  .swiper-pagination-bullet {
+    width: 1rem;
+    height: 1rem;
+    background: #ffffff66;
+    opacity: 1;
+  }
+  .swiper-pagination-bullet-active {
+    background: ${colors.orange};
+    opacity: 1;
+  }
 `
 
 interface Props extends SwiperProps {
@@ -33,7 +46,7 @@ interface Props extends SwiperProps {
 const Slide = ({ children, ...rest }: Props) => {
   return (
     <Container>
-      <CustomSwiper navigation={true} modules={[Navigation]} {...rest}>
+      <CustomSwiper navigation={true} modules={[Navigation, Pagination, Autoplay]} {...rest}>
         {children}
       </CustomSwiper>
     </Container>

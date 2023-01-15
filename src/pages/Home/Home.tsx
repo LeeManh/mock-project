@@ -2,8 +2,8 @@ import { RightOutlined } from '@ant-design/icons'
 import images from 'assets/images'
 import ProductCard from 'components/ProductCard'
 import Slide from 'components/Slide'
-import SlideImage from 'components/SlideImage'
 import colors from 'constants/colors'
+import { SeeAllLink } from 'globalStyle.styled'
 import { SwiperSlide } from 'swiper/react'
 import {
   BannerWrap,
@@ -20,7 +20,6 @@ import {
   TopSearchCardNumber,
   TopSearchCardTitle,
   IconTop,
-  SeeAllLink,
   ListProductWrap,
   Title,
   ListDiscoveryProduct,
@@ -50,7 +49,23 @@ const Home = () => {
       <HomeWrap>
         <BannerWrap>
           <BannerSlideWrap>
-            <SlideImage datas={bannerSlides} />
+            <Slide
+              navigation={true}
+              pagination={{
+                clickable: true
+              }}
+              loop={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false
+              }}
+            >
+              {bannerSlides.map((data, index) => (
+                <SwiperSlide key={index}>
+                  <img src={data.label} alt={data.alt} style={{ cursor: 'pointer' }} />
+                </SwiperSlide>
+              ))}
+            </Slide>
           </BannerSlideWrap>
           <SideBannerWrap>
             <img src={images.banner.sideBanner} alt='' />

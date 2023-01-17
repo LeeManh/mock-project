@@ -9,6 +9,7 @@ const Container = styled.div`
   background-color: ${colors.white};
   padding: 2rem;
   border-radius: 2px;
+  box-shadow: rgb(0 0 0 / 5%) 0px 1px 1px 0px;
 `
 const ImageProduct = styled.img`
   width: 8rem;

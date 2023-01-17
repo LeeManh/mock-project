@@ -8,15 +8,11 @@ import Breadcrumb from 'components/Breadcrumb'
 
 import TransportInfor from './components/TransportInfor/TransportInfor'
 import ButtonSelect from './components/ButtonSelect/ButtonSelect'
-import ButtonCustom from 'components/ButtonCustom'
 import InputNumber from 'components/InputNumber'
 import {
   ColorSelectWrap,
   Container,
   Content,
-  DescriptionContent,
-  DescriptionTitle,
-  DescriptionWrap,
   InforWrap,
   LimitQuantityNumber,
   ListButtonAction,
@@ -34,6 +30,9 @@ import {
 import PriceProduct from './components/PriceProduct'
 import HeaderInfor from './components/HeaderInfor'
 import SimilarProduct from './components/SimilarProduct'
+import Description from './components/Description'
+import { useState } from 'react'
+import Button from 'components/Button'
 
 const images = [
   'https://cf.shopee.vn/file/21d36c7f2cbfb403debe58553d70c09a',
@@ -50,6 +49,8 @@ const colorsSelect = ['Xám xanh', 'Đen trắng', 'WP xanh', 'WP xanh lá', 'WP
 const sizesSelect = [39, 40, 41, 42, 43]
 
 const DetailsProduct = () => {
+  const [quantity, setQuantity] = useState('1')
+
   return (
     <Container>
       <Wrapper>
@@ -99,60 +100,31 @@ const DetailsProduct = () => {
               <SelectQuantityWrap>
                 <TitleInfor>Số Lượng</TitleInfor>
                 <QuantityWrap>
-                  <InputNumber maxValue='196' />
-                  <LimitQuantityNumber>196 sản phẩm có sẵn</LimitQuantityNumber>
+                  <InputNumber
+                    maxValue='19632'
+                    value={quantity}
+                    onChangeInput={(val) => setQuantity(val)}
+                    styleContainer={{ width: '8rem', height: '3.2rem' }}
+                    haveOnBlur={true}
+                  />
+                  <LimitQuantityNumber>19632 sản phẩm có sẵn</LimitQuantityNumber>
                 </QuantityWrap>
               </SelectQuantityWrap>
             </MainInforWrap>
 
             <ListButtonAction>
-              <ButtonCustom icon={<FontAwesomeIcon icon={faCartPlus} />} type='default'>
+              <Button typeBtn='default' size='large'>
+                <FontAwesomeIcon icon={faCartPlus} />
                 Thêm vào giỏ hàng
-              </ButtonCustom>
-              <ButtonCustom type='primary'>Mua ngay</ButtonCustom>
+              </Button>
+              <Button typeBtn='primary' size='large'>
+                Mua ngay
+              </Button>
             </ListButtonAction>
           </InforWrap>
         </Content>
 
-        <DescriptionWrap>
-          <DescriptionTitle>Mô tả sản phẩm</DescriptionTitle>
-          <DescriptionContent
-          // dangerouslySetInnerHTML={{
-          //   __html: DOMPurify.sanitize(product.description)
-          // }}
-          >
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est minus amet facere magni ab quia vero dolorum
-              aliquam. Nihil, amet at porro corrupti quisquam dolor repellendus temporibus asperiores alias sint est
-              debitis omnis dignissimos eos distinctio. Eos dolor incidunt quod, quibusdam nostrum tempore quis tempora,
-              hic magni quaerat magnam quo reprehenderit! Corporis, ratione! Cupiditate qui consequatur quisquam, nobis
-              distinctio optio ut dolor magnam ad voluptatum inventore delectus reiciendis doloremque cumque eos nemo!
-              Sequi excepturi ratione exercitationem nulla corporis laboriosam distinctio enim perferendis iusto quod
-              ipsum, facere debitis ad dolorem itaque quia eligendi aperiam eos. Animi quia similique aut aliquam!
-              Voluptas?
-            </div>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est minus amet facere magni ab quia vero dolorum
-              aliquam. Nihil, amet at porro corrupti quisquam dolor repellendus temporibus asperiores alias sint est
-              debitis omnis dignissimos eos distinctio. Eos dolor incidunt quod, quibusdam nostrum tempore quis tempora,
-              hic magni quaerat magnam quo reprehenderit! Corporis, ratione! Cupiditate qui consequatur quisquam, nobis
-              distinctio optio ut dolor magnam ad voluptatum inventore delectus reiciendis doloremque cumque eos nemo!
-              Sequi excepturi ratione exercitationem nulla corporis laboriosam distinctio enim perferendis iusto quod
-              ipsum, facere debitis ad dolorem itaque quia eligendi aperiam eos. Animi quia similique aut aliquam!
-              Voluptas?
-            </div>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est minus amet facere magni ab quia vero dolorum
-              aliquam. Nihil, amet at porro corrupti quisquam dolor repellendus temporibus asperiores alias sint est
-              debitis omnis dignissimos eos distinctio. Eos dolor incidunt quod, quibusdam nostrum tempore quis tempora,
-              hic magni quaerat magnam quo reprehenderit! Corporis, ratione! Cupiditate qui consequatur quisquam, nobis
-              distinctio optio ut dolor magnam ad voluptatum inventore delectus reiciendis doloremque cumque eos nemo!
-              Sequi excepturi ratione exercitationem nulla corporis laboriosam distinctio enim perferendis iusto quod
-              ipsum, facere debitis ad dolorem itaque quia eligendi aperiam eos. Animi quia similique aut aliquam!
-              Voluptas?
-            </div>
-          </DescriptionContent>
-        </DescriptionWrap>
+        <Description />
 
         <SimilarProduct />
       </Wrapper>

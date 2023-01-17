@@ -3,8 +3,8 @@ import { Breadcrumb as BreadcrumbAntd } from 'antd'
 import styled from 'styled-components'
 
 export const BreadcrumbCustom = styled(BreadcrumbAntd)`
-  padding: 2rem 0;
   color: ${colors.black};
+  margin-bottom: 2rem;
 
   a {
     color: #05a;

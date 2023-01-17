@@ -51,7 +51,7 @@ const HeaderMainLayout = () => {
             <LogoShopee fill={colors.white} style={{ cursor: 'pointer', height: '5rem' }} />
           </Link>
 
-          <InputSearch />
+          <InputSearch placeholder='Tìm sản phẩm, thương hiệu, và tên shop' />
 
           <ShoppingCartIconWrap>
             <Dropdown

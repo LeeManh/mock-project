@@ -1,18 +1,17 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import colors from 'constants/colors'
+import { ContainerGlobal } from 'globalStyle.styled'
 
-export const Container = styled.div`
-  margin: 11.9rem auto 0;
-`
-const Wrap = css`
+export const Container = styled(ContainerGlobal)``
+
+export const Wrap = styled.div`
   display: flex;
   background-color: ${colors.white};
   border-radius: 2px;
 `
 
-export const Content = styled.div`
-  ${Wrap}
-`
+export const Content = styled(Wrap)``
+
 export const ThumbsGalleryWrap = styled.div`
   width: 45rem;
   padding: 1.5rem;
@@ -75,23 +74,4 @@ export const QuantityWrap = styled.div`
 `
 export const LimitQuantityNumber = styled.div`
   color: ${colors['gray-text-2']};
-`
-export const DescriptionWrap = styled.div`
-  ${Wrap};
-  margin-top: 2rem;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-`
-export const DescriptionTitle = styled.div`
-  text-transform: uppercase;
-  font-size: 1.6rem;
-  font-weight: 500;
-  padding: 1.5rem 2rem;
-  background-color: ${colors['white-2']};
-  border-radius: 2px;
-  width: 100%;
-`
-export const DescriptionContent = styled.div`
-  margin-top: 3rem;
 `

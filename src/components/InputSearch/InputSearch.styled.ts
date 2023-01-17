@@ -1,5 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
+import type { Props } from './InputSearch'
 import { ReactComponent as SearchIconSvg } from 'assets/svgs/search-icon.svg'
 import colors from 'constants/colors'
 
@@ -14,6 +15,18 @@ export const Container = styled.form`
   width: 100%;
   padding-right: 3px;
   box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 9%);
+
+  ${(props: { typeInput: Props['typeInput'] }) => {
+    switch (props.typeInput) {
+      case 'default':
+        return css``
+      case 'primary':
+        return css`
+          padding: 0;
+          border: 2px solid ${colors['orange-light']};
+        `
+    }
+  }}
 `
 
 export const Input = styled.input`
@@ -32,6 +45,18 @@ export const ButtonSearch = styled.button`
   background-color: ${colors['orange-light']};
   border-radius: 2px;
   cursor: pointer;
+
+  ${(props: { typeInput: Props['typeInput'] }) => {
+    switch (props.typeInput) {
+      case 'default':
+        return css``
+      case 'primary':
+        return css`
+          height: 100%;
+          border-radius: 0;
+        `
+    }
+  }}
 `
 export const SearchIcon = styled(SearchIconSvg)`
   fill: white;

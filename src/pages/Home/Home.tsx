@@ -1,5 +1,5 @@
 import { RightOutlined } from '@ant-design/icons'
-import images from 'assets/images'
+import Pagination from 'components/Pagination'
 import ProductCard from 'components/ProductCard'
 import Slide from 'components/Slide'
 import colors from 'constants/colors'
@@ -23,24 +23,15 @@ import {
   ListProductWrap,
   Title,
   ListDiscoveryProduct,
-  PaginationWrap,
-  PaginationCustom,
   TopSearchCardImageWrap
 } from './Home.styled'
 
 const bannerSlides = [
-  {
-    label: images.banner.slide1,
-    alt: ''
-  },
-  {
-    label: images.banner.slide3,
-    alt: ''
-  },
-  {
-    label: images.banner.slide4,
-    alt: ''
-  }
+  'https://cf.shopee.vn/file/9031ab5deae3facba7bb137c836ccf50_xxhdpi',
+  'https://cf.shopee.vn/file/1b910a37375d247916e134dd355e999b_xxhdpi',
+  'https://cf.shopee.vn/file/b09eeca58f62162731919abd9b63fa6e_xxhdpi',
+  'https://cf.shopee.vn/file/5cc11712240720cef64eea6a0ebb4f34_xxhdpi',
+  'https://cf.shopee.vn/file/b32705afea6ba1230cb860c660dc3cf6_xxhdpi'
 ]
 
 const Home = () => {
@@ -60,16 +51,16 @@ const Home = () => {
                 disableOnInteraction: false
               }}
             >
-              {bannerSlides.map((data, index) => (
+              {bannerSlides.map((img, index) => (
                 <SwiperSlide key={index}>
-                  <img src={data.label} alt={data.alt} style={{ cursor: 'pointer' }} />
+                  <img src={img} alt='banner' style={{ cursor: 'pointer' }} />
                 </SwiperSlide>
               ))}
             </Slide>
           </BannerSlideWrap>
           <SideBannerWrap>
-            <img src={images.banner.sideBanner} alt='' />
-            <img src={images.banner.sideBanner} alt='' />
+            <img src='https://cf.shopee.vn/file/da61368b47b7490bdb304f9780b174dd_xhdpi' alt='' />
+            <img src='https://cf.shopee.vn/file/18a8dec3a146454b0e7fd1e03b75e198_xhdpi' alt='' />
           </SideBannerWrap>
         </BannerWrap>
 
@@ -131,9 +122,7 @@ const Home = () => {
             ))}
           </ListDiscoveryProduct>
 
-          <PaginationWrap>
-            <PaginationCustom hideOnSinglePage defaultCurrent={1} total={50} />
-          </PaginationWrap>
+          <Pagination hideOnSinglePage defaultCurrent={1} total={50} styleContainer={{ marginTop: '3rem' }} />
         </ListProductWrap>
       </HomeWrap>
     </Container>

@@ -1,20 +1,17 @@
 import colors from 'constants/colors'
 import styled, { css } from 'styled-components'
-import { Wrapper } from 'globalStyle.styled'
+import { Wrapper, ContainerGlobal } from 'globalStyle.styled'
 import images from 'assets/images'
-import { Pagination } from 'antd'
 
-export const Container = styled.div`
+export const Container = styled(ContainerGlobal)`
   background: url(${images.background.backgroundMain}) center top / 100% no-repeat;
   min-width: 1200px;
-  margin: 11.9rem auto 0;
   min-height: 50rem;
 `
 export const HomeWrap = styled(Wrapper)``
 export const BannerWrap = styled.div`
   display: flex;
   gap: 5px;
-  padding-top: 3rem;
 `
 export const BannerSlideWrap = styled.div`
   flex: 2;
@@ -155,49 +152,5 @@ export const ButtonSeeMore = styled.button`
 
   &:hover {
     background-color: ${colors['gray-light']};
-  }
-`
-export const PaginationWrap = styled.div`
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-`
-export const PaginationCustom = styled(Pagination)`
-  li {
-    width: 4rem;
-    height: 3rem;
-    font-size: 1.6rem;
-    font-weight: 500;
-
-    &:not(:last-child) {
-      margin-right: 1.5rem;
-    }
-
-    &.ant-pagination-item {
-      a {
-        color: ${colors['gray-3']};
-      }
-    }
-
-    &.ant-pagination-item-active {
-      border: none;
-      outline: none;
-      border-radius: 2px;
-      background-color: ${colors.orange};
-      color: ${colors.white};
-
-      &:hover {
-        a {
-          color: inherit;
-        }
-      }
-
-      a {
-        color: inherit;
-      }
-    }
-  }
-  .anticon {
-    font-size: 1.4rem;
   }
 `

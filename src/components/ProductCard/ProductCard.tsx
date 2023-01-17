@@ -1,20 +1,22 @@
+import Rate from 'components/Rate'
+import { PriceAfterSale, PriceBefore } from 'globalStyle.styled'
 import {
   Container,
   Content,
-  Currency,
-  FooterProduct,
   FreeShipIcon,
   ImageProduct,
   ImageProductWrap,
   NumberSold,
-  PriceProduct,
-  PriceProductWrap,
   SalesPercentTag,
   SalesTag,
   TitleProduct
 } from './ProductCard.styled'
 
-const ProductCard = () => {
+interface Props {
+  type?: 'default' | 'details'
+}
+
+const ProductCard = ({ type = 'default' }: Props) => {
   return (
     <Container>
       <ImageProductWrap>
@@ -30,17 +32,23 @@ const ProductCard = () => {
           cừu, vải nhung tăm
         </TitleProduct>
 
-        <div>
-          <FreeShipIcon />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <PriceBefore>
+            <span className='currency'>₫</span>
+            <span className='price'>360.000</span>
+          </PriceBefore>
+          <PriceAfterSale>
+            <span className='currency'>₫</span>
+            <span className='price'>360.000</span>
+          </PriceAfterSale>
         </div>
 
-        <FooterProduct>
-          <PriceProductWrap>
-            <Currency>₫</Currency>
-            <PriceProduct>360.000</PriceProduct>
-          </PriceProductWrap>
-          <NumberSold>Đã bán 6</NumberSold>
-        </FooterProduct>
+        <FreeShipIcon />
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <Rate disabled defaultValue={4} gap='1px' style={{ fontSize: '1.2rem' }} />
+          <NumberSold>Đã bán 5,1k</NumberSold>
+        </div>
       </Content>
     </Container>
   )

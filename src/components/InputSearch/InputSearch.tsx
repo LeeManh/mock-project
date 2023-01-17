@@ -1,11 +1,16 @@
 import { ButtonSearch, Container, Input, SearchIcon } from './InputSearch.styled'
 
-const InputSearch = () => {
-  return (
-    <Container>
-      <Input type='text' placeholder='#shopxuhuong ĐỒ TẾT SALE 50%' aria-label='#shopxuhuong ĐỒ TẾT SALE 50%' />
+export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  typeInput?: 'default' | 'primary'
+  styleContainer?: React.CSSProperties
+}
 
-      <ButtonSearch>
+const InputSearch = ({ typeInput = 'default', styleContainer, type = 'text', ...rest }: Props) => {
+  return (
+    <Container style={styleContainer} typeInput={typeInput}>
+      <Input type={type} {...rest} />
+
+      <ButtonSearch typeInput={typeInput}>
         <SearchIcon />
       </ButtonSearch>
     </Container>

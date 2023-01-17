@@ -47,32 +47,7 @@ export const TitleProduct = styled.div`
   -webkit-box-orient: vertical;
   font-size: 1.3rem;
 `
-export const FooterProduct = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 2rem;
-  margin-top: auto;
-`
-export const PriceProductWrap = styled.div`
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  color: ${colors.orange};
-`
-export const Currency = styled.span``
-export const PriceProduct = styled.span`
-  font-size: 1.6rem;
-  max-width: 75%;
-  flex-grow: 1;
-`
-export const NumberSold = styled.div`
-  color: ${colors['gray-3']};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 1.3rem;
-`
+
 export const SalesTag = styled.div`
   position: absolute;
   top: 0;
@@ -108,3 +83,7 @@ export const SalesPercentTag = styled.span`
 `
 
 export const FreeShipIcon = styled(FreeShip)``
+
+export const NumberSold = styled.span`
+  font-size: 1.2rem;
+`

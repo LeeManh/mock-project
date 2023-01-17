@@ -16,10 +16,6 @@ import ggPlay from './gg-play.png'
 import apple from './apple.png'
 import topIcon from './top-icon.png'
 import backgroundMain from './background-main.png'
-import slide1 from './slide-1.png'
-import slide3 from './slide-3.png'
-import slide4 from './slide-4.png'
-import sideBanner from './side-banner.png'
 import cartEmpty from './cart-empty.png'
 
 const images = {
@@ -32,12 +28,6 @@ const images = {
     instagramSmallIcon,
     linkedinSmallIcon,
     topIcon
-  },
-  banner: {
-    slide1,
-    slide3,
-    slide4,
-    sideBanner
   },
   cart: {
     cartEmpty

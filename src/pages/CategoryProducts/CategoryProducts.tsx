@@ -1,0 +1,56 @@
+import Pagination from 'components/Pagination'
+import Slide from 'components/Slide'
+import { Wrapper } from 'globalStyle.styled'
+
+import { SwiperSlide } from 'swiper/react'
+import { Container, ContentWrap, ProductSection } from './CategoryProducts.styled'
+import ListProduct from './components/ListProduct'
+import SideFilter from './components/SideFilter'
+import SortFilter from './components/SortFilter'
+
+const bannerSlides = [
+  'https://cf.shopee.vn/file/24f87e50d38a91df4753548878390b8b',
+  'https://cf.shopee.vn/file/1070ce77e685357f30c628b2de177b1e',
+  'https://cf.shopee.vn/file/90484c57639c0894c1c6396e9a023190',
+  'https://cf.shopee.vn/file/856d76a2fb06e2fbf00a82d2e37151d9',
+  'https://cf.shopee.vn/file/1d1414b492751cd579e397daeccd1de6'
+]
+
+const CategoryProducts = () => {
+  return (
+    <Container as={'main'}>
+      <Wrapper>
+        <Slide
+          navigation={true}
+          pagination={{
+            clickable: true
+          }}
+          loop={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false
+          }}
+        >
+          {bannerSlides.map((img, index) => (
+            <SwiperSlide key={index}>
+              <img src={img} alt='banner' style={{ cursor: 'pointer' }} />
+            </SwiperSlide>
+          ))}
+        </Slide>
+
+        <ContentWrap>
+          <SideFilter />
+
+          <ProductSection>
+            <SortFilter />
+
+            <ListProduct />
+            <Pagination hideOnSinglePage defaultCurrent={1} total={50} styleContainer={{ marginTop: '3rem' }} />
+          </ProductSection>
+        </ContentWrap>
+      </Wrapper>
+    </Container>
+  )
+}
+
+export default CategoryProducts

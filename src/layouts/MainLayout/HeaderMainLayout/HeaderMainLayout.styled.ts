@@ -13,7 +13,6 @@ export const Container = styled.header`
 `
 export const HeaderMain = styled.div`
   height: 8.5rem;
-  padding: 1.6rem 0 1rem;
 `
 
 export const HeaderMainWrap = styled(Wrapper)`

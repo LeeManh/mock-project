@@ -1,7 +1,10 @@
 import Footer from 'components/Footer'
-import HeaderAuthLayout from 'components/HeaderAuthLayout'
+import HeaderAuthLayout from 'layouts/AuthLayout/HeaderAuthLayout'
 
-const AuthLayout = ({ children }: { children?: React.ReactNode }) => {
+interface Props {
+  children?: React.ReactNode
+}
+const AuthLayout = ({ children }: Props) => {
   return (
     <>
       <HeaderAuthLayout />

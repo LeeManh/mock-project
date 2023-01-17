@@ -1,29 +1,37 @@
-import bgAuth from "assets/images/bg-auth.png";
-import fbIcon from "assets/images/facebook-icon.png";
-import facebookSmallIcon from "assets/images/facebook-small-icon.png";
-import instagramSmallIcon from "assets/images/instagram-small-icon.png";
-import linkedinSmallIcon from "assets/images/linkedin-small-icon.png";
-import visa from "assets/images/visa.png";
-import masterCard from "assets/images/master-card.png";
-import jcb from "assets/images/jcb.png";
-import acmExpress from "assets/images/acm-express.png";
-import cod from "assets/images/cod.png";
-import installment from "assets/images/installment.png";
-import sPay from "assets/images/s-pay.png";
-import sPayLater from "assets/images/s-pay-later.png";
-import qrDownLoad from "assets/images/qrDownLoad.png";
-import appGallery from "assets/images/app-gallery.png";
-import ggPlay from "assets/images/gg-play.png";
-import apple from "assets/images/apple.png";
-import googleIcon from "assets/images/google-icon.png";
-import appleIcon from "assets/images/apple-icon.png";
+import bgAuth from './bg-auth.png'
+import facebookSmallIcon from './facebook-small-icon.png'
+import instagramSmallIcon from './instagram-small-icon.png'
+import linkedinSmallIcon from './linkedin-small-icon.png'
+import visa from './visa.png'
+import masterCard from './master-card.png'
+import jcb from './jcb.png'
+import acmExpress from './acm-express.png'
+import cod from './cod.png'
+import installment from './installment.png'
+import sPay from './s-pay.png'
+import sPayLater from './s-pay-later.png'
+import qrDownLoad from './qrDownLoad.png'
+import appGallery from './app-gallery.png'
+import ggPlay from './gg-play.png'
+import apple from './apple.png'
+import topIcon from './top-icon.png'
+import backgroundMain from './background-main.png'
+import cartEmpty from './cart-empty.png'
 
 const images = {
-  bgAuth,
-  fbIcon,
-  facebookSmallIcon,
-  instagramSmallIcon,
-  linkedinSmallIcon,
+  background: {
+    bgAuth,
+    backgroundMain
+  },
+  icons: {
+    facebookSmallIcon,
+    instagramSmallIcon,
+    linkedinSmallIcon,
+    topIcon
+  },
+  cart: {
+    cartEmpty
+  },
   visa,
   masterCard,
   jcb,
@@ -36,8 +44,7 @@ const images = {
   appGallery,
   ggPlay,
   apple,
-  googleIcon,
-  appleIcon,
-};
+  cartEmpty
+}
 
-export default images;
+export default images

@@ -1,59 +1,27 @@
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-import InputText from "components/InputText";
-import images from "assets/images";
-import routePaths from "constants/routePaths";
-import {
-  ButtonLogin,
-  Container,
-  Form,
-  FormActions,
-  FormContent,
-  TitleForm,
-  Wrap,
-  Divider,
-  DividerLine,
-  DividerText,
-  SocialButtonList,
-  FormFooter,
-  SocialButton,
-  SocialIcon,
-} from "./Login.styled";
-import { authShema } from "utils/rules";
-import type { AuthSchema } from "utils/rules";
+import InputText from 'components/InputText'
+import routePaths from 'constants/routePaths'
+import { ButtonLogin, Container, Form, FormActions, FormContent, TitleForm, Wrap, FormFooter } from './Login.styled'
+import { authShema } from 'utils/rules'
+import type { AuthSchema } from 'utils/rules'
 
-const socialIcons = [
-  {
-    src: images.fbIcon,
-    alt: "facebook-icon",
-    title: "Facebook",
-  },
-  {
-    src: images.googleIcon,
-    alt: "googleIcon",
-    title: "Google",
-  },
-  {
-    src: images.appleIcon,
-    alt: "appleIcon",
-    title: "Apple",
-  },
-];
+type FormInputs = Pick<AuthSchema, 'email' | 'password'>
 
-type FormInputs = Pick<AuthSchema, "email" | "password">;
+const loginSchema = authShema.pick(['email', 'password'])
 
 const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<FormInputs>({
-    resolver: yupResolver(authShema),
-  });
+    resolver: yupResolver(loginSchema)
+  })
 
-  const onSubmit = (data: FormInputs) => console.log(data);
+  const onSubmit = (data: FormInputs) => console.log(data)
 
   return (
     <Container>
@@ -64,15 +32,15 @@ const Login = () => {
           <FormContent>
             <InputText
               register={register}
-              name="email"
-              placeholder="Email/Số điện thoại/Tên đăng nhập"
+              name='email'
+              placeholder='Email/Số điện thoại/Tên đăng nhập'
               errorMessage={errors.email?.message}
             />
             <InputText
               register={register}
-              name="password"
-              type="password"
-              placeholder="Mật khẩu"
+              name='password'
+              type='password'
+              placeholder='Mật khẩu'
               isHaveEyeIcon={true}
               errorMessage={errors.password?.message}
             />
@@ -80,23 +48,7 @@ const Login = () => {
 
             <FormActions>
               <div>Quên mật khẩu</div>
-              <div>Đăng nhập với SMS</div>
             </FormActions>
-
-            <Divider>
-              <DividerLine></DividerLine>
-              <DividerText>Hoặc</DividerText>
-              <DividerLine></DividerLine>
-            </Divider>
-
-            <SocialButtonList>
-              {socialIcons.map((item, index) => (
-                <SocialButton key={index}>
-                  <SocialIcon src={item.src} alt={item.alt} />
-                  <div>{item.title}</div>
-                </SocialButton>
-              ))}
-            </SocialButtonList>
           </FormContent>
 
           <FormFooter>
@@ -106,7 +58,7 @@ const Login = () => {
         </Form>
       </Wrap>
     </Container>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

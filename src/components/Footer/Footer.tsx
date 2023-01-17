@@ -1,5 +1,5 @@
-import { Wrapper } from "globalStyle.styled";
-import images from "assets/images";
+import { Wrapper } from 'globalStyle.styled'
+import images from 'assets/images'
 import {
   AppsWrap,
   Container,
@@ -8,9 +8,9 @@ import {
   FooterItemList,
   FooterItemTitle,
   FooterTop,
-  QrDownLoad,
-} from "./Footer.styled";
-import { abouts, customerCareList, payments, socials } from "./data";
+  QrDownLoad
+} from './Footer.styled'
+import { abouts, customerCareList, payments, socials } from './data'
 
 const Footer = () => {
   return (
@@ -37,21 +37,21 @@ const Footer = () => {
 
           <FooterItem>
             <FooterItemTitle>THANH TOÁN</FooterItemTitle>
-            <FooterItemList type="imgList">
+            <FooterItemList type='imgList'>
               {payments.map((item, index) => (
                 <li key={index}>
-                  <div className="img-wrap">
-                    <img src={item.image} alt="" />
+                  <div className='img-wrap'>
+                    <img src={item.image} alt='' />
                   </div>
                 </li>
               ))}
             </FooterItemList>
-            <FooterItemTitle mt="3rem">ĐƠN VỊ VẬN CHUYỂN</FooterItemTitle>
-            <FooterItemList type="imgList">
+            <FooterItemTitle mt='3rem'>ĐƠN VỊ VẬN CHUYỂN</FooterItemTitle>
+            <FooterItemList type='imgList'>
               {payments.map((item, index) => (
                 <li key={index}>
-                  <div className="img-wrap">
-                    <img src={item.image} alt="" />
+                  <div className='img-wrap'>
+                    <img src={item.image} alt='' />
                   </div>
                 </li>
               ))}
@@ -63,7 +63,7 @@ const Footer = () => {
             <FooterItemList>
               {socials.map((item, index) => (
                 <li key={index}>
-                  <img src={item.icon} alt="" />
+                  <img src={item.icon} alt='' />
                   <span>{item.title}</span>
                 </li>
               ))}
@@ -73,18 +73,18 @@ const Footer = () => {
           <FooterItem>
             <FooterItemTitle>TẢI ỨNG DỤNG SHOPEE NGAY THÔI</FooterItemTitle>
             <DownLoadWrap>
-              <QrDownLoad src={images.qrDownLoad} alt="qrDownLoad" />
+              <QrDownLoad src={images.qrDownLoad} alt='qrDownLoad' />
               <AppsWrap>
-                <img src={images.apple} alt="apple" />
-                <img src={images.ggPlay} alt="ggPlay" />
-                <img src={images.appGallery} alt="appGallery" />
+                <img src={images.apple} alt='apple' />
+                <img src={images.ggPlay} alt='ggPlay' />
+                <img src={images.appGallery} alt='appGallery' />
               </AppsWrap>
             </DownLoadWrap>
           </FooterItem>
         </FooterTop>
       </Wrapper>
     </Container>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

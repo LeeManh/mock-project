@@ -2,6 +2,7 @@ import { RightOutlined } from '@ant-design/icons'
 import Pagination from 'components/Pagination'
 import ProductCard from 'components/ProductCard'
 import Slide from 'components/Slide'
+
 import colors from 'constants/colors'
 import { SeeAllLink } from 'globalStyle.styled'
 import { SwiperSlide } from 'swiper/react'
@@ -52,7 +53,7 @@ const Home = () => {
               }}
             >
               {bannerSlides.map((img, index) => (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={index} style={{ height: '24rem' }}>
                   <img src={img} alt='banner' style={{ cursor: 'pointer' }} />
                 </SwiperSlide>
               ))}
@@ -69,7 +70,23 @@ const Home = () => {
             <Title>DANH MỤC</Title>
           </HeaderSection>
 
-          <Slide slidesPerView={10} slidesPerGroup={10}>
+          <Slide
+            slidesPerView={10}
+            breakpoints={{
+              320: {
+                slidesPerView: 2
+              },
+              567: {
+                slidesPerView: 4
+              },
+              768: {
+                slidesPerView: 8
+              },
+              1024: {
+                slidesPerView: 10
+              }
+            }}
+          >
             {Array.from({ length: 12 }, (_, index) => (
               <SwiperSlide key={index}>
                 <CategoryItem>
@@ -92,7 +109,23 @@ const Home = () => {
             </SeeAllLink>
           </HeaderSection>
 
-          <Slide slidesPerView={6}>
+          <Slide
+            slidesPerView={6}
+            breakpoints={{
+              320: {
+                slidesPerView: 2
+              },
+              567: {
+                slidesPerView: 3
+              },
+              768: {
+                slidesPerView: 4
+              },
+              1024: {
+                slidesPerView: 6
+              }
+            }}
+          >
             {Array.from({ length: 10 }, (_, index) => (
               <SwiperSlide key={index}>
                 <TopSearchCard key={index}>
@@ -117,7 +150,7 @@ const Home = () => {
           </HeaderSection>
 
           <ListDiscoveryProduct>
-            {Array.from({ length: 18 }, (_, index) => (
+            {Array.from({ length: 12 }, (_, index) => (
               <ProductCard key={index}></ProductCard>
             ))}
           </ListDiscoveryProduct>

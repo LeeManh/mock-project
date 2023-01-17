@@ -6,6 +6,7 @@ import { ReactComponent as BellIconSvg } from 'assets/svgs/bell-icon.svg'
 import { ReactComponent as GlobalIconSvg } from 'assets/svgs/global-icon.svg'
 import { ReactComponent as ArrowDownIconSvg } from 'assets/svgs/arrow-down-icon.svg'
 import colors from 'constants/colors'
+import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.nav`
   height: 3.4rem;
@@ -24,7 +25,9 @@ export const LeftNavbar = styled.div`
 
 export const RightNavbar = styled.div`
   display: flex;
+  flex: 1;
   align-items: center;
+  justify-content: flex-end;
 `
 
 export const NavbarItem = styled.div`

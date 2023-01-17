@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 import colors from 'constants/colors'
 import { ReactComponent as FreeShip } from 'assets/svgs/free-ship.svg'
+import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.div`
   border: 1px solid transparent;
@@ -13,6 +14,11 @@ export const Container = styled.div`
   overflow: hidden;
   cursor: pointer;
   transition: 0.3s;
+
+  @media screen and (max-width: ${breakPonits.xs}) {
+    max-width: 28rem;
+    margin: 0 auto;
+  }
 
   &:hover {
     transform: translateY(-3px);

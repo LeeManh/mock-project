@@ -1,24 +1,20 @@
-import {
-  ButtonSearch,
-  Container,
-  Input,
-  SearchIcon,
-} from "./InputSearch.styled";
+import { ButtonSearch, Container, Input, SearchIcon } from './InputSearch.styled'
 
-const InputSearch = () => {
+export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  typeInput?: 'default' | 'primary'
+  styleContainer?: React.CSSProperties
+}
+
+const InputSearch = ({ typeInput = 'default', styleContainer, type = 'text', ...rest }: Props) => {
   return (
-    <Container>
-      <Input
-        type="text"
-        placeholder="#shopxuhuong ĐỒ TẾT SALE 50%"
-        aria-label="#shopxuhuong ĐỒ TẾT SALE 50%"
-      />
+    <Container style={styleContainer} typeInput={typeInput}>
+      <Input type={type} {...rest} />
 
-      <ButtonSearch>
+      <ButtonSearch typeInput={typeInput}>
         <SearchIcon />
       </ButtonSearch>
     </Container>
-  );
-};
+  )
+}
 
-export default InputSearch;
+export default InputSearch

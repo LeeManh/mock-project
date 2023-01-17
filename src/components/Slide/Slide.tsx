@@ -1,31 +1,32 @@
-import styled from "styled-components";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper";
+import styled from 'styled-components'
+import { Swiper, SwiperProps } from 'swiper/react'
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
-import colors from "constants/colors";
+// import required modules
+import { Navigation, Pagination, Autoplay } from 'swiper'
+
+import colors from 'constants/colors'
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
-`;
-
+  overflow: hidden;
+`
 const CustomSwiper = styled(Swiper)`
-  position: relative;
-
   .swiper-slide {
-    cursor: pointer;
-    user-select: none;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
   }
-
-  img {
-    display: flex;
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
-
   .swiper-pagination-bullet {
     width: 1rem;
     height: 1rem;
@@ -36,37 +37,20 @@ const CustomSwiper = styled(Swiper)`
     background: ${colors.orange};
     opacity: 1;
   }
-`;
+`
 
-interface Props {
-  datas: { label: string; alt?: string }[];
+interface Props extends SwiperProps {
+  children?: React.ReactNode
 }
 
-const Slide = ({ datas }: Props) => {
+const Slide = ({ children, ...rest }: Props) => {
   return (
     <Container>
-      <CustomSwiper
-        slidesPerView={1}
-        centeredSlides={true}
-        pagination={{
-          clickable: true,
-        }}
-        loop={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        modules={[Navigation, Pagination, Autoplay]}
-        navigation={true}
-      >
-        {datas.map((data) => (
-          <SwiperSlide>
-            <img src={data.label} alt={data.alt} />
-          </SwiperSlide>
-        ))}
+      <CustomSwiper navigation={true} modules={[Navigation, Pagination, Autoplay]} {...rest}>
+        {children}
       </CustomSwiper>
     </Container>
-  );
-};
+  )
+}
 
-export default Slide;
+export default Slide

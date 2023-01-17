@@ -1,6 +1,6 @@
-import colors from "constants/colors";
-import breakPonits from "constants/breakPoints";
-import styled, { createGlobalStyle } from "styled-components";
+import colors from 'constants/colors'
+import breakPonits from 'constants/breakPoints'
+import styled, { createGlobalStyle, css } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
   * , *::before , *::after {
@@ -12,9 +12,9 @@ const GlobalStyles = createGlobalStyle`
   html {
     font-size: 62.5%;
 
-    @media screen and (max-width : ${breakPonits.md}) {
+    /* @media screen and (max-width : ${breakPonits.md}) {
     font-size: 56.25%;
-    }
+    } */
   }
 
   body {
@@ -31,6 +31,10 @@ const GlobalStyles = createGlobalStyle`
   input {
     color: inherit;
     font: inherit;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 
   img {
@@ -52,14 +56,66 @@ const GlobalStyles = createGlobalStyle`
   }
   }
  
- 
-`;
+`
 
-export default GlobalStyles;
+export default GlobalStyles
+
+export const ContainerGlobal = styled.div`
+  margin: 11.9rem auto 0;
+  padding-top: 3rem;
+`
 
 export const Wrapper = styled.div`
   max-width: 1200px;
   height: 100%;
   margin: 0 auto;
   padding: 0 8px;
-`;
+`
+
+export const SeeAllLink = styled.div`
+  cursor: pointer;
+  color: ${colors.orange};
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  svg {
+    font-size: 1.3rem;
+  }
+`
+export const PriceAfterSale = styled.div`
+  display: flex;
+  align-items: flex-end;
+  white-space: nowrap;
+  color: ${colors.orange};
+  font-weight: 500;
+
+  .currency {
+    font-size: 1.2rem;
+  }
+  .price {
+    ${(props: { fontSizePrice?: string }) =>
+      props.fontSizePrice
+        ? css`
+            font-size: props.fontSizePrice;
+          `
+        : css`
+            font-size: 1.6rem;
+          `}
+  }
+`
+export const PriceBefore = styled.div`
+  display: flex;
+  align-items: flex-end;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  text-decoration: line-through;
+  color: ${colors['gray-light-3']};
+
+  .currency {
+    font-size: 1.2rem;
+  }
+  .price {
+    font-size: 1.4rem;
+  }
+`

@@ -5,6 +5,8 @@ import { PriceAfterSale, PriceBefore } from 'globalStyle.styled'
 import { ActionsTabel, PriceTabel, ProductTabel, QuantityTabel, TotalTabel } from 'pages/CartPage/CartPage.styled'
 import styled from 'styled-components'
 import { Button } from 'antd'
+import { Link } from 'react-router-dom'
+import routePaths from 'constants/routePaths'
 
 const Container = styled.div`
   display: flex;
@@ -13,8 +15,10 @@ const Container = styled.div`
   border-bottom: 1px solid ${colors['gray-light-2']};
 `
 const ImageProduct = styled.img`
-  width: 8rem;
+  min-width: 8rem;
+  max-width: 8rem;
   height: 8rem;
+  flex-shrink: 0;
 `
 const TitleProduct = styled.div`
   max-height: 4.8rem;
@@ -31,12 +35,16 @@ const ItemProductCart = () => {
     <Container>
       <CheckBox styleContainer={{ marginRight: '2rem' }} />
       <ProductTabel style={{ display: 'flex', gap: '1rem' }}>
-        <ImageProduct src='https://cf.shopee.vn/file/7f0400781460dc2e5518d377510a4d61_tn' alt='' />
-        <TitleProduct>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim aliquam excepturi voluptatibus harum illum
-          dolorum quis consequuntur iusto eius ratione dicta perferendis porro assumenda, animi est. Repellat incidunt
-          nam reiciendis.
-        </TitleProduct>
+        <Link to={`${routePaths.detailsProduct}/1`}>
+          <ImageProduct src='https://cf.shopee.vn/file/7f0400781460dc2e5518d377510a4d61_tn' alt='' />
+        </Link>
+        <Link to={`${routePaths.detailsProduct}/1`}>
+          <TitleProduct>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim aliquam excepturi voluptatibus harum illum
+            dolorum quis consequuntur iusto eius ratione dicta perferendis porro assumenda, animi est. Repellat incidunt
+            nam reiciendis.
+          </TitleProduct>
+        </Link>
       </ProductTabel>
       <PriceTabel>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>

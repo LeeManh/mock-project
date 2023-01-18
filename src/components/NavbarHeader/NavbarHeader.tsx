@@ -1,6 +1,6 @@
 import type { MenuProps } from 'antd'
 import { Dropdown } from 'antd'
-
+import { Link } from 'react-router-dom'
 import images from 'assets/images'
 import {
   ArrowDownIcon,
@@ -16,6 +16,7 @@ import {
   RightNavbar,
   Wrap
 } from './NavbarHeader.styled'
+import routePaths from 'constants/routePaths'
 
 const languages: MenuProps['items'] = [
   {
@@ -30,16 +31,16 @@ const languages: MenuProps['items'] = [
 
 const userMenu: MenuProps['items'] = [
   {
-    key: 'user-1',
-    label: <div>Tài khoản của tôi</div>
+    key: 'profile',
+    label: <Link to={`${routePaths.user}/${routePaths.userAccount}/${routePaths.userProfile}`}>Tài khoản của tôi</Link>
   },
   {
-    key: 'user-2',
-    label: <div>Đơn mua</div>
+    key: 'purchase',
+    label: <Link to={`${routePaths.user}/${routePaths.userPurChase}`}>Đơn mua</Link>
   },
   {
-    key: 'user-3',
-    label: <div>Đăng xuất</div>
+    key: 'logout',
+    label: <Link to={`${routePaths.logout}`}>Đăng xuất</Link>
   }
 ]
 

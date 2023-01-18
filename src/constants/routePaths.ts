@@ -2,6 +2,7 @@ const routePaths = {
   home: '/',
   login: '/login',
   register: '/register',
+  logout: '/logout',
   detailsProduct: '/details',
   categoryProduct: '/category',
   cart: '/cart',

@@ -2,6 +2,7 @@ import { RightOutlined } from '@ant-design/icons'
 import Pagination from 'components/Pagination'
 import ProductCard from 'components/ProductCard'
 import Slide from 'components/Slide'
+import { Link } from 'react-router-dom'
 
 import colors from 'constants/colors'
 import { SeeAllLink } from 'globalStyle.styled'
@@ -26,6 +27,7 @@ import {
   ListDiscoveryProduct,
   TopSearchCardImageWrap
 } from './Home.styled'
+import routePaths from 'constants/routePaths'
 
 const bannerSlides = [
   'https://cf.shopee.vn/file/9031ab5deae3facba7bb137c836ccf50_xxhdpi',
@@ -89,10 +91,12 @@ const Home = () => {
           >
             {Array.from({ length: 12 }, (_, index) => (
               <SwiperSlide key={index}>
-                <CategoryItem>
-                  <img src='https://cf.shopee.vn/file/687f3967b7c2fe6a134a2c11894eea4b_tn' alt='Thời trang nam' />
-                  <span>Thời trang nam</span>
-                </CategoryItem>
+                <Link to={`${routePaths.categoryProduct}/1`}>
+                  <CategoryItem>
+                    <img src='https://cf.shopee.vn/file/687f3967b7c2fe6a134a2c11894eea4b_tn' alt='Thời trang nam' />
+                    <span>Thời trang nam</span>
+                  </CategoryItem>
+                </Link>
               </SwiperSlide>
             ))}
           </Slide>
@@ -128,15 +132,17 @@ const Home = () => {
           >
             {Array.from({ length: 10 }, (_, index) => (
               <SwiperSlide key={index}>
-                <TopSearchCard key={index}>
-                  <TopSearchCardImageWrap>
-                    <TopSearchCardImage src='https://cf.shopee.vn/file/dd8927f74c9d92fe678f57cb5b4bc000' alt='' />
-                    <IconTop />
-                    <TopSearchCardNumber>Bán 30k+ / tháng </TopSearchCardNumber>
-                  </TopSearchCardImageWrap>
+                <Link to={`${routePaths.detailsProduct}/1`}>
+                  <TopSearchCard key={index}>
+                    <TopSearchCardImageWrap>
+                      <TopSearchCardImage src='https://cf.shopee.vn/file/dd8927f74c9d92fe678f57cb5b4bc000' alt='' />
+                      <IconTop />
+                      <TopSearchCardNumber>Bán 30k+ / tháng </TopSearchCardNumber>
+                    </TopSearchCardImageWrap>
 
-                  <TopSearchCardTitle>Áo khoác nam</TopSearchCardTitle>
-                </TopSearchCard>
+                    <TopSearchCardTitle>Áo khoác nam</TopSearchCardTitle>
+                  </TopSearchCard>
+                </Link>
               </SwiperSlide>
             ))}
           </Slide>
@@ -151,7 +157,7 @@ const Home = () => {
 
           <ListDiscoveryProduct>
             {Array.from({ length: 12 }, (_, index) => (
-              <ProductCard key={index}></ProductCard>
+              <ProductCard key={index} />
             ))}
           </ListDiscoveryProduct>
 

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Dropdown, MenuProps } from 'antd'
 import styled from 'styled-components'
-
 import { ReactComponent as LogoShopee } from 'assets/svgs/logo-shopee.svg'
 import NavbarHeader from 'components/NavbarHeader'
 import colors from 'constants/colors'
@@ -69,7 +68,9 @@ const HeaderMainLayout = () => {
                 minWidth: '40rem'
               }}
             >
-              <CartIcon />
+              <Link to={routePaths.cart}>
+                <CartIcon />
+              </Link>
             </Dropdown>
           </ShoppingCartIconWrap>
         </HeaderMainWrap>

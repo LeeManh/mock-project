@@ -10,6 +10,11 @@ export const MenuCustom = styled(Menu)`
   .ant-menu-submenu-title,
   .ant-menu-item {
     padding-left: 0 !important;
+    color: ${colors.black};
+  }
+
+  :where(.css-dev-only-do-not-override-sk7ap8).ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {
+    color: ${colors.black};
   }
 
   .ant-menu-item.ant-menu-item-only-child {
@@ -23,12 +28,11 @@ export const MenuCustom = styled(Menu)`
     color: ${colors.orange};
   }
 
-  :where(.css-dev-only-do-not-override-sk7ap8).ant-menu-light.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+  .ant-menu.ant-menu-sub.ant-menu-inline {
     background-color: transparent;
   }
 
-  :where(.css-dev-only-do-not-override-sk7ap8).ant-menu-light .ant-menu-item-selected,
-  :where(.css-dev-only-do-not-override-sk7ap8).ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {
+  .ant-menu-item.ant-menu-item-selected {
     color: ${colors.orange};
     background-color: transparent;
   }

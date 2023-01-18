@@ -71,7 +71,7 @@ const Home = () => {
           </HeaderSection>
 
           <Slide
-            slidesPerView={10}
+            slidesPerView={2}
             breakpoints={{
               320: {
                 slidesPerView: 2
@@ -110,7 +110,7 @@ const Home = () => {
           </HeaderSection>
 
           <Slide
-            slidesPerView={6}
+            slidesPerView={2}
             breakpoints={{
               320: {
                 slidesPerView: 2

@@ -3,6 +3,7 @@ const routePaths = {
   login: '/login',
   register: '/register',
   logout: '/logout',
+  topProducts: '/top_products',
   detailsProduct: '/details',
   categoryProduct: '/category',
   cart: '/cart',

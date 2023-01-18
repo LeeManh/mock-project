@@ -15,6 +15,7 @@ import UserProfile from 'pages/User/UserProfile'
 import UserAddress from 'pages/User/UserAddress'
 import ChangePassword from 'pages/User/ChangePassword'
 import UserPurchase from 'pages/User/UserPurchase'
+import TopProducts from 'pages/TopProducts'
 
 const isAuthenticated = true
 const ProtectedRoute = () => {
@@ -35,6 +36,14 @@ const useRouteElement = () => {
       element: (
         <MainLayout>
           <Home />
+        </MainLayout>
+      )
+    },
+    {
+      path: routePaths.topProducts,
+      element: (
+        <MainLayout>
+          <TopProducts />
         </MainLayout>
       )
     },

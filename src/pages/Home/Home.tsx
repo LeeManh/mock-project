@@ -107,10 +107,12 @@ const Home = () => {
             <Title bold={true} color={colors.orange}>
               Sản phẩm bán chạy
             </Title>
-            <SeeAllLink>
-              <span>Xem tất cả</span>
-              <RightOutlined />
-            </SeeAllLink>
+            <Link to={routePaths.topProducts}>
+              <SeeAllLink>
+                <span>Xem tất cả</span>
+                <RightOutlined />
+              </SeeAllLink>
+            </Link>
           </HeaderSection>
 
           <Slide

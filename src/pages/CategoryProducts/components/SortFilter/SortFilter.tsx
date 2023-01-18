@@ -3,11 +3,16 @@ import Select from 'components/Select'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import Button from 'components/Button'
+import breakPonits from 'constants/breakPoints'
 
 const Container = styled.div`
   padding: 1.5rem 2rem;
   background-color: #ededed;
   border-radius: 2px;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    display: none;
+  }
 `
 const ListSortButton = styled.div`
   display: flex;

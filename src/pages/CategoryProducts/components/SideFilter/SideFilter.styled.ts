@@ -1,11 +1,16 @@
 import styled, { css } from 'styled-components'
 import colors from 'constants/colors'
 import { Rate } from 'antd'
+import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.div`
   width: 19rem;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    display: none;
+  }
 `
 export const BorderBottom = css`
   border-bottom: 1px solid ${colors['gray-light-2']};

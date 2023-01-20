@@ -1,3 +1,4 @@
+import breakPonits from 'constants/breakPoints'
 import colors from 'constants/colors'
 import styled from 'styled-components'
 export const Container = styled.div`
@@ -22,6 +23,10 @@ export const ThumbnailsWrap = styled.div`
   overflow: hidden;
   gap: 5px;
   position: relative;
+
+  @media screen and (max-width: ${breakPonits.xs}) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `
 export const ThumbnailsImageWrap = styled.div`
   position: relative;

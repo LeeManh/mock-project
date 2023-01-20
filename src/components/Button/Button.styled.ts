@@ -1,5 +1,6 @@
 import colors from 'constants/colors'
 import styled, { css } from 'styled-components'
+import { boolean } from 'yup'
 import type { Props } from './Button'
 
 export const ButtonContainer = styled.button`
@@ -11,6 +12,7 @@ export const ButtonContainer = styled.button`
   font: inherit;
   display: flex;
   justify-content: center;
+  align-items: center;
   border: none;
   outline: none;
   white-space: nowrap;
@@ -59,4 +61,7 @@ export const ButtonContainer = styled.button`
         `
     }
   }}
+
+  cursor : ${({ disabled }: { disabled?: boolean }) => (disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${({ disabled }: { disabled?: boolean }) => (disabled ? 0.9 : 1)};
 `

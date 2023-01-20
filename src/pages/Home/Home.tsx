@@ -55,7 +55,7 @@ const Home = () => {
               }}
             >
               {bannerSlides.map((img, index) => (
-                <SwiperSlide key={index} style={{ height: '24rem' }}>
+                <SwiperSlide key={index}>
                   <img src={img} alt='banner' style={{ cursor: 'pointer' }} />
                 </SwiperSlide>
               ))}
@@ -76,7 +76,7 @@ const Home = () => {
             slidesPerView={2}
             breakpoints={{
               320: {
-                slidesPerView: 2
+                slidesPerView: 3
               },
               567: {
                 slidesPerView: 4

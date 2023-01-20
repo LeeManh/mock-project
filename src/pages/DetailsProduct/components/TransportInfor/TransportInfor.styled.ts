@@ -13,6 +13,8 @@ export const TransportInforLeftItemWrap = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
 `
 export const AddressWrap = styled.div`
   cursor: pointer;

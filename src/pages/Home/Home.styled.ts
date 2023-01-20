@@ -17,19 +17,13 @@ export const BannerSlideWrap = styled.div`
   flex: 2;
   border-radius: 2px;
   overflow: hidden;
-  height: 24rem;
   height: 100%;
-
-  @media screen and (max-width: ${breakPonits.sm}) {
-    display: none;
-  }
 `
 export const SideBannerWrap = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  height: 24rem;
+  gap: 2.5px;
 
   img {
     height: calc(50% - 2.5px);
@@ -38,7 +32,7 @@ export const SideBannerWrap = styled.div`
     flex-shrink: 0;
   }
 
-  @media screen and (max-width: ${breakPonits.md}) {
+  @media screen and (max-width: ${breakPonits.lg}) {
     display: none;
   }
 `

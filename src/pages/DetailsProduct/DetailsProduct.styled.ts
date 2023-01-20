@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import colors from 'constants/colors'
 import { ContainerGlobal } from 'globalStyle.styled'
+import breakPonits from 'constants/breakPoints'
 
 export const Container = styled(ContainerGlobal)``
 
@@ -10,12 +11,24 @@ export const Wrap = styled.div`
   border-radius: 2px;
 `
 
-export const Content = styled(Wrap)``
+export const Content = styled(Wrap)`
+  @media screen and (max-width: ${breakPonits.lg}) {
+    display: flex;
+    flex-direction: column;
+  }
+`
 
 export const ThumbsGalleryWrap = styled.div`
   width: 45rem;
   padding: 1.5rem;
   flex-shrink: 0;
+
+  @media screen and (max-width: ${breakPonits.lg}) {
+    width: 100%;
+    max-width: 45rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `
 export const InforWrap = styled.div`
   flex-grow: 1;
@@ -58,6 +71,7 @@ export const SizeSelectWrap = styled.div`
 export const ListSelectButton = styled.div`
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 `
 export const ListButtonAction = styled.div`
   margin-top: 3rem;

@@ -47,16 +47,7 @@ export const FormContent = styled.div`
   flex-direction: column;
   gap: 1.6rem;
 `
-export const ButtonLogin = styled.button`
-  background-color: ${colors.orange};
-  height: 4rem;
-  border-radius: 2px;
-  color: ${colors.white};
-  text-transform: uppercase;
-  border: none;
-  outline: none;
-  cursor: pointer;
-`
+
 export const FormActions = styled.div`
   display: flex;
   align-items: center;

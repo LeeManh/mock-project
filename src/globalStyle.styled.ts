@@ -61,7 +61,7 @@ const GlobalStyles = createGlobalStyle`
 export default GlobalStyles
 
 export const ContainerGlobal = styled.div`
-  margin: 9rem auto 0;
+  margin: 14rem auto 0;
 
   @media screen and (max-width: ${breakPonits.md}) {
     margin: 2rem auto;

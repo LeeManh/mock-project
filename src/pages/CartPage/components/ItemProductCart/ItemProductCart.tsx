@@ -34,6 +34,7 @@ const ItemProductCart = () => {
   return (
     <Container>
       <CheckBox styleContainer={{ marginRight: '2rem' }} />
+
       <ProductTabel style={{ display: 'flex', gap: '1rem' }}>
         <Link to={`${routePaths.detailsProduct}/1`}>
           <ImageProduct src='https://cf.shopee.vn/file/7f0400781460dc2e5518d377510a4d61_tn' alt='' />

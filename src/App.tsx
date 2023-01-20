@@ -1,5 +1,7 @@
-import GlobalStyles from 'globalStyle.styled'
 import useRouteElement from 'hooks/useRouteElement'
+import { ToastContainer } from 'react-toastify'
+import GlobalStyles from 'globalStyle.styled'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   const elements = useRouteElement()
@@ -7,6 +9,7 @@ const App = () => {
   return (
     <>
       {elements}
+      <ToastContainer />
       <GlobalStyles />
     </>
   )

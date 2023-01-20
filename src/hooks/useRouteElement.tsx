@@ -16,15 +16,16 @@ import UserAddress from 'pages/User/UserAddress'
 import ChangePassword from 'pages/User/ChangePassword'
 import UserPurchase from 'pages/User/UserPurchase'
 import TopProducts from 'pages/TopProducts'
+import { useAppSelector } from './useApp'
+import NotFound from 'pages/NotFound'
 
-const isAuthenticated = true
 const ProtectedRoute = () => {
-  // const { isAuthenticated } = useAppContext()
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
 
   return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
 }
 const RejectedRoute = () => {
-  // const { isAuthenticated } = useAppContext()
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
 
   return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
 }
@@ -136,6 +137,10 @@ const useRouteElement = () => {
           )
         }
       ]
+    },
+    {
+      path: '*',
+      element: <NotFound />
     }
   ])
 

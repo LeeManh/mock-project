@@ -1,12 +1,10 @@
 import styled, { css } from 'styled-components'
-import { Dropdown } from 'antd'
 
 import { Wrapper } from 'globalStyle.styled'
 import { ReactComponent as BellIconSvg } from 'assets/svgs/bell-icon.svg'
 import { ReactComponent as GlobalIconSvg } from 'assets/svgs/global-icon.svg'
 import { ReactComponent as ArrowDownIconSvg } from 'assets/svgs/arrow-down-icon.svg'
 import colors from 'constants/colors'
-import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.nav`
   height: 3.4rem;
@@ -35,7 +33,7 @@ export const NavbarItem = styled.div`
   align-items: center;
   gap: 5px;
   cursor: pointer;
-  border-left: 1px solid #ffffff38;
+  border-left: ${({ border }: { border?: boolean }) => (border ? '1px solid #ffffff38' : '1px solid transparent')};
   padding: 0 10px;
 
   &:first-child {
@@ -71,15 +69,13 @@ export const ArrowDownIcon = styled(ArrowDownIconSvg)`
 `
 
 export const AvartarWrap = styled(NavbarItem)``
-export const AvartarImage = styled.img`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  flex-shrink: 0;
-  object-fit: cover;
-`
+
 export const NameUser = styled.div`
   max-width: 5.3rem;
   overflow: hidden;
   text-overflow: ellipsis;
+`
+export const LoginAndRegisterWrap = styled.div`
+  display: flex;
+  align-items: center;
 `

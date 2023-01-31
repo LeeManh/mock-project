@@ -19,6 +19,7 @@ import type { FilterSchema } from 'utils/rules'
 import { filterSchema } from 'utils/rules'
 import InputNumber from 'components/InputNumber'
 import { ErrorMessage } from 'globalStyle.styled'
+import useFilterPrice from 'hooks/useFilterPrice'
 
 const priceSchema = filterSchema.pick(['price_max', 'price_min'])
 type PriceFilter = Pick<FilterSchema, 'price_max' | 'price_min'>
@@ -32,16 +33,14 @@ const SideFilter = () => {
   } = useForm<PriceFilter>({
     resolver: yupResolver(priceSchema),
     defaultValues: {
-      price_max: '',
-      price_min: ''
+      price_min: '',
+      price_max: ''
     }
   })
 
   const error = errors.price_max?.message || errors.price_min?.message
 
-  const onSubmit = (data: PriceFilter) => {
-    console.log(data)
-  }
+  const { onSubmit } = useFilterPrice()
 
   return (
     <Container>
@@ -59,13 +58,12 @@ const SideFilter = () => {
               return (
                 <InputNumber
                   {...field}
-                  maxValue={'100'}
-                  placeholder='₫ TỪ'
-                  style={{ textAlign: 'left' }}
                   onChange={(event) => {
                     field.onChange(event)
                     trigger('price_max')
                   }}
+                  placeholder='₫ TỪ'
+                  style={{ textAlign: 'left' }}
                 />
               )
             }}
@@ -80,12 +78,12 @@ const SideFilter = () => {
               return (
                 <InputNumber
                   {...field}
-                  placeholder='₫ TỪ'
-                  style={{ textAlign: 'left' }}
                   onChange={(event) => {
                     field.onChange(event)
-                    trigger('price_max')
+                    trigger('price_min')
                   }}
+                  placeholder='₫ TỪ'
+                  style={{ textAlign: 'left' }}
                 />
               )
             }}
@@ -101,25 +99,15 @@ const SideFilter = () => {
       <ItemFilter>
         <TitleFilter>Đánh Giá</TitleFilter>
         <ListRate>
-          <ItemRate>
-            <RateCustom disabled defaultValue={5} />
-          </ItemRate>
-          <ItemRate>
-            <RateCustom disabled defaultValue={4} />
-            trở lên
-          </ItemRate>
-          <ItemRate>
-            <RateCustom disabled defaultValue={3} />
-            trở lên
-          </ItemRate>
-          <ItemRate>
-            <RateCustom disabled defaultValue={2} />
-            trở lên
-          </ItemRate>
-          <ItemRate>
-            <RateCustom disabled defaultValue={1} />
-            trở lên
-          </ItemRate>
+          {Array(5)
+            .fill(null)
+            .map((_, index) => (
+              <ItemRate key={index}>
+                <RateCustom disabled defaultValue={5 - index} />
+
+                {index !== 0 && 'trở lên'}
+              </ItemRate>
+            ))}
         </ListRate>
       </ItemFilter>
 

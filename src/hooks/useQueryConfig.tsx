@@ -7,14 +7,14 @@ const useQueryConfig = () => {
   const queryParams: ProductListConfig = useQueryParams()
   const queryConfig: ProductListConfig = omitBy(
     {
-      page: queryParams.page || '1',
-      limit: queryParams.limit || '20',
+      page: queryParams.page,
+      limit: queryParams.limit,
       order: queryParams.order,
       sort_by: queryParams.sort_by,
       exclude: queryParams.exclude,
       rating_filter: queryParams.rating_filter,
-      price_max: queryParams.price_max,
       price_min: queryParams.price_min,
+      price_max: queryParams.price_max,
       keyword: queryParams.keyword,
       category: queryParams.category
     },

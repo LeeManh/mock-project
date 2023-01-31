@@ -47,7 +47,7 @@ export const ItemRate = styled.div`
   align-items: center;
   gap: 1rem;
   padding: 0 1.2rem;
-  background-color: #ededed;
+  background-color: transparent;
   border-radius: 2rem;
   width: fit-content;
   font-size: 1.3rem;

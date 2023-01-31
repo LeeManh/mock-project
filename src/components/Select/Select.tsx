@@ -3,30 +3,26 @@ import styled from 'styled-components'
 import type { DropDownProps, MenuProps } from 'antd'
 import { Dropdown } from 'antd'
 
-const items: MenuProps['items'] = [
-  {
-    key: '1',
-    label: <div>Giá : Thấp đến Cao</div>
-  },
-  {
-    key: '2',
-    label: <div>Giá : Cao đến Thấp</div>
-  }
-]
+const Container = styled.div``
 
 interface Props extends DropDownProps {
   styleContainer?: React.CSSProperties
   children: React.ReactNode
+  items?: MenuProps['items']
 }
 
-const Container = styled.div``
+const Select = ({ styleContainer, children, items, ...rest }: Props) => {
+  const onClick: MenuProps['onClick'] = (e) => {
+    // console.log('click ', e)
+  }
 
-const Select = ({ styleContainer, children, ...rest }: Props) => {
   return (
     <Container style={styleContainer}>
       <Dropdown
+        {...rest}
         menu={{
-          items: items,
+          items,
+          onClick,
           selectable: true,
           defaultSelectedKeys: ['1'],
           style: {
@@ -35,7 +31,6 @@ const Select = ({ styleContainer, children, ...rest }: Props) => {
           className: 'custom-dropdown'
         }}
         placement='bottomRight'
-        {...rest}
       >
         {children}
       </Dropdown>

@@ -42,6 +42,7 @@ const SideFilter = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const queryConfig = useQueryConfig()
+
   const currentFilterRating = queryConfig.rating_filter || null
   const isActiceRatingItem = (val: number) => {
     if (currentFilterRating && +currentFilterRating === val) {

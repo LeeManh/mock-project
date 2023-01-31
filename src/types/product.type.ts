@@ -5,8 +5,8 @@ export interface ProductListConfig {
   sort_by?: 'createdAt' | 'view' | 'sold' | 'price'
   exclude?: string
   rating_filter?: number
-  price_max?: number
-  price_min?: number
+  price_max?: string
+  price_min?: string
   keyword?: string
   category?: string
 }

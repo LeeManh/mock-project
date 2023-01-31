@@ -2,10 +2,10 @@ import colors from 'constants/colors'
 import styled, { css } from 'styled-components'
 import { Wrapper, ContainerGlobal } from 'globalStyle.styled'
 import images from 'assets/images'
+import breakPonits from 'constants/breakPoints'
 
 export const Container = styled(ContainerGlobal)`
   background: url(${images.background.backgroundMain}) center top / 100% no-repeat;
-  min-width: 1200px;
   min-height: 50rem;
 `
 export const HomeWrap = styled(Wrapper)``
@@ -17,21 +17,23 @@ export const BannerSlideWrap = styled.div`
   flex: 2;
   border-radius: 2px;
   overflow: hidden;
-  min-height: 24rem;
-  max-height: 24rem;
+  height: 100%;
 `
 export const SideBannerWrap = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  min-height: 24rem;
-  max-height: 24rem;
+  gap: 2.5px;
 
   img {
-    height: calc(50% - 5px);
+    height: calc(50% - 2.5px);
     cursor: pointer;
     border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: ${breakPonits.lg}) {
+    display: none;
   }
 `
 const WrapStyles = css`
@@ -138,6 +140,22 @@ export const ListDiscoveryProduct = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
+
+  @media screen and (max-width: ${breakPonits.xl}) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  @media screen and (max-width: ${breakPonits.lg}) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: ${breakPonits.md}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: ${breakPonits.sm}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: ${breakPonits.xs}) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `
 
 export const ButtonSeeMore = styled.button`

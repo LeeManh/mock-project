@@ -52,7 +52,7 @@ const UserSideBar = () => {
         />
         <RightHeader>
           <UserNameOrEmail>lemanhddt@gmail.com</UserNameOrEmail>
-          <LinkEdit to={routePaths.userProfile}>
+          <LinkEdit to={`${routePaths.user}/${routePaths.userAccount}/${routePaths.userProfile}`}>
             <FontAwesomeIcon icon={faPen} />
             Sửa Hồ Sơ
           </LinkEdit>

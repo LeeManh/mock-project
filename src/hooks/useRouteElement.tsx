@@ -15,15 +15,20 @@ import UserProfile from 'pages/User/UserProfile'
 import UserAddress from 'pages/User/UserAddress'
 import ChangePassword from 'pages/User/ChangePassword'
 import UserPurchase from 'pages/User/UserPurchase'
+import TopProducts from 'pages/TopProducts'
+import { useAppSelector } from './useApp'
+import NotFound from 'pages/NotFound'
+import SimilarProductsPage from 'pages/SimilarProductsPage'
+import AllProductsPage from 'pages/AllProductsPage'
+import ResultSearchProductsPage from 'pages/ResultSearchProductsPage'
 
-const isAuthenticated = true
 const ProtectedRoute = () => {
-  // const { isAuthenticated } = useAppContext()
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
 
   return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
 }
 const RejectedRoute = () => {
-  // const { isAuthenticated } = useAppContext()
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
 
   return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
 }
@@ -35,6 +40,38 @@ const useRouteElement = () => {
       element: (
         <MainLayout>
           <Home />
+        </MainLayout>
+      )
+    },
+    {
+      path: routePaths.topProducts,
+      element: (
+        <MainLayout>
+          <TopProducts />
+        </MainLayout>
+      )
+    },
+    {
+      path: routePaths.allProducts,
+      element: (
+        <MainLayout>
+          <AllProductsPage />
+        </MainLayout>
+      )
+    },
+    {
+      path: routePaths.similarProducts,
+      element: (
+        <MainLayout>
+          <SimilarProductsPage />
+        </MainLayout>
+      )
+    },
+    {
+      path: routePaths.searchProduct,
+      element: (
+        <MainLayout>
+          <ResultSearchProductsPage />
         </MainLayout>
       )
     },
@@ -55,7 +92,7 @@ const useRouteElement = () => {
       )
     },
     {
-      path: routePaths.cart,
+      path: '/cart',
       element: <ProtectedRoute />,
       children: [
         {
@@ -127,6 +164,10 @@ const useRouteElement = () => {
           )
         }
       ]
+    },
+    {
+      path: '*',
+      element: <NotFound />
     }
   ])
 

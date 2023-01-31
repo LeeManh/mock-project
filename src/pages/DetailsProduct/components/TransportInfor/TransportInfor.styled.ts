@@ -13,13 +13,13 @@ export const TransportInforLeftItemWrap = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
 `
 export const AddressWrap = styled.div`
   cursor: pointer;
 `
-export const PriceTransportWrap = styled.div`
-  cursor: pointer;
-`
+export const PriceTransportWrap = styled.div``
 export const IconTruckWrap = styled.div`
   min-width: 2rem;
   max-width: 2rem;

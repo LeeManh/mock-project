@@ -12,9 +12,9 @@ const GlobalStyles = createGlobalStyle`
   html {
     font-size: 62.5%;
 
-    /* @media screen and (max-width : ${breakPonits.md}) {
+    @media screen and (max-width : ${breakPonits.md}) {
     font-size: 56.25%;
-    } */
+    }
   }
 
   body {
@@ -61,8 +61,11 @@ const GlobalStyles = createGlobalStyle`
 export default GlobalStyles
 
 export const ContainerGlobal = styled.div`
-  margin: 11.9rem auto 0;
-  padding-top: 3rem;
+  margin: 14rem auto 0;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    margin: 2rem auto;
+  }
 `
 
 export const Wrapper = styled.div`
@@ -118,4 +121,11 @@ export const PriceBefore = styled.div`
   .price {
     font-size: 1.4rem;
   }
+`
+export const ErrorMessage = styled.div`
+  color: ${colors.orange};
+  font-size: 1.3rem;
+  min-height: 1.5rem;
+  margin-top: 0.5rem;
+  user-select: none;
 `

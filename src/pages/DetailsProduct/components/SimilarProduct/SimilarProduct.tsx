@@ -1,8 +1,10 @@
 import ProductCard from 'components/ProductCard'
 import { RightOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 
 import { Header, ListSimilarProduct, SimilarProductsWrap, Title } from './SimilarProduct.styled'
 import { SeeAllLink } from 'globalStyle.styled'
+import routePaths from 'constants/routePaths'
 
 const SimilarProduct = () => {
   return (
@@ -10,12 +12,12 @@ const SimilarProduct = () => {
       <Header>
         <Title>Sản phẩm tương tự</Title>
         <SeeAllLink>
-          <span>Xem tất cả</span>
+          <Link to={routePaths.similarProducts}>Xem tất cả</Link>
           <RightOutlined />
         </SeeAllLink>
       </Header>
       <ListSimilarProduct>
-        {Array(10)
+        {Array(12)
           .fill(null)
           .map((_, index) => (
             <ProductCard key={index} />

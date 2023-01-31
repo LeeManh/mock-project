@@ -1,21 +1,27 @@
 import type { MenuProps } from 'antd'
-import { Dropdown } from 'antd'
-
+import { Dropdown, Avatar } from 'antd'
+import { Link } from 'react-router-dom'
 import images from 'assets/images'
 import {
   ArrowDownIcon,
-  AvartarImage,
   AvartarWrap,
   BellIcon,
   Container,
   GlobalIcon,
   ImageSocical,
   LeftNavbar,
+  LoginAndRegisterWrap,
   NameUser,
   NavbarItem,
   RightNavbar,
   Wrap
 } from './NavbarHeader.styled'
+import routePaths from 'constants/routePaths'
+import { useAppDispatch, useAppSelector } from 'hooks/useApp'
+import { useMutation } from '@tanstack/react-query'
+import authApis from 'apis/auth.api'
+import { logoutSuccess, selectAuth } from 'features/auth/authSlice'
+import { UserOutlined } from '@ant-design/icons'
 
 const languages: MenuProps['items'] = [
   {
@@ -30,20 +36,36 @@ const languages: MenuProps['items'] = [
 
 const userMenu: MenuProps['items'] = [
   {
-    key: 'user-1',
-    label: <div>Tài khoản của tôi</div>
+    key: 'profile',
+    label: <Link to={`${routePaths.user}/${routePaths.userAccount}/${routePaths.userProfile}`}>Tài khoản của tôi</Link>
   },
   {
-    key: 'user-2',
-    label: <div>Đơn mua</div>
+    key: 'purchase',
+    label: <Link to={`${routePaths.user}/${routePaths.userPurChase}`}>Đơn mua</Link>
   },
   {
-    key: 'user-3',
+    key: 'logout',
     label: <div>Đăng xuất</div>
   }
 ]
 
 const NavbarHeader = () => {
+  const { isAuthenticated, user } = useAppSelector(selectAuth)
+  const dispatch = useAppDispatch()
+
+  const logoutMutation = useMutation({
+    onSuccess: () => {
+      dispatch(logoutSuccess())
+    },
+    mutationFn: () => authApis.logoutAccount()
+  })
+
+  const onClick: MenuProps['onClick'] = (e) => {
+    if (e.key === 'logout') {
+      logoutMutation.mutate()
+    }
+  }
+
   return (
     <Container>
       <Wrap>
@@ -57,7 +79,7 @@ const NavbarHeader = () => {
         </LeftNavbar>
 
         <RightNavbar>
-          <NavbarItem>
+          <NavbarItem border={false}>
             <BellIcon />
             <span>Thông báo</span>
           </NavbarItem>
@@ -78,32 +100,51 @@ const NavbarHeader = () => {
               minWidth: '20rem'
             }}
           >
-            <NavbarItem>
+            <NavbarItem border={false}>
               <GlobalIcon />
               <span>Tiếng Việt</span>
               <ArrowDownIcon />
             </NavbarItem>
           </Dropdown>
-
-          <Dropdown
-            menu={{
-              items: userMenu,
-              style: {
-                borderRadius: '2px'
-              },
-              className: 'custom-dropdown'
-            }}
-            placement='bottomRight'
-            arrow
-            overlayStyle={{
-              minWidth: '20rem'
-            }}
-          >
-            <AvartarWrap>
-              <AvartarImage src='https://cf.shopee.vn/file/2d7d51ffc7af8cdc00d086c882d5e020_tn' alt='avatar' />
-              <NameUser>lemanh</NameUser>
-            </AvartarWrap>
-          </Dropdown>
+          {isAuthenticated ? (
+            <Dropdown
+              menu={{
+                items: userMenu,
+                style: {
+                  borderRadius: '2px'
+                },
+                className: 'custom-dropdown',
+                onClick
+              }}
+              placement='bottomRight'
+              arrow
+              overlayStyle={{
+                minWidth: '20rem'
+              }}
+            >
+              <AvartarWrap>
+                <Avatar
+                  src={user?.avatar}
+                  alt='avatar'
+                  size={22}
+                  icon={<UserOutlined />}
+                  style={{ background: 'gray' }}
+                />
+                <NameUser>{user?.name || user?.email}</NameUser>
+              </AvartarWrap>
+            </Dropdown>
+          ) : (
+            <NavbarItem border={false}>
+              <LoginAndRegisterWrap>
+                <Link to={routePaths.register} style={{ paddingRight: '1rem', borderRight: `1px solid #ffffff38` }}>
+                  Đăng ký
+                </Link>
+                <Link to={routePaths.login} style={{ paddingLeft: '1rem' }}>
+                  Đăng nhập
+                </Link>
+              </LoginAndRegisterWrap>
+            </NavbarItem>
+          )}
         </RightNavbar>
       </Wrap>
     </Container>

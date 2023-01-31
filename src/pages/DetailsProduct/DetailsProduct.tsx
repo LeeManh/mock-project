@@ -33,6 +33,8 @@ import SimilarProduct from './components/SimilarProduct'
 import Description from './components/Description'
 import { useState } from 'react'
 import Button from 'components/Button'
+import CustomModal from 'components/CustomModal'
+import InputText from 'components/InputText'
 
 const images = [
   'https://cf.shopee.vn/file/21d36c7f2cbfb403debe58553d70c09a',
@@ -50,6 +52,7 @@ const sizesSelect = [39, 40, 41, 42, 43]
 
 const DetailsProduct = () => {
   const [quantity, setQuantity] = useState('1')
+  const [openModalAddress, setOpenModalAddress] = useState(false)
 
   return (
     <Container>
@@ -73,8 +76,20 @@ const DetailsProduct = () => {
                 <TitleInfor>Vận Chuyển</TitleInfor>
 
                 <TransportInforWrap>
-                  <TransportInfor type='charge' />
+                  <TransportInfor type='charge' setOpenModalAddress={setOpenModalAddress} />
                 </TransportInforWrap>
+
+                <CustomModal
+                  title='Địa chỉ nhận hàng'
+                  open={openModalAddress}
+                  onCancel={() => setOpenModalAddress(false)}
+                  footer={null}
+                >
+                  <InputText value='133/2 Nguyễn Văn Trỗi Hà Đông Hà Nội Phường Mộ Lao, Quận Hà Đông, Hà Nội' />
+                  <Button typeBtn='primary' style={{ marginTop: '10px', marginLeft: 'auto' }}>
+                    Cập nhật
+                  </Button>
+                </CustomModal>
               </TransportWrap>
 
               <ColorSelectWrap>
@@ -100,13 +115,7 @@ const DetailsProduct = () => {
               <SelectQuantityWrap>
                 <TitleInfor>Số Lượng</TitleInfor>
                 <QuantityWrap>
-                  <InputNumber
-                    maxValue='19632'
-                    value={quantity}
-                    onChangeInput={(val) => setQuantity(val)}
-                    styleContainer={{ width: '8rem', height: '3.2rem' }}
-                    haveOnBlur={true}
-                  />
+                  <InputNumber maxValue='19632' value={quantity} styleContainer={{ width: '8rem', height: '3.2rem' }} />
                   <LimitQuantityNumber>19632 sản phẩm có sẵn</LimitQuantityNumber>
                 </QuantityWrap>
               </SelectQuantityWrap>

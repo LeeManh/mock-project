@@ -23,6 +23,7 @@ const CartPage = () => {
       <Wrapper>
         <HeaderTabel>
           <CheckBox styleContainer={{ marginRight: '2rem' }} />
+
           <ProductTabel>Sản Phẩm</ProductTabel>
           <PriceTabel>Đơn Giá</PriceTabel>
           <QuantityTabel>Số Lượng</QuantityTabel>

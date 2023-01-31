@@ -1,7 +1,8 @@
 import { RightOutlined } from '@ant-design/icons'
-import Pagination from 'components/Pagination'
 import ProductCard from 'components/ProductCard'
 import Slide from 'components/Slide'
+import { Link, useNavigate } from 'react-router-dom'
+
 import colors from 'constants/colors'
 import { SeeAllLink } from 'globalStyle.styled'
 import { SwiperSlide } from 'swiper/react'
@@ -25,6 +26,8 @@ import {
   ListDiscoveryProduct,
   TopSearchCardImageWrap
 } from './Home.styled'
+import routePaths from 'constants/routePaths'
+import Button from 'components/Button'
 
 const bannerSlides = [
   'https://cf.shopee.vn/file/9031ab5deae3facba7bb137c836ccf50_xxhdpi',
@@ -35,6 +38,8 @@ const bannerSlides = [
 ]
 
 const Home = () => {
+  const navigate = useNavigate()
+
   return (
     <Container>
       <HomeWrap>
@@ -69,13 +74,31 @@ const Home = () => {
             <Title>DANH MỤC</Title>
           </HeaderSection>
 
-          <Slide slidesPerView={10} slidesPerGroup={10}>
+          <Slide
+            slidesPerView={2}
+            breakpoints={{
+              320: {
+                slidesPerView: 3
+              },
+              567: {
+                slidesPerView: 4
+              },
+              768: {
+                slidesPerView: 8
+              },
+              1024: {
+                slidesPerView: 10
+              }
+            }}
+          >
             {Array.from({ length: 12 }, (_, index) => (
               <SwiperSlide key={index}>
-                <CategoryItem>
-                  <img src='https://cf.shopee.vn/file/687f3967b7c2fe6a134a2c11894eea4b_tn' alt='Thời trang nam' />
-                  <span>Thời trang nam</span>
-                </CategoryItem>
+                <Link to={`${routePaths.categoryProduct}/1`}>
+                  <CategoryItem>
+                    <img src='https://cf.shopee.vn/file/687f3967b7c2fe6a134a2c11894eea4b_tn' alt='Thời trang nam' />
+                    <span>Thời trang nam</span>
+                  </CategoryItem>
+                </Link>
               </SwiperSlide>
             ))}
           </Slide>
@@ -86,24 +109,44 @@ const Home = () => {
             <Title bold={true} color={colors.orange}>
               Sản phẩm bán chạy
             </Title>
-            <SeeAllLink>
-              <span>Xem tất cả</span>
-              <RightOutlined />
-            </SeeAllLink>
+            <Link to={routePaths.topProducts}>
+              <SeeAllLink>
+                <span>Xem tất cả</span>
+                <RightOutlined />
+              </SeeAllLink>
+            </Link>
           </HeaderSection>
 
-          <Slide slidesPerView={6}>
+          <Slide
+            slidesPerView={2}
+            breakpoints={{
+              320: {
+                slidesPerView: 2
+              },
+              567: {
+                slidesPerView: 3
+              },
+              768: {
+                slidesPerView: 4
+              },
+              1024: {
+                slidesPerView: 6
+              }
+            }}
+          >
             {Array.from({ length: 10 }, (_, index) => (
               <SwiperSlide key={index}>
-                <TopSearchCard key={index}>
-                  <TopSearchCardImageWrap>
-                    <TopSearchCardImage src='https://cf.shopee.vn/file/dd8927f74c9d92fe678f57cb5b4bc000' alt='' />
-                    <IconTop />
-                    <TopSearchCardNumber>Bán 30k+ / tháng </TopSearchCardNumber>
-                  </TopSearchCardImageWrap>
+                <Link to={`${routePaths.detailsProduct}/1`}>
+                  <TopSearchCard key={index}>
+                    <TopSearchCardImageWrap>
+                      <TopSearchCardImage src='https://cf.shopee.vn/file/dd8927f74c9d92fe678f57cb5b4bc000' alt='' />
+                      <IconTop />
+                      <TopSearchCardNumber>Bán 30k+ / tháng </TopSearchCardNumber>
+                    </TopSearchCardImageWrap>
 
-                  <TopSearchCardTitle>Áo khoác nam</TopSearchCardTitle>
-                </TopSearchCard>
+                    <TopSearchCardTitle>Áo khoác nam</TopSearchCardTitle>
+                  </TopSearchCard>
+                </Link>
               </SwiperSlide>
             ))}
           </Slide>
@@ -117,12 +160,16 @@ const Home = () => {
           </HeaderSection>
 
           <ListDiscoveryProduct>
-            {Array.from({ length: 18 }, (_, index) => (
-              <ProductCard key={index}></ProductCard>
+            {Array.from({ length: 12 }, (_, index) => (
+              <ProductCard key={index} />
             ))}
           </ListDiscoveryProduct>
 
-          <Pagination hideOnSinglePage defaultCurrent={1} total={50} styleContainer={{ marginTop: '3rem' }} />
+          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
+            <Button style={{ maxWidth: '20rem', width: '100%' }} onClick={() => navigate(routePaths.allProducts)}>
+              Xem Thêm
+            </Button>
+          </div>
         </ListProductWrap>
       </HomeWrap>
     </Container>

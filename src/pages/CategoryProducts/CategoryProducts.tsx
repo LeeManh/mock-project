@@ -1,12 +1,12 @@
+import { SwiperSlide } from 'swiper/react'
 import Pagination from 'components/Pagination'
 import Slide from 'components/Slide'
-import { Wrapper } from 'globalStyle.styled'
-
-import { SwiperSlide } from 'swiper/react'
-import { Container, ContentWrap, ProductSection } from './CategoryProducts.styled'
 import ListProduct from './components/ListProduct'
 import SideFilter from './components/SideFilter'
 import SortFilter from './components/SortFilter'
+import usePagination from 'hooks/usePagination'
+import { Wrapper } from 'globalStyle.styled'
+import { Container, ContentWrap, ProductSection } from './CategoryProducts.styled'
 
 const bannerSlides = [
   'https://cf.shopee.vn/file/24f87e50d38a91df4753548878390b8b',
@@ -17,6 +17,8 @@ const bannerSlides = [
 ]
 
 const CategoryProducts = () => {
+  const { currentPage, onChangePage } = usePagination()
+
   return (
     <Container as={'main'}>
       <Wrapper>
@@ -45,7 +47,13 @@ const CategoryProducts = () => {
             <SortFilter />
 
             <ListProduct />
-            <Pagination hideOnSinglePage defaultCurrent={1} total={50} styleContainer={{ marginTop: '3rem' }} />
+            <Pagination
+              hideOnSinglePage
+              current={+currentPage}
+              onChange={(page) => onChangePage(page)}
+              total={50}
+              styleContainer={{ marginTop: '3rem' }}
+            />
           </ProductSection>
         </ContentWrap>
       </Wrapper>

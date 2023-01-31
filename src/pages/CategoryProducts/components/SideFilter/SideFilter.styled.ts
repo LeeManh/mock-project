@@ -1,11 +1,16 @@
 import styled, { css } from 'styled-components'
 import colors from 'constants/colors'
 import { Rate } from 'antd'
+import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.div`
   width: 19rem;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    display: none;
+  }
 `
 export const BorderBottom = css`
   border-bottom: 1px solid ${colors['gray-light-2']};
@@ -22,7 +27,7 @@ export const ItemFilter = styled.div`
   ${BorderBottom}
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: ${(props: { gap?: string }) => props.gap || '2rem'};
 `
 export const TitleFilter = styled.div``
 export const ContentPriceFilter = styled.div`
@@ -42,7 +47,7 @@ export const ItemRate = styled.div`
   align-items: center;
   gap: 1rem;
   padding: 0 1.2rem;
-  background-color: #ededed;
+  background-color: transparent;
   border-radius: 2rem;
   width: fit-content;
   font-size: 1.3rem;

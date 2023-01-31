@@ -1,7 +1,7 @@
 import React from 'react'
-import type { MenuProps } from 'antd'
-
 import { useNavigate } from 'react-router-dom'
+
+import type { MenuProps } from 'antd'
 import routePaths from 'constants/routePaths'
 import { MenuCustom } from './MenuSideBar.styled'
 
@@ -32,7 +32,7 @@ const items: MenuProps['items'] = [
   ),
 
   getItem(
-    'Đơn mua',
+    ' Đơn mua',
     `${routePaths.user}/${routePaths.userPurChase}`,
     <img src='https://cf.shopee.vn/file/f0049e9df4e536bc3e7f140d071e9078' alt='' style={{ width: '1.6rem' }} />
   )
@@ -44,7 +44,6 @@ const MenuSideBar = ({ ...rest }: Props) => {
   const navigate = useNavigate()
 
   const onClick: MenuProps['onClick'] = (e) => {
-    // console.log('click ', e)
     const path = e.keyPath.reverse().join('/')
 
     navigate(path)

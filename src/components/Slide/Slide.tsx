@@ -43,10 +43,10 @@ interface Props extends SwiperProps {
   children?: React.ReactNode
 }
 
-const Slide = ({ children, ...rest }: Props) => {
+const Slide = ({ children, navigation = true, ...rest }: Props) => {
   return (
     <Container>
-      <CustomSwiper navigation={true} modules={[Navigation, Pagination, Autoplay]} {...rest}>
+      <CustomSwiper navigation={navigation} modules={[Navigation, Pagination, Autoplay]} {...rest}>
         {children}
       </CustomSwiper>
     </Container>

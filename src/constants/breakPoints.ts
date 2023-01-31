@@ -1,4 +1,5 @@
 const breakPonits = {
+  xs: '380px',
   sm: '567px',
   md: '768px',
   lg: '1024px',

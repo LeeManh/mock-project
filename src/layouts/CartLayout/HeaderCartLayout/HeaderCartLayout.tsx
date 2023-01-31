@@ -6,14 +6,24 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ReactComponent as LogoShopee } from 'assets/svgs/logo-shopee.svg'
 import { Wrapper } from 'globalStyle.styled'
+import breakPonits from 'constants/breakPoints'
+import useSearchProduct from 'hooks/useSearchProduct'
 
 const NavbarHeaderBg = styled.header`
   background: linear-gradient(-180deg, #f53d2d, #f63);
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    display: none;
+  }
 `
 const MainHeader = styled.div`
   height: 8.5rem;
   background-color: ${colors.white};
   border-bottom: 1px solid ${colors['gray-light-2']};
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    display: none;
+  }
 `
 const HeaderMainWrap = styled(Wrapper)`
   display: flex;
@@ -29,6 +39,8 @@ const CartText = styled.div`
 `
 
 const HeaderCartLayout = () => {
+  const { keyword, onChange, onSearch } = useSearchProduct()
+
   return (
     <>
       <NavbarHeaderBg>
@@ -47,6 +59,9 @@ const HeaderCartLayout = () => {
             placeholder='Tìm sản phẩm, thương hiệu, và tên shop'
             typeInput='primary'
             styleContainer={{ width: '50rem' }}
+            value={keyword}
+            onChange={onChange}
+            onSearch={onSearch}
           />
         </HeaderMainWrap>
       </MainHeader>

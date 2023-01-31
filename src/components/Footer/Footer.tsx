@@ -46,16 +46,6 @@ const Footer = () => {
                 </li>
               ))}
             </FooterItemList>
-            <FooterItemTitle mt='3rem'>ĐƠN VỊ VẬN CHUYỂN</FooterItemTitle>
-            <FooterItemList type='imgList'>
-              {payments.map((item, index) => (
-                <li key={index}>
-                  <div className='img-wrap'>
-                    <img src={item.image} alt='' />
-                  </div>
-                </li>
-              ))}
-            </FooterItemList>
           </FooterItem>
 
           <FooterItem>

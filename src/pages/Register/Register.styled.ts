@@ -1,6 +1,6 @@
 import colors from 'constants/colors'
 import { Wrapper } from 'globalStyle.styled'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import images from 'assets/images'
 import breakPonits from 'constants/breakPoints'
 
@@ -55,7 +55,15 @@ export const ButtonLogin = styled.button`
   text-transform: uppercase;
   border: none;
   outline: none;
-  cursor: pointer;
+
+  ${({ disabled }: { disabled?: boolean }) =>
+    disabled
+      ? css`
+          cursor: not-allowed;
+        `
+      : css`
+          cursor: pointer;
+        `}
 `
 
 export const FormFooter = styled.div`

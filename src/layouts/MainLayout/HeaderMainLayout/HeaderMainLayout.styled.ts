@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 import { Wrapper } from 'globalStyle.styled'
 import { ReactComponent as CartIconSvg } from 'assets/svgs/cart-icon.svg'
+import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.header`
   background: linear-gradient(-180deg, #f53d2d, #f63);
@@ -10,6 +11,10 @@ export const Container = styled.header`
   left: 0;
   right: 0;
   z-index: 100;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    display: none;
+  }
 `
 export const HeaderMain = styled.div`
   height: 8.5rem;

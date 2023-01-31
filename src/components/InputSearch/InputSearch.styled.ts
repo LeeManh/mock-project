@@ -3,8 +3,9 @@ import styled, { css } from 'styled-components'
 import type { Props } from './InputSearch'
 import { ReactComponent as SearchIconSvg } from 'assets/svgs/search-icon.svg'
 import colors from 'constants/colors'
+import breakPonits from 'constants/breakPoints'
 
-export const Container = styled.form`
+export const Container = styled.div`
   display: flex;
   align-items: center;
   background-color: ${colors.white};
@@ -27,6 +28,10 @@ export const Container = styled.form`
         `
     }
   }}
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    height: 3.4rem;
+  }
 `
 
 export const Input = styled.input`
@@ -35,16 +40,23 @@ export const Input = styled.input`
   outline: none;
   height: 100%;
   padding: 0 1.5rem;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    padding: 0;
+  }
 `
 export const ButtonSearch = styled.button`
   border: none;
   outline: none;
   min-width: 6rem;
   max-width: 19rem;
-  height: 3.4rem;
+  height: calc(100% - 0.6rem);
   background-color: ${colors['orange-light']};
   border-radius: 2px;
   cursor: pointer;
+  display: grid;
+  place-items: center;
+  user-select: none;
 
   ${(props: { typeInput: Props['typeInput'] }) => {
     switch (props.typeInput) {
@@ -57,9 +69,21 @@ export const ButtonSearch = styled.button`
         `
     }
   }}
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    background-color: transparent;
+    order: -1;
+    min-width: min-content;
+    min-height: min-content;
+    padding: 0 1rem;
+  }
 `
 export const SearchIcon = styled(SearchIconSvg)`
   fill: white;
   width: 1.4rem;
   height: 1.4rem;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    fill: ${colors['gray-text']};
+  }
 `

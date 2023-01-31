@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { Dropdown } from 'antd'
 
 import { Wrapper } from 'globalStyle.styled'
 import { ReactComponent as BellIconSvg } from 'assets/svgs/bell-icon.svg'
@@ -24,7 +23,9 @@ export const LeftNavbar = styled.div`
 
 export const RightNavbar = styled.div`
   display: flex;
+  flex: 1;
   align-items: center;
+  justify-content: flex-end;
 `
 
 export const NavbarItem = styled.div`
@@ -32,7 +33,7 @@ export const NavbarItem = styled.div`
   align-items: center;
   gap: 5px;
   cursor: pointer;
-  border-left: 1px solid #ffffff38;
+  border-left: ${({ border }: { border?: boolean }) => (border ? '1px solid #ffffff38' : '1px solid transparent')};
   padding: 0 10px;
 
   &:first-child {
@@ -68,15 +69,13 @@ export const ArrowDownIcon = styled(ArrowDownIconSvg)`
 `
 
 export const AvartarWrap = styled(NavbarItem)``
-export const AvartarImage = styled.img`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  flex-shrink: 0;
-  object-fit: cover;
-`
+
 export const NameUser = styled.div`
   max-width: 5.3rem;
   overflow: hidden;
   text-overflow: ellipsis;
+`
+export const LoginAndRegisterWrap = styled.div`
+  display: flex;
+  align-items: center;
 `

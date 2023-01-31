@@ -1,25 +1,60 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
+import omit from 'lodash/omit'
 
+import type { ErrorResponse } from 'types/utils.type'
+import type { AuthSchema } from 'utils/rules'
 import InputText from 'components/InputText'
 import routePaths from 'constants/routePaths'
-import { ButtonLogin, Container, Form, FormContent, TitleForm, Wrap, FormFooter, RulesWrap } from './Register.styled'
+import authApis from 'apis/auth.api'
 import { authShema } from 'utils/rules'
-import type { AuthSchema } from 'utils/rules'
+import { isAxiosUnprocessableEntityError, objectKeys } from 'utils/utils'
+import { Container, Form, FormContent, TitleForm, Wrap, FormFooter, RulesWrap } from './Register.styled'
+import { useAppDispatch } from 'hooks/useApp'
+import { loginOrRegisterSuccess } from 'features/auth/authSlice'
+import Button from 'components/Button'
 
 type FormInputs = Pick<AuthSchema, 'email' | 'password' | 'confirm_password'>
 
 const Register = () => {
+  const dispatch = useAppDispatch()
+
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors }
   } = useForm<FormInputs>({
     resolver: yupResolver(authShema)
   })
 
-  const onSubmit = (data: FormInputs) => console.log(data)
+  const registerMutation = useMutation({
+    onSuccess: (data) => {
+      const { user } = data.data.data
+      dispatch(loginOrRegisterSuccess(user))
+    },
+    onError(error) {
+      // check error status = 422
+      if (isAxiosUnprocessableEntityError<ErrorResponse<Omit<FormInputs, 'confirm_password'>>>(error)) {
+        const dataError = error.response?.data.data
+
+        if (dataError) {
+          objectKeys(dataError).forEach((key) => {
+            setError(key, { message: dataError[key], type: 'Server' })
+          })
+        }
+      }
+    },
+    mutationFn: (body: Omit<FormInputs, 'confirm_password'>) => authApis.registerAccount(body)
+  })
+
+  const onSubmit = (data: FormInputs) => {
+    const body = omit(data, 'confirm_password')
+
+    registerMutation.mutate(body)
+  }
 
   return (
     <Container>
@@ -50,8 +85,14 @@ const Register = () => {
               isHaveEyeIcon={true}
               errorMessage={errors.confirm_password?.message}
             />
-
-            <ButtonLogin>Đăng ký</ButtonLogin>
+            <Button
+              typeBtn='primary'
+              isLoading={registerMutation.isLoading}
+              disabled={registerMutation.isLoading}
+              style={{ height: '4rem', textTransform: 'uppercase', gap: '1rem' }}
+            >
+              Đăng ký
+            </Button>
 
             <RulesWrap>
               <div>Bằng việc đăng kí, bạn đã đồng ý với Shopee về</div>

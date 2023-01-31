@@ -12,9 +12,10 @@ import { ReactComponent as FreeShipIcon } from 'assets/svgs/free-ship.svg'
 
 interface Props {
   type: 'free' | 'charge'
+  setOpenModalAddress: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const TransportInfor = ({ type }: Props) => {
+const TransportInfor = ({ type, setOpenModalAddress }: Props) => {
   return (
     <>
       {type === 'free' && (
@@ -39,7 +40,7 @@ const TransportInfor = ({ type }: Props) => {
         <TransportInforLeftWrap>
           <TransportInforLeftItemWrap>
             <div>Vận Chuyển Tới</div>
-            <AddressWrap>
+            <AddressWrap onClick={() => setOpenModalAddress(true)}>
               <span style={{ marginRight: '5px' }}>Phường Mộ Lao, Quận Hà Đông</span>
               <FontAwesomeIcon icon={faChevronDown} />
             </AddressWrap>
@@ -48,8 +49,7 @@ const TransportInfor = ({ type }: Props) => {
             <TransportInforLeftItemWrap>
               <div>Phí vận chuyển</div>
               <PriceTransportWrap>
-                <span style={{ marginRight: '5px' }}>₫28.700</span>
-                <FontAwesomeIcon icon={faChevronDown} />
+                <span>₫28.700</span>
               </PriceTransportWrap>
             </TransportInforLeftItemWrap>
           )}

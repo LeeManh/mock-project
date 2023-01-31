@@ -60,12 +60,7 @@ const ItemProductCart = () => {
         </div>
       </PriceTabel>
       <QuantityTabel>
-        <InputNumber
-          haveOnBlur
-          styleContainer={{ maxWidth: '8rem', display: 'inline-block' }}
-          maxValue='1997'
-          value='1'
-        />
+        <InputNumber styleContainer={{ maxWidth: '8rem', display: 'inline-block' }} maxValue='1997' value='1' />
       </QuantityTabel>
       <TotalTabel>₫360.000</TotalTabel>
       <ActionsTabel>

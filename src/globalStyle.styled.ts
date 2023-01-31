@@ -122,3 +122,10 @@ export const PriceBefore = styled.div`
     font-size: 1.4rem;
   }
 `
+export const ErrorMessage = styled.div`
+  color: ${colors.orange};
+  font-size: 1.3rem;
+  min-height: 1.5rem;
+  margin-top: 0.5rem;
+  user-select: none;
+`

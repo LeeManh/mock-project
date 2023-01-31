@@ -27,7 +27,7 @@ export const ItemFilter = styled.div`
   ${BorderBottom}
   display: flex;
   flex-direction: column;
-  gap: ${(props: { gap?: string }) => props.gap || '2rem'};
+  gap: 2rem;
 `
 export const TitleFilter = styled.div``
 export const ContentPriceFilter = styled.div`

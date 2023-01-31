@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom'
 import { Dropdown, MenuProps } from 'antd'
 import styled from 'styled-components'
-import { ReactComponent as LogoShopee } from 'assets/svgs/logo-shopee.svg'
-import NavbarHeader from 'components/NavbarHeader'
+
 import colors from 'constants/colors'
+import NavbarHeader from 'components/NavbarHeader'
 import routePaths from 'constants/routePaths'
 import InputSearch from 'components/InputSearch'
-
-import { CartIcon, Container, HeaderMain, HeaderMainWrap, ShoppingCartIconWrap } from './HeaderMainLayout.styled'
 import images from 'assets/images'
+import { ReactComponent as LogoShopee } from 'assets/svgs/logo-shopee.svg'
+import { CartIcon, Container, HeaderMain, HeaderMainWrap, ShoppingCartIconWrap } from './HeaderMainLayout.styled'
+import useSearchProduct from 'hooks/useSearchProduct'
 
 const ContainerCartEmpty = styled.div`
   min-height: 26rem;
@@ -41,6 +42,8 @@ const cartMenuEmpty: MenuProps['items'] = [
 ]
 
 const HeaderMainLayout = () => {
+  const { keyword, onChange, onSearch } = useSearchProduct()
+
   return (
     <Container>
       <NavbarHeader />
@@ -50,7 +53,12 @@ const HeaderMainLayout = () => {
             <LogoShopee fill={colors.white} style={{ cursor: 'pointer', height: '5rem' }} />
           </Link>
 
-          <InputSearch placeholder='Tìm sản phẩm, thương hiệu, và tên shop' />
+          <InputSearch
+            placeholder='Tìm sản phẩm, thương hiệu, và tên shop'
+            value={keyword}
+            onChange={onChange}
+            onSearch={onSearch}
+          />
 
           <ShoppingCartIconWrap>
             <Dropdown

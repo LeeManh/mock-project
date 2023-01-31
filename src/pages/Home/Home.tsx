@@ -1,8 +1,7 @@
 import { RightOutlined } from '@ant-design/icons'
-import Pagination from 'components/Pagination'
 import ProductCard from 'components/ProductCard'
 import Slide from 'components/Slide'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import colors from 'constants/colors'
 import { SeeAllLink } from 'globalStyle.styled'
@@ -28,6 +27,7 @@ import {
   TopSearchCardImageWrap
 } from './Home.styled'
 import routePaths from 'constants/routePaths'
+import Button from 'components/Button'
 
 const bannerSlides = [
   'https://cf.shopee.vn/file/9031ab5deae3facba7bb137c836ccf50_xxhdpi',
@@ -38,6 +38,8 @@ const bannerSlides = [
 ]
 
 const Home = () => {
+  const navigate = useNavigate()
+
   return (
     <Container>
       <HomeWrap>
@@ -163,7 +165,11 @@ const Home = () => {
             ))}
           </ListDiscoveryProduct>
 
-          <Pagination hideOnSinglePage defaultCurrent={1} total={50} styleContainer={{ marginTop: '3rem' }} />
+          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
+            <Button style={{ maxWidth: '20rem', width: '100%' }} onClick={() => navigate(routePaths.allProducts)}>
+              Xem Thêm
+            </Button>
+          </div>
         </ListProductWrap>
       </HomeWrap>
     </Container>

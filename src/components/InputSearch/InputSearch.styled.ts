@@ -5,7 +5,7 @@ import { ReactComponent as SearchIconSvg } from 'assets/svgs/search-icon.svg'
 import colors from 'constants/colors'
 import breakPonits from 'constants/breakPoints'
 
-export const Container = styled.form`
+export const Container = styled.div`
   display: flex;
   align-items: center;
   background-color: ${colors.white};

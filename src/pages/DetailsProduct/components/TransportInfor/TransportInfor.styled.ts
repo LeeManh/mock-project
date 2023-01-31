@@ -19,9 +19,7 @@ export const TransportInforLeftItemWrap = styled.div`
 export const AddressWrap = styled.div`
   cursor: pointer;
 `
-export const PriceTransportWrap = styled.div`
-  cursor: pointer;
-`
+export const PriceTransportWrap = styled.div``
 export const IconTruckWrap = styled.div`
   min-width: 2rem;
   max-width: 2rem;

@@ -1,3 +1,4 @@
+import Button from 'components/Button'
 import routePaths from 'constants/routePaths'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -46,15 +47,13 @@ const NotFound = () => {
         <p>Boo, looks like a ghost stole this page!</p>
 
         <div className='btn-group'>
-          <button className='btn'>
-            <Link to={routePaths.home}>
-              <div>Home</div>
-            </Link>
-          </button>
+          <Button typeBtn='primary' style={{ minWidth: '8rem' }} onClick={() => navigate(routePaths.home)}>
+            Home
+          </Button>
 
-          <button className='btn' onClick={() => navigate(-1)}>
-            <div>Back</div>
-          </button>
+          <Button typeBtn='default' style={{ minWidth: '8rem' }} onClick={() => navigate(-1)}>
+            Back
+          </Button>
         </div>
       </Bottom>
     </Container>

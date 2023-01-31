@@ -18,6 +18,9 @@ import UserPurchase from 'pages/User/UserPurchase'
 import TopProducts from 'pages/TopProducts'
 import { useAppSelector } from './useApp'
 import NotFound from 'pages/NotFound'
+import SimilarProductsPage from 'pages/SimilarProductsPage'
+import AllProductsPage from 'pages/AllProductsPage'
+import ResultSearchProductsPage from 'pages/ResultSearchProductsPage'
 
 const ProtectedRoute = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
@@ -49,6 +52,30 @@ const useRouteElement = () => {
       )
     },
     {
+      path: routePaths.allProducts,
+      element: (
+        <MainLayout>
+          <AllProductsPage />
+        </MainLayout>
+      )
+    },
+    {
+      path: routePaths.similarProducts,
+      element: (
+        <MainLayout>
+          <SimilarProductsPage />
+        </MainLayout>
+      )
+    },
+    {
+      path: routePaths.searchProduct,
+      element: (
+        <MainLayout>
+          <ResultSearchProductsPage />
+        </MainLayout>
+      )
+    },
+    {
       path: `${routePaths.detailsProduct}/:idProduct`,
       element: (
         <MainLayout>
@@ -65,7 +92,7 @@ const useRouteElement = () => {
       )
     },
     {
-      path: routePaths.cart,
+      path: '/cart',
       element: <ProtectedRoute />,
       children: [
         {

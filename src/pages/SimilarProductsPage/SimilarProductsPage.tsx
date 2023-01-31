@@ -1,3 +1,4 @@
+import Pagination from 'components/Pagination'
 import ProductCard from 'components/ProductCard'
 import breakPonits from 'constants/breakPoints'
 import colors from 'constants/colors'
@@ -7,12 +8,31 @@ import styled from 'styled-components'
 const Container = styled(ContainerGlobal)`
   padding-top: 2rem;
 `
-const Title = styled.div`
+const TitleWrap = styled.div`
+  text-align: center;
+  position: relative;
+`
+const Title = styled.h1`
   text-align: center;
   font-size: 2rem;
-  color: ${colors['gray-text']};
+  font-weight: 400;
+  color: ${colors.white};
+  background-color: ${colors.orange};
+  text-transform: capitalize;
+  display: inline-block;
+  padding: 1.8rem 2rem;
+  border-radius: 1rem;
 `
-const ListTopProducts = styled.div`
+const LineThrough = styled.hr`
+  position: absolute;
+  width: 100%;
+  border-top: 1px dotted rgba(0, 0, 0, 0.26);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
+`
+
+const ListProducts = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
@@ -32,21 +52,25 @@ const ListTopProducts = styled.div`
   }
 `
 
-const TopProducts = () => {
+const SimilarProductsPage = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>Sản phẩm bán chạy</Title>
-        <ListTopProducts>
-          {Array(12)
+        <TitleWrap>
+          <Title>Sản phẩm tương tự</Title>
+          <LineThrough />
+        </TitleWrap>
+        <ListProducts>
+          {Array(18)
             .fill(null)
             .map((_, index) => (
               <ProductCard key={index} />
             ))}
-        </ListTopProducts>
+        </ListProducts>
+        <Pagination hideOnSinglePage defaultCurrent={1} total={50} styleContainer={{ marginTop: '3rem' }} />
       </Wrapper>
     </Container>
   )
 }
 
-export default TopProducts
+export default SimilarProductsPage

@@ -175,22 +175,8 @@ export const Bottom = styled.div`
   }
   .btn-group {
     margin-top: 15px;
-  }
-  .btn {
-    cursor: pointer;
-    outline: none;
-    padding: 12px 30px;
-    margin: 0 5px;
-    border: 1px solid var(--gray-line);
-    background-color: var(--white);
-    transition: 0.3s ease-in-out;
-    text-decoration: none;
-    color: #585959;
-    text-transform: uppercase;
-    font-size: 10px;
-    font-weight: 300;
-  }
-  .btn:hover {
-    background-color: var(--gray-line);
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
   }
 `

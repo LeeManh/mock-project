@@ -15,7 +15,7 @@ class Http {
     this.access_token = getAccessTokenLS()
 
     this.instance = axios.create({
-      baseURL: 'https://api-ecom.duthanhduoc.com/',
+      baseURL: 'http://172.16.20.91:82/api/',
       timeout: 10000,
       headers: {
         'Content-type': 'application/json'
@@ -25,7 +25,7 @@ class Http {
     this.instance.interceptors.request.use(
       (config) => {
         if (this.access_token) {
-          config.headers.Authorization = `${this.access_token}`
+          config.headers.Authorization = `Bearer ${this.access_token}`
         }
 
         return config

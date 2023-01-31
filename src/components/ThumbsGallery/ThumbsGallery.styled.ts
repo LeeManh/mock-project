@@ -15,7 +15,6 @@ export const ThumbMainImage = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 2px;
-  cursor: pointer;
 `
 export const ThumbnailsWrap = styled.div`
   display: grid;

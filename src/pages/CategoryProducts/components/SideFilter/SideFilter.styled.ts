@@ -23,8 +23,8 @@ export const Title = styled.div`
   font-size: 1.5rem;
 `
 export const ItemFilter = styled.div`
-  padding: 3rem 0;
   ${BorderBottom}
+  padding: 3rem 0;
   display: flex;
   flex-direction: column;
   gap: ${(props: { gap?: string }) => props.gap || '2rem'};

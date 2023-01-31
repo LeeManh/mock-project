@@ -2,7 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useNavigate, useLocation, createSearchParams } from 'react-router-dom'
 
+import type { FilterSchema } from 'utils/rules'
+import Button from 'components/Button'
+import { filterSchema } from 'utils/rules'
+import InputNumber from 'components/InputNumber'
+import useFilterPrice from 'hooks/useFilterPrice'
+import { ErrorMessage } from 'globalStyle.styled'
 import {
   Container,
   ContentPriceFilter,
@@ -14,21 +21,16 @@ import {
   Title,
   TitleFilter
 } from './SideFilter.styled'
-import Button from 'components/Button'
-import type { FilterSchema } from 'utils/rules'
-import { filterSchema } from 'utils/rules'
-import InputNumber from 'components/InputNumber'
-import { ErrorMessage } from 'globalStyle.styled'
-import useFilterPrice from 'hooks/useFilterPrice'
+import useQueryConfig from 'hooks/useQueryConfig'
 
 const priceSchema = filterSchema.pick(['price_max', 'price_min'])
 type PriceFilter = Pick<FilterSchema, 'price_max' | 'price_min'>
 
 const SideFilter = () => {
   const {
-    handleSubmit,
+    handleSubmit: handleSubmitFilterPrice,
     control,
-    formState: { errors },
+    formState: { errors: errorsFilterPrice },
     trigger
   } = useForm<PriceFilter>({
     resolver: yupResolver(priceSchema),
@@ -37,10 +39,13 @@ const SideFilter = () => {
       price_max: ''
     }
   })
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const queryConfig = useQueryConfig()
 
-  const error = errors.price_max?.message || errors.price_min?.message
+  const error = errorsFilterPrice.price_max?.message || errorsFilterPrice.price_min?.message
 
-  const { onSubmit } = useFilterPrice()
+  const { onSubmit: onSubmitFilterPrice } = useFilterPrice()
 
   return (
     <Container>
@@ -48,7 +53,7 @@ const SideFilter = () => {
         <FontAwesomeIcon icon={faFilter} />
         BỘ LỌC TÌM KIẾM
       </Title>
-      <ItemFilter as={'form'} onSubmit={handleSubmit(onSubmit)} gap='1rem'>
+      <ItemFilter as={'form'} onSubmit={handleSubmitFilterPrice(onSubmitFilterPrice)} gap='1rem'>
         <TitleFilter>Khoảng Giá</TitleFilter>
         <ContentPriceFilter>
           <Controller
@@ -96,24 +101,42 @@ const SideFilter = () => {
         </Button>
       </ItemFilter>
 
-      <ItemFilter>
-        <TitleFilter>Đánh Giá</TitleFilter>
-        <ListRate>
-          {Array(5)
-            .fill(null)
-            .map((_, index) => (
-              <ItemRate key={index}>
-                <RateCustom disabled defaultValue={5 - index} />
+      <form>
+        <ItemFilter>
+          <TitleFilter>Đánh Giá</TitleFilter>
+          <ListRate>
+            {Array.from({ length: 5 }, (_, k) => k + 1)
+              .reverse()
+              .map((val) => (
+                <ItemRate
+                  key={val}
+                  onClick={() =>
+                    navigate({
+                      pathname,
+                      search: createSearchParams({
+                        ...(queryConfig as Record<string, string>),
+                        rating_filter: String(val),
+                        page: '1'
+                      }).toString()
+                    })
+                  }
+                >
+                  <RateCustom disabled defaultValue={val} />
 
-                {index !== 0 && 'trở lên'}
-              </ItemRate>
-            ))}
-        </ListRate>
-      </ItemFilter>
+                  {val !== 5 && 'trở lên'}
+                </ItemRate>
+              ))}
+          </ListRate>
+        </ItemFilter>
 
-      <Button typeBtn='primary' style={{ textTransform: 'uppercase' }}>
-        Xóa tất cả
-      </Button>
+        <Button
+          type='submit'
+          typeBtn='primary'
+          style={{ textTransform: 'uppercase', width: '100%', marginTop: '2rem' }}
+        >
+          Xóa tất cả
+        </Button>
+      </form>
     </Container>
   )
 }

@@ -4,7 +4,7 @@ import { Rate } from 'antd'
 import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.div`
-  width: 19rem;
+  width: 25rem;
   display: flex;
   flex-direction: column;
 
@@ -47,7 +47,7 @@ export const ItemRate = styled.div`
   align-items: center;
   gap: 1rem;
   padding: 0 1.2rem;
-  background-color: transparent;
+  background-color: ${({ active }: { active?: boolean }) => (active ? `${colors['gray-light-3']}` : 'transparent')};
   border-radius: 2rem;
   width: fit-content;
   font-size: 1.3rem;
@@ -62,7 +62,7 @@ export const ItemRate = styled.div`
 `
 export const RateCustom = styled(Rate)`
   font-size: 1.4rem;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   color: ${colors.yellow};
 
   :where(.css-dev-only-do-not-override-sk7ap8).ant-rate .ant-rate-star:not(:last-child) {

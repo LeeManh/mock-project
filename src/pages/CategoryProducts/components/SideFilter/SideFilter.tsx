@@ -42,6 +42,13 @@ const SideFilter = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const queryConfig = useQueryConfig()
+  const currentFilterRating = queryConfig.rating_filter || null
+  const isActiceRatingItem = (val: number) => {
+    if (currentFilterRating && +currentFilterRating === val) {
+      return true
+    }
+    return false
+  }
 
   const error = errorsFilterPrice.price_max?.message || errorsFilterPrice.price_min?.message
 
@@ -68,7 +75,7 @@ const SideFilter = () => {
                     trigger('price_max')
                   }}
                   placeholder='₫ TỪ'
-                  style={{ textAlign: 'left' }}
+                  style={{ textAlign: 'left', fontSize: '1.2rem' }}
                 />
               )
             }}
@@ -88,7 +95,7 @@ const SideFilter = () => {
                     trigger('price_min')
                   }}
                   placeholder='₫ TỪ'
-                  style={{ textAlign: 'left' }}
+                  style={{ textAlign: 'left', fontSize: '1.2rem' }}
                 />
               )
             }}
@@ -109,6 +116,7 @@ const SideFilter = () => {
               .reverse()
               .map((val) => (
                 <ItemRate
+                  active={isActiceRatingItem(val)}
                   key={val}
                   onClick={() =>
                     navigate({
@@ -133,6 +141,9 @@ const SideFilter = () => {
           type='submit'
           typeBtn='primary'
           style={{ textTransform: 'uppercase', width: '100%', marginTop: '2rem' }}
+          onClick={() => {
+            navigate(pathname)
+          }}
         >
           Xóa tất cả
         </Button>

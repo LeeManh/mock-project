@@ -19,6 +19,7 @@ const AllProductsPage = () => {
   })
   const listProducts = dataListProducts?.data.data.data
   const total = dataListProducts?.data.data.total || 1
+  const pageSize = dataListProducts?.data.data.per_page
 
   return (
     <Container>
@@ -32,6 +33,7 @@ const AllProductsPage = () => {
         </ListProducts>
         <Pagination
           hideOnSinglePage
+          pageSize={pageSize}
           current={+currentPage}
           onChange={(page) => onChangePage(page)}
           total={total}

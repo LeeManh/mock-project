@@ -1,6 +1,6 @@
 const apiConfigs = {
-  baseUrl: 'http://172.16.20.91:82/api/',
-  imageUrl: 'http://172.16.20.91:82'
+  baseUrl: 'http://binh.fresher.ameladev.click/api/',
+  imageUrl: 'http://binh.fresher.ameladev.click'
 } as const
 
 export default apiConfigs

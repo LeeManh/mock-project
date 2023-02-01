@@ -15,7 +15,7 @@ import {
 } from './ProductCard.styled'
 import routePaths from 'constants/routePaths'
 import type { Product } from 'types/product.type'
-import { formatCurrency, getPriceAfterSale, formatNumberToSocialStyle } from 'utils/utils'
+import { formatCurrency, getPriceAfterSale, formatNumberToSocialStyle, getImageUrl } from 'utils/utils'
 interface Props {
   type?: 'default' | 'details'
   product?: Product
@@ -34,7 +34,7 @@ const ProductCard = ({ type = 'default', product }: Props) => {
     <Link to={`${routePaths.detailsProduct}/${product.id}`}>
       <Container>
         <ImageProductWrap>
-          <ImageProduct src='https://cf.shopee.vn/file/3f7fbc266959a8c2bb4c056073555957_tn' alt='' />
+          <ImageProduct src={getImageUrl(product.image)} alt='' />
           {isHaveSale && (
             <SalesTag>
               <SalesPercentTag>{product.percent_sale}%</SalesPercentTag>
@@ -61,7 +61,7 @@ const ProductCard = ({ type = 'default', product }: Props) => {
 
           {!!product.isFreeShip && <FreeShipIcon />}
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: 'auto' }}>
             <Rate disabled defaultValue={product.rating} gap='1px' style={{ fontSize: '1.2rem' }} />
             <NumberSold>Đã bán {formatNumberToSocialStyle(product.numberSell)}</NumberSold>
           </div>

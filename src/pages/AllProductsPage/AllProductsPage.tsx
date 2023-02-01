@@ -3,9 +3,22 @@ import Pagination from 'components/Pagination'
 import ProductCard from 'components/ProductCard'
 import usePagination from 'hooks/usePagination'
 import { Container, LineThrough, ListProducts, Title, TitleWrap } from './AllProductsPage.styled'
+import { useQuery } from '@tanstack/react-query'
+import productApis from 'apis/product.api'
+import useQueryConfig from 'hooks/useQueryConfig'
 
 const AllProductsPage = () => {
   const { currentPage, onChangePage } = usePagination()
+  const queryConfig = useQueryConfig()
+
+  const { data: dataListProducts } = useQuery({
+    queryKey: ['list-products', queryConfig],
+    queryFn: () => productApis.fetchListProduct(queryConfig),
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000
+  })
+  const listProducts = dataListProducts?.data.data.data
+  const total = dataListProducts?.data.data.total || 1
 
   return (
     <Container>
@@ -15,17 +28,13 @@ const AllProductsPage = () => {
           <LineThrough />
         </TitleWrap>
         <ListProducts>
-          {Array(18)
-            .fill(null)
-            .map((_, index) => (
-              <ProductCard key={index} />
-            ))}
+          {listProducts && listProducts.map((product) => <ProductCard key={product.id} product={product} />)}
         </ListProducts>
         <Pagination
           hideOnSinglePage
           current={+currentPage}
           onChange={(page) => onChangePage(page)}
-          total={50}
+          total={total}
           styleContainer={{ marginTop: '3rem' }}
         />
       </Wrapper>

@@ -63,7 +63,7 @@ const Home = () => {
 
   const { data: dataListProducts } = useQuery({
     queryKey: ['list-products', queryConfig],
-    queryFn: () => productApis.fetchListProduct(queryConfig),
+    queryFn: () => productApis.fetchListProduct(),
     keepPreviousData: true,
     staleTime: 5 * 60 * 1000
   })
@@ -124,7 +124,7 @@ const Home = () => {
             {listCategory &&
               listCategory.map((category) => (
                 <SwiperSlide key={category.id}>
-                  <Link to={`${routePaths.categoryProduct}/1`}>
+                  <Link to={`${routePaths.categoryProduct}/${category.id}`}>
                     <CategoryItem>
                       <img src={getImageUrl(category.image)} alt={category.name} />
                       <span>{category.name}</span>
@@ -150,6 +150,7 @@ const Home = () => {
 
           <Slide
             slidesPerView={2}
+            spaceBetween={10}
             breakpoints={{
               320: {
                 slidesPerView: 2

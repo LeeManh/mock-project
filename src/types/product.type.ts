@@ -18,13 +18,6 @@ export interface Category {
   image: string
 }
 
-export interface TopProduct {
-  id: number
-  name: string
-  image: string
-  numberSell: number
-}
-
 export interface Banner {
   id: number
   image: string

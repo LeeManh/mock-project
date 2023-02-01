@@ -1,3 +1,4 @@
+import apiConfigs from 'constants/apiConfigs'
 import axios from 'axios'
 import type { AxiosError } from 'axios'
 
@@ -27,4 +28,12 @@ export function isAxiosError<T>(error: unknown): error is AxiosError<T> {
 
 export function isAxiosUnprocessableEntityError<T>(error: unknown): error is AxiosError<T> {
   return isAxiosError(error) && error.response?.status === HttpStatusCode.UnprocessableEntity
+}
+
+export function getImageUrl(url: string) {
+  return apiConfigs.imageUrl + url
+}
+
+export function getPriceAfterSale(price: number, percentSale: number) {
+  return price - (percentSale / 100) * price
 }

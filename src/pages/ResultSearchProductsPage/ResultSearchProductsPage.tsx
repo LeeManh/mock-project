@@ -1,20 +1,30 @@
 import { InfoCircleOutlined } from '@ant-design/icons'
+import { useQuery } from '@tanstack/react-query'
 
 import Pagination from 'components/Pagination'
 import ListProduct from './components/ListProduct'
 import SideFilter from './components/SideFilter'
 import SortFilter from './components/SortFilter'
+import usePagination from 'hooks/usePagination'
+import useQueryConfig from 'hooks/useQueryConfig'
 import { Wrapper } from 'globalStyle.styled'
 import { Container, ContentWrap, ProductSection, TitleSearchProduct } from './ResultSearchProductsPage.styled'
-import useQueryParams from 'hooks/useQueryParams'
-import usePagination from 'hooks/usePagination'
+import productApis from 'apis/product.api'
 
 const ResultSearchProductsPage = () => {
-  const queryParams = useQueryParams()
+  const queryConfig = useQueryConfig()
 
-  const keyword = queryParams?.keyword
+  const keyword = queryConfig?.keyword
 
   const { currentPage, onChangePage } = usePagination()
+
+  const { data: dataListProducts } = useQuery({
+    queryKey: ['list-products', queryConfig],
+    queryFn: () => productApis.fetchListProduct(queryConfig),
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000
+  })
+  const listProducts = dataListProducts?.data.data.data
 
   return (
     <Container as={'main'}>
@@ -32,8 +42,8 @@ const ResultSearchProductsPage = () => {
             </TitleSearchProduct>
 
             <SortFilter />
+            {listProducts && <ListProduct listProducts={listProducts} />}
 
-            <ListProduct />
             <Pagination
               hideOnSinglePage
               current={+currentPage}

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import Rate from 'components/Rate'
 import { PriceAfterSale, PriceBefore } from 'globalStyle.styled'
 import {
@@ -11,45 +13,57 @@ import {
   SalesTag,
   TitleProduct
 } from './ProductCard.styled'
-import { Link } from 'react-router-dom'
 import routePaths from 'constants/routePaths'
+import type { Product } from 'types/product.type'
+import { formatCurrency, getPriceAfterSale, formatNumberToSocialStyle } from 'utils/utils'
 interface Props {
   type?: 'default' | 'details'
+  product?: Product
 }
 
-const ProductCard = ({ type = 'default' }: Props) => {
+const ProductCard = ({ type = 'default', product }: Props) => {
+  if (!product) return null
+
+  const isHaveSale = Boolean(product.is_sale)
+  const priceAfterSale = formatCurrency(
+    isHaveSale ? getPriceAfterSale(product.price, product.percent_sale) : product.price
+  )
+  const priceBeforeSale = isHaveSale && formatCurrency(product.price)
+
   return (
-    <Link to={`${routePaths.detailsProduct}/1`}>
+    <Link to={`${routePaths.detailsProduct}/${product.id}`}>
       <Container>
         <ImageProductWrap>
           <ImageProduct src='https://cf.shopee.vn/file/3f7fbc266959a8c2bb4c056073555957_tn' alt='' />
-          <SalesTag>
-            <SalesPercentTag>20%</SalesPercentTag>
-            <span>Giảm</span>
-          </SalesTag>
+          {isHaveSale && (
+            <SalesTag>
+              <SalesPercentTag>{product.percent_sale}%</SalesPercentTag>
+              <span>Giảm</span>
+            </SalesTag>
+          )}
         </ImageProductWrap>
         <Content>
-          <TitleProduct>
-            [Giá hủy diệt] Áo khoác nam mùa đông lót lông cừu, vải nhung tăm [Giá hủy diệt] Áo khoác nam mùa đông lót
-            lông cừu, vải nhung tăm
-          </TitleProduct>
+          <TitleProduct>{product.name}</TitleProduct>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <PriceBefore>
-              <span className='currency'>₫</span>
-              <span className='price'>360.000</span>
-            </PriceBefore>
+            {isHaveSale && (
+              <PriceBefore>
+                <span className='currency'>₫</span>
+                <span className='price'>{priceBeforeSale}</span>
+              </PriceBefore>
+            )}
+
             <PriceAfterSale>
               <span className='currency'>₫</span>
-              <span className='price'>360.000</span>
+              <span className='price'>{priceAfterSale}</span>
             </PriceAfterSale>
           </div>
 
-          <FreeShipIcon />
+          {!!product.isFreeShip && <FreeShipIcon />}
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <Rate disabled defaultValue={4} gap='1px' style={{ fontSize: '1.2rem' }} />
-            <NumberSold>Đã bán 5,1k</NumberSold>
+            <Rate disabled defaultValue={product.rating} gap='1px' style={{ fontSize: '1.2rem' }} />
+            <NumberSold>Đã bán {formatNumberToSocialStyle(product.numberSell)}</NumberSold>
           </div>
         </Content>
       </Container>

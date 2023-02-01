@@ -2,6 +2,7 @@ import { RightOutlined } from '@ant-design/icons'
 import ProductCard from 'components/ProductCard'
 import Slide from 'components/Slide'
 import { Link, useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 
 import colors from 'constants/colors'
 import { SeeAllLink } from 'globalStyle.styled'
@@ -28,17 +29,45 @@ import {
 } from './Home.styled'
 import routePaths from 'constants/routePaths'
 import Button from 'components/Button'
-
-const bannerSlides = [
-  'https://cf.shopee.vn/file/9031ab5deae3facba7bb137c836ccf50_xxhdpi',
-  'https://cf.shopee.vn/file/1b910a37375d247916e134dd355e999b_xxhdpi',
-  'https://cf.shopee.vn/file/b09eeca58f62162731919abd9b63fa6e_xxhdpi',
-  'https://cf.shopee.vn/file/5cc11712240720cef64eea6a0ebb4f34_xxhdpi',
-  'https://cf.shopee.vn/file/b32705afea6ba1230cb860c660dc3cf6_xxhdpi'
-]
+import useQueryConfig from 'hooks/useQueryConfig'
+import productApis from 'apis/product.api'
+import { getImageUrl, formatNumberToSocialStyle } from 'utils/utils'
 
 const Home = () => {
   const navigate = useNavigate()
+  const queryConfig = useQueryConfig()
+
+  const { data: dataListCategory } = useQuery({
+    queryKey: ['list-category', queryConfig],
+    queryFn: () => productApis.fetchListCategory(),
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000
+  })
+  const listCategory = dataListCategory?.data.data
+
+  const { data: dataListBanner } = useQuery({
+    queryKey: ['list-banner'],
+    queryFn: () => productApis.fetchListBanner(),
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000
+  })
+  const listBanner = dataListBanner?.data.data
+
+  const { data: dataListTopSellProduct } = useQuery({
+    queryKey: ['list-top-sell-products'],
+    queryFn: () => productApis.fetchListTopSellProducts(),
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000
+  })
+  const listTopSellProduct = dataListTopSellProduct?.data.data
+
+  const { data: dataListProducts } = useQuery({
+    queryKey: ['list-products', queryConfig],
+    queryFn: () => productApis.fetchListProduct(queryConfig),
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000
+  })
+  const listProducts = dataListProducts?.data.data.data
 
   return (
     <Container>
@@ -56,11 +85,12 @@ const Home = () => {
                 disableOnInteraction: false
               }}
             >
-              {bannerSlides.map((img, index) => (
-                <SwiperSlide key={index}>
-                  <img src={img} alt='banner' style={{ cursor: 'pointer' }} />
-                </SwiperSlide>
-              ))}
+              {listBanner &&
+                listBanner.map((banner) => (
+                  <SwiperSlide key={banner.id}>
+                    <img src={getImageUrl(banner.image)} alt={banner.image} style={{ userSelect: 'none' }} />
+                  </SwiperSlide>
+                ))}
             </Slide>
           </BannerSlideWrap>
           <SideBannerWrap>
@@ -91,16 +121,17 @@ const Home = () => {
               }
             }}
           >
-            {Array.from({ length: 12 }, (_, index) => (
-              <SwiperSlide key={index}>
-                <Link to={`${routePaths.categoryProduct}/1`}>
-                  <CategoryItem>
-                    <img src='https://cf.shopee.vn/file/687f3967b7c2fe6a134a2c11894eea4b_tn' alt='Thời trang nam' />
-                    <span>Thời trang nam</span>
-                  </CategoryItem>
-                </Link>
-              </SwiperSlide>
-            ))}
+            {listCategory &&
+              listCategory.map((category) => (
+                <SwiperSlide key={category.id}>
+                  <Link to={`${routePaths.categoryProduct}/1`}>
+                    <CategoryItem>
+                      <img src={getImageUrl(category.image)} alt={category.name} />
+                      <span>{category.name}</span>
+                    </CategoryItem>
+                  </Link>
+                </SwiperSlide>
+              ))}
           </Slide>
         </CategoryWrap>
 
@@ -134,21 +165,24 @@ const Home = () => {
               }
             }}
           >
-            {Array.from({ length: 10 }, (_, index) => (
-              <SwiperSlide key={index}>
-                <Link to={`${routePaths.detailsProduct}/1`}>
-                  <TopSearchCard key={index}>
-                    <TopSearchCardImageWrap>
-                      <TopSearchCardImage src='https://cf.shopee.vn/file/dd8927f74c9d92fe678f57cb5b4bc000' alt='' />
-                      <IconTop />
-                      <TopSearchCardNumber>Bán 30k+ / tháng </TopSearchCardNumber>
-                    </TopSearchCardImageWrap>
+            {listTopSellProduct &&
+              listTopSellProduct.map((topProduct) => (
+                <SwiperSlide key={topProduct.id}>
+                  <Link to={`${routePaths.detailsProduct}/${topProduct.id}`}>
+                    <TopSearchCard>
+                      <TopSearchCardImageWrap>
+                        <TopSearchCardImage src={getImageUrl(topProduct.image)} alt={topProduct.name} />
+                        <IconTop />
+                        <TopSearchCardNumber>
+                          Bán {formatNumberToSocialStyle(topProduct.numberSell)} + / tháng
+                        </TopSearchCardNumber>
+                      </TopSearchCardImageWrap>
 
-                    <TopSearchCardTitle>Áo khoác nam</TopSearchCardTitle>
-                  </TopSearchCard>
-                </Link>
-              </SwiperSlide>
-            ))}
+                      <TopSearchCardTitle>{topProduct.name}</TopSearchCardTitle>
+                    </TopSearchCard>
+                  </Link>
+                </SwiperSlide>
+              ))}
           </Slide>
         </TopSearchWrap>
 
@@ -160,9 +194,7 @@ const Home = () => {
           </HeaderSection>
 
           <ListDiscoveryProduct>
-            {Array.from({ length: 12 }, (_, index) => (
-              <ProductCard key={index} />
-            ))}
+            {listProducts && listProducts.map((product) => <ProductCard key={product.id} product={product} />)}
           </ListDiscoveryProduct>
 
           <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>

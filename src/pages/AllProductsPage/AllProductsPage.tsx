@@ -19,7 +19,7 @@ const AllProductsPage = () => {
   })
   const listProducts = dataListProducts?.data.data.data
   const total = dataListProducts?.data.data.total || 1
-  const pageSize = dataListProducts?.data.data.per_page
+  const pageSize = dataListProducts?.data.data.per_page || 1
 
   return (
     <Container>

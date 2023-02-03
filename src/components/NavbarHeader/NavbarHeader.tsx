@@ -22,6 +22,7 @@ import { useMutation } from '@tanstack/react-query'
 import authApis from 'apis/auth.api'
 import { logoutSuccess, selectAuth } from 'features/auth/authSlice'
 import { UserOutlined } from '@ant-design/icons'
+import { getImageUrl } from 'utils/utils'
 
 const languages: MenuProps['items'] = [
   {
@@ -124,11 +125,10 @@ const NavbarHeader = () => {
             >
               <AvartarWrap>
                 <Avatar
-                  src={user?.avatar}
+                  src={user?.avatar ? getImageUrl(user.avatar) : null}
                   alt='avatar'
                   size={22}
                   icon={<UserOutlined />}
-                  style={{ background: 'gray' }}
                 />
                 <NameUser>{user?.name || user?.email}</NameUser>
               </AvartarWrap>

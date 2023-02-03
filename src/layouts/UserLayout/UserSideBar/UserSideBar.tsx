@@ -7,6 +7,9 @@ import { faPen } from '@fortawesome/free-solid-svg-icons'
 import routePaths from 'constants/routePaths'
 import colors from 'constants/colors'
 import MenuSideBar from '../MenuSideBar'
+import { selectAuth } from 'features/auth/authSlice'
+import { useAppSelector } from 'hooks/useApp'
+import { getImageUrl } from 'utils/utils'
 
 const Container = styled.div`
   width: 20rem;
@@ -42,16 +45,14 @@ const LinkEdit = styled(Link)`
 `
 
 const UserSideBar = () => {
+  const { user } = useAppSelector(selectAuth)
+
   return (
     <Container>
       <HeaderSideBar>
-        <Avatar
-          src='https://cf.shopee.vn/file/2d7d51ffc7af8cdc00d086c882d5e020_tn'
-          size={50}
-          style={{ flexShrink: 0 }}
-        />
+        <Avatar src={user?.avatar ? getImageUrl(user.avatar) : null} size={50} style={{ flexShrink: 0 }} />
         <RightHeader>
-          <UserNameOrEmail>lemanhddt@gmail.com</UserNameOrEmail>
+          <UserNameOrEmail>{user?.email}</UserNameOrEmail>
           <LinkEdit to={`${routePaths.user}/${routePaths.userAccount}/${routePaths.userProfile}`}>
             <FontAwesomeIcon icon={faPen} />
             Sửa Hồ Sơ

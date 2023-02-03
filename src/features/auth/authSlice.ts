@@ -25,12 +25,15 @@ export const authSlice = createSlice({
     logoutSuccess: (state) => {
       state.user = null
       state.isAuthenticated = false
+    },
+    updateUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload
     }
   }
 })
 
 export const selectAuth = (state: RootState) => state.auth
 
-export const { loginOrRegisterSuccess, logoutSuccess } = authSlice.actions
+export const { loginOrRegisterSuccess, logoutSuccess, updateUser } = authSlice.actions
 
 export default authSlice.reducer

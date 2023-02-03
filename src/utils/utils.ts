@@ -37,3 +37,12 @@ export function getImageUrl(url: string) {
 export function getPriceAfterSale(price: number, percentSale: number) {
   return price - (percentSale / 100) * price
 }
+
+type PickByValue<T, V> = Pick<T, { [K in keyof T]: T[K] extends V ? K : never }[keyof T]>
+type Entries<T> = {
+  [K in keyof T]: [keyof PickByValue<T, T[K]>, T[K]]
+}[keyof T][]
+
+export function objectEntries<T extends Record<string, any>>(obj: T): Entries<T> {
+  return Object.entries(obj) as Entries<T>
+}

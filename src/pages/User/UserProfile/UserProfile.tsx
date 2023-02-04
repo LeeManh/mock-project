@@ -24,7 +24,6 @@ import InputFile from 'components/InputFile'
 import { saveUserLS } from 'utils/auth'
 import { useAppDispatch } from 'hooks/useApp'
 import { updateUser } from 'features/auth/authSlice'
-import { ErrorMessage } from 'globalStyle.styled'
 
 type ProfileFromData = Pick<UserSchema, 'name' | 'phone' | 'avatar'>
 const profileSchema = userSchema.pick(['name', 'phone', 'avatar'])
@@ -71,9 +70,9 @@ const UserProfile = () => {
 
   const uploadAvartarMutation = useMutation({
     mutationFn: (body: FormData) => userApi.uploadAvatar(body),
-    onSuccess: () => {
+    onSuccess: (response) => {
       toast.success('Cập nhật thông tin thành công 🎉.', { autoClose: 1500, position: 'top-center' })
-      console.log('upload avatar')
+
       refetch()
     },
     onError: (error) => {
@@ -159,7 +158,7 @@ const UserProfile = () => {
             type='submit'
             typeBtn='primary'
             style={{ marginLeft: '20%', width: '10rem' }}
-            isLoading={updateProfileMutation.isLoading}
+            isLoading={updateProfileMutation.isLoading || uploadAvartarMutation.isLoading}
           >
             Lưu
           </Button>

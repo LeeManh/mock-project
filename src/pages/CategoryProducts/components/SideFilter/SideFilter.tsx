@@ -27,6 +27,10 @@ const priceSchema = filterSchema.pick(['price_max', 'price_min'])
 type PriceFilter = Pick<FilterSchema, 'price_max' | 'price_min'>
 
 const SideFilter = () => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const queryConfig = useQueryConfig()
+
   const {
     handleSubmit: handleSubmitFilterPrice,
     control,
@@ -35,13 +39,10 @@ const SideFilter = () => {
   } = useForm<PriceFilter>({
     resolver: yupResolver(priceSchema),
     defaultValues: {
-      price_min: '',
-      price_max: ''
+      price_min: queryConfig.price_min || '',
+      price_max: queryConfig.price_max || ''
     }
   })
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const queryConfig = useQueryConfig()
 
   const currentFilterRating = queryConfig.rating_filter || null
   const isActiceRatingItem = (val: number) => {

@@ -1,28 +1,13 @@
-import styled from 'styled-components'
 import { useNavigate, createSearchParams, useLocation } from 'react-router-dom'
+import { useMemo } from 'react'
+import omit from 'lodash/omit'
 
 import Select from 'components/Select'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import Button from 'components/Button'
-import breakPonits from 'constants/breakPoints'
 import useQueryConfig from 'hooks/useQueryConfig'
-import { useMemo } from 'react'
-
-const Container = styled.div`
-  padding: 1.5rem 2rem;
-  background-color: #ededed;
-  border-radius: 2px;
-
-  @media screen and (max-width: ${breakPonits.md}) {
-    display: none;
-  }
-`
-const ListSortButton = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`
+import { Container, ListSortButton } from './SortFilter.styled'
 
 const SortFilter = () => {
   const navigate = useNavigate()
@@ -84,11 +69,16 @@ const SortFilter = () => {
           onClick={() => {
             navigate({
               pathname,
-              search: createSearchParams({
-                ...(queryConfig as Record<string, string>),
-                page: '1',
-                sort_by: 'ctime'
-              }).toString()
+              search: createSearchParams(
+                omit(
+                  {
+                    ...(queryConfig as Record<string, string>),
+                    page: '1',
+                    sort_by: 'ctime'
+                  },
+                  ['order']
+                )
+              ).toString()
             })
           }}
         >
@@ -101,11 +91,16 @@ const SortFilter = () => {
           onClick={() => {
             navigate({
               pathname,
-              search: createSearchParams({
-                ...(queryConfig as Record<string, string>),
-                page: '1',
-                sort_by: 'sales'
-              }).toString()
+              search: createSearchParams(
+                omit(
+                  {
+                    ...(queryConfig as Record<string, string>),
+                    page: '1',
+                    sort_by: 'sales'
+                  },
+                  ['order']
+                )
+              ).toString()
             })
           }}
         >

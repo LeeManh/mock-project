@@ -11,6 +11,7 @@ import { Wrapper } from 'globalStyle.styled'
 import { Container, ContentWrap, ProductSection } from './CategoryProducts.styled'
 import { useQuery } from '@tanstack/react-query'
 import productApis from 'apis/product.api'
+import useQueryConfig from 'hooks/useQueryConfig'
 
 const bannerSlides = [
   'https://cf.shopee.vn/file/24f87e50d38a91df4753548878390b8b',
@@ -23,14 +24,17 @@ const bannerSlides = [
 const CategoryProducts = () => {
   const { currentPage, onChangePage } = usePagination()
   const { idCategory } = useParams()
+  const queryConfig = useQueryConfig()
 
   const { data: dataListProducts } = useQuery({
-    queryKey: ['list-products-by-category', idCategory],
-    queryFn: () => productApis.fetchListProduct({ category: idCategory }),
+    queryKey: ['list-products-by-category', idCategory, queryConfig],
+    queryFn: (body) => productApis.fetchListProduct({ ...queryConfig, category: idCategory }),
     keepPreviousData: true,
     staleTime: 5 * 60 * 1000
   })
   const listProducts = dataListProducts?.data.data.data
+  const total = dataListProducts?.data.data.total || 1
+  const pageSize = dataListProducts?.data.data.per_page || 1
 
   return (
     <Container as={'main'}>
@@ -62,9 +66,10 @@ const CategoryProducts = () => {
 
             <Pagination
               hideOnSinglePage
+              pageSize={pageSize}
               current={+currentPage}
               onChange={(page) => onChangePage(page)}
-              total={50}
+              total={total}
               styleContainer={{ marginTop: '3rem' }}
             />
           </ProductSection>

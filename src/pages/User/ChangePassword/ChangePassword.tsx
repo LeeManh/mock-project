@@ -40,6 +40,7 @@ const ChangePassword = () => {
   })
 
   const onSubmit = (data: BodyUpdatePassword) => {
+    console.log(data)
     updatePasswordMutaion.mutate(data)
   }
 

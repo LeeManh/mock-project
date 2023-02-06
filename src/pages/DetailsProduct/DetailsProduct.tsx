@@ -87,7 +87,7 @@ const DetailsProduct = () => {
   })
 
   const onSumbitAddToCart = (data: DetailsProductSchema) => {
-    const _data = { ...data, idProduct }
+    const _data = { ...data, idProduct: +idProduct }
 
     // console.log(_data)
     // Call api để thêm vảo giỏ hàng

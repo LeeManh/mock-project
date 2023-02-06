@@ -1,62 +1,37 @@
-import Button from 'components/Button'
-import CheckBox from 'components/CheckBox'
+import { useQuery } from '@tanstack/react-query'
+
+import cartApis from 'apis/cart.api'
+import LoadingDots from 'components/LoadingDots/LoadingDots'
 import { Wrapper } from 'globalStyle.styled'
-import {
-  ActionsTabel,
-  BodyTabel,
-  Container,
-  HeaderTabel,
-  PaymentWrap,
-  PriceTabel,
-  PriceTotal,
-  ProductTabel,
-  QuantityTabel,
-  RemoveAll,
-  RightPayment,
-  TotalTabel
-} from './CartPage.styled'
-import ItemProductCart from './components/ItemProductCart'
+import { Container } from './CartPage.styled'
+import EmptyCart from './components/EmptyCart'
+import { useState } from 'react'
+import Table from './components/Table'
+import PaymentFooter from './components/PaymentFooter'
 
 const CartPage = () => {
+  // call api to fetch items in cart user
+  // const { data: dataCart, isLoading: isLoadingDataCart } = useQuery({
+  //   queryKey: ['items-cart'],
+  //   queryFn: () => cartApis.fetchCart()
+  // })
+  // const itemsCart = dataCart?.data.data
+
+  // if (isLoadingDataCart) return <LoadingDots />
+
+  const itemsCart: any[] = [1, 2, 3, 4, 5]
+
   return (
     <Container>
       <Wrapper>
-        <HeaderTabel>
-          <CheckBox styleContainer={{ marginRight: '2rem' }} />
-
-          <ProductTabel>Sản Phẩm</ProductTabel>
-          <PriceTabel>Đơn Giá</PriceTabel>
-          <QuantityTabel>Số Lượng</QuantityTabel>
-          <TotalTabel>Số Tiền</TotalTabel>
-          <ActionsTabel>Thao Tác</ActionsTabel>
-        </HeaderTabel>
-
-        <BodyTabel>
-          <ItemProductCart />
-          <ItemProductCart />
-          <ItemProductCart />
-          <ItemProductCart />
-        </BodyTabel>
-
-        <PaymentWrap>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <CheckBox styleContainer={{ marginRight: '2rem' }} label='Chọn Tất Cả (4)' />
-            <RemoveAll>Xóa Tất Cả</RemoveAll>
-          </div>
-          <RightPayment>
-            <div>Tổng thanh toán (0 Sản phẩm) :</div>
-            <div style={{ textAlign: 'right' }}>
-              <PriceTotal>₫1.845.000</PriceTotal>
-              <div>
-                <span style={{ marginRight: '1rem' }}>Tiết kiệm:</span>
-                <span>₫1.000</span>
-              </div>
-            </div>
-            <Button typeBtn='primary' style={{ width: '100%', maxWidth: '20rem' }}>
-              Mua hàng
-            </Button>
-          </RightPayment>
-        </PaymentWrap>
+        {itemsCart && (itemsCart as any[]).length > 0 ? (
+          <>
+            <Table />
+            <PaymentFooter />
+          </>
+        ) : (
+          <EmptyCart />
+        )}
       </Wrapper>
     </Container>
   )

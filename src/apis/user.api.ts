@@ -14,10 +14,10 @@ const getProfile = () => http.get<SuccessResponse<User>>('get-user-info')
 const updateProfile = (body: BodyUpdateProfile) =>
   http.post<SuccessResponse<{ user: User }>>('update-user', { ...body, _method: 'put' })
 
-const uploadAvatar = (body: FormData) =>
+const uploadAvatar = (avatar: FormData) =>
   http.post<SuccessResponse<User>>(
     'update-user',
-    { ...body, _method: 'put' },
+    { avatar, _method: 'put' },
     {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -25,7 +25,7 @@ const uploadAvatar = (body: FormData) =>
     }
   )
 
-const upadtePassword = (body: BodyUpdatePassword) => http.put<SuccessResponse<User>>('change-password')
+const upadtePassword = (body: BodyUpdatePassword) => http.put<SuccessResponse<User>>('change-password', body)
 
 const userApi = { getProfile, updateProfile, uploadAvatar, upadtePassword }
 

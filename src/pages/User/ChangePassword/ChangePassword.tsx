@@ -8,6 +8,8 @@ import { Container, Content, FormChangePassword, ItemForm, LabelForm } from './C
 import userApi, { BodyUpdatePassword } from 'apis/user.api'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
+import { isAxiosUnprocessableEntityError, objectKeys } from 'utils/utils'
+import { ErrorResponse } from 'types/utils.type'
 
 const updatePasswordSchema = userSchema.pick(['old_password', 'new_password', 'confirm_new_password'])
 
@@ -16,6 +18,7 @@ const ChangePassword = () => {
     handleSubmit,
     register,
     reset,
+    setError,
     formState: { errors }
   } = useForm<BodyUpdatePassword>({
     resolver: yupResolver(updatePasswordSchema),
@@ -35,12 +38,20 @@ const ChangePassword = () => {
       queryClient.invalidateQueries({ queryKey: ['user-profile'] })
     },
     onError: (error) => {
-      console.log(error)
+      // check error status = 422
+      if (isAxiosUnprocessableEntityError<ErrorResponse<BodyUpdatePassword>>(error)) {
+        const dataError = error.response?.data.data
+
+        if (dataError) {
+          objectKeys(dataError).forEach((key) => {
+            setError(key, { message: dataError[key], type: 'Server' })
+          })
+        }
+      }
     }
   })
 
   const onSubmit = (data: BodyUpdatePassword) => {
-    console.log(data)
     updatePasswordMutaion.mutate(data)
   }
 

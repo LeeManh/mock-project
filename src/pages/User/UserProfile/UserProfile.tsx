@@ -69,7 +69,7 @@ const UserProfile = () => {
   })
 
   const uploadAvartarMutation = useMutation({
-    mutationFn: (body: FormData) => userApi.uploadAvatar(body),
+    mutationFn: (avatar: FormData) => userApi.uploadAvatar(avatar),
     onSuccess: (response) => {
       toast.success('Cập nhật thông tin thành công 🎉.', { autoClose: 1500, position: 'top-center' })
 

@@ -211,7 +211,11 @@ const Home = () => {
           </ListDiscoveryProduct>
 
           <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
-            <Button style={{ maxWidth: '20rem', width: '100%' }} onClick={() => navigate(routePaths.allProducts)}>
+            <Button
+              typeBtn='primary'
+              style={{ maxWidth: '20rem', width: '100%' }}
+              onClick={() => navigate(routePaths.allProducts)}
+            >
               Xem Thêm
             </Button>
           </div>

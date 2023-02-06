@@ -55,7 +55,7 @@ export const userSchema = yup.object({
   phone: yup
     .string()
     .trim()
-    .test('no-leading-zero', 'Só điện thoại bắt đầu bằng số 0', (value, context) => {
+    .test('no-leading-zero', 'Số điện thoại bắt đầu bằng số 0', (value, context) => {
       const { originalValue } = context as yup.TestContext & TestContextExtended
 
       return originalValue && (originalValue as string).startsWith('0')
@@ -68,3 +68,14 @@ export const userSchema = yup.object({
   confirm_new_password: handleConfirmPasswordYup('new_password')
 })
 export type UserSchema = yup.InferType<typeof userSchema>
+
+export const detailsProductSchema = yup.object({
+  color: yup.string().required('Vui lòng chọn màu sắc'),
+  size: yup.string().required('Vui lòng chọn kích cỡ'),
+  quantity: yup.string().test('smallest-number-1', 'Số lượng nhỏ nhất là 1', function (value, context) {
+    const { originalValue } = context as yup.TestContext & TestContextExtended
+
+    return originalValue && +(originalValue as string) >= 1
+  })
+})
+export type DetailsProductSchema = yup.InferType<typeof detailsProductSchema>

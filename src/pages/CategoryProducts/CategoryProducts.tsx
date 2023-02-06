@@ -12,6 +12,7 @@ import { Container, ContentWrap, ProductSection } from './CategoryProducts.style
 import { useQuery } from '@tanstack/react-query'
 import productApis from 'apis/product.api'
 import useQueryConfig from 'hooks/useQueryConfig'
+import { getIdFromNameId } from 'utils/utils'
 
 const bannerSlides = [
   'https://cf.shopee.vn/file/24f87e50d38a91df4753548878390b8b',
@@ -23,7 +24,10 @@ const bannerSlides = [
 
 const CategoryProducts = () => {
   const { currentPage, onChangePage } = usePagination()
-  const { idCategory } = useParams()
+
+  const params = useParams()
+  const idCategory = getIdFromNameId(params.idCategory as string)
+
   const queryConfig = useQueryConfig()
 
   const { data: dataListProducts } = useQuery({

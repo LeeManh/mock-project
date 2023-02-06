@@ -1,7 +1,7 @@
-import apiConfigs from 'constants/apiConfigs'
 import axios from 'axios'
-import type { AxiosError } from 'axios'
 
+import apiConfigs from 'constants/apiConfigs'
+import type { AxiosError } from 'axios'
 import HttpStatusCode from 'constants/httpStatusCode'
 
 export function formatCurrency(currency: number) {
@@ -46,3 +46,12 @@ type Entries<T> = {
 export function objectEntries<T extends Record<string, any>>(obj: T): Entries<T> {
   return Object.entries(obj) as Entries<T>
 }
+
+// eslint-disable-next-line no-useless-escape
+export const removeSpecialCharacters = (str: string) => str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
+
+export const genarateNameId = ({ name, id }: { name: string; id: string }) => {
+  return removeSpecialCharacters(name).replace(/\s/g, '-') + '-i.' + id
+}
+
+export const getIdFromNameId = (name: string) => name.split('-i.')[1]

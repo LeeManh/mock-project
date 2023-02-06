@@ -46,7 +46,7 @@ export const MainInforWrap = styled.div`
   margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1rem;
 `
 export const TransportWrap = styled.div`
   display: flex;

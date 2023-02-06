@@ -10,6 +10,9 @@ import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import { userSchema, UserSchema } from 'utils/rules'
 import { useForm } from 'react-hook-form'
+import { saveUserLS } from 'utils/auth'
+import { updateUser } from 'features/auth/authSlice'
+import { useAppDispatch } from 'hooks/useApp'
 
 const Container = styled.div`
   background-color: ${colors.white};
@@ -31,6 +34,8 @@ type ProfileFromData = Pick<UserSchema, 'address'>
 const profileSchema = userSchema.pick(['address'])
 
 const UserAddress = () => {
+  const dispatch = useAppDispatch()
+
   const {
     handleSubmit,
     register,
@@ -43,11 +48,7 @@ const UserAddress = () => {
     }
   })
 
-  const {
-    data: profileData,
-    refetch,
-    isLoading: isLoadingProfile
-  } = useQuery({
+  const { data: profileData, refetch } = useQuery({
     queryKey: ['user-profile'],
     queryFn: userApi.getProfile
   })
@@ -55,7 +56,10 @@ const UserAddress = () => {
 
   const updateProfileMutation = useMutation({
     mutationFn: (body: BodyUpdateProfile) => userApi.updateProfile(body),
-    onSuccess: () => {
+    onSuccess: (response) => {
+      const userResponse = response.data.data.user
+      saveUserLS(userResponse)
+      dispatch(updateUser(userResponse))
       toast.success('Cập nhật địa chỉ thành công 🎉.', { autoClose: 1500, position: 'top-center' })
       refetch()
     },

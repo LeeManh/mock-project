@@ -24,7 +24,7 @@ export interface Banner {
 }
 
 export interface Product {
-  id: number
+  id: string
   name: string
   image: string
   category_id: number
@@ -35,6 +35,12 @@ export interface Product {
   rating: number
   is_sale: 0 | 1
   percent_sale: number
+}
+
+export interface ProductDetails extends Product {
+  description: string
+  sizes: string[]
+  colors: string[]
 }
 
 export type ListProductResponse = SuccessResponse<{

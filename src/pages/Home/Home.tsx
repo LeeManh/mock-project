@@ -31,7 +31,7 @@ import routePaths from 'constants/routePaths'
 import Button from 'components/Button'
 import useQueryConfig from 'hooks/useQueryConfig'
 import productApis from 'apis/product.api'
-import { getImageUrl, formatNumberToSocialStyle } from 'utils/utils'
+import { getImageUrl, formatNumberToSocialStyle, genarateNameId } from 'utils/utils'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -124,7 +124,14 @@ const Home = () => {
             {listCategory &&
               listCategory.map((category) => (
                 <SwiperSlide key={category.id}>
-                  <Link to={`${routePaths.categoryProduct}/${category.id}`}>
+                  <Link
+                    to={{
+                      pathname: `${routePaths.categoryProduct}/${genarateNameId({
+                        name: category.name,
+                        id: String(category.id)
+                      })}`
+                    }}
+                  >
                     <CategoryItem>
                       <img src={getImageUrl(category.image)} alt={category.name} />
                       <span>{category.name}</span>
@@ -169,7 +176,12 @@ const Home = () => {
             {listTopSellProduct &&
               listTopSellProduct.map((topProduct) => (
                 <SwiperSlide key={topProduct.id}>
-                  <Link to={`${routePaths.detailsProduct}/${topProduct.id}`}>
+                  <Link
+                    to={`${routePaths.detailsProduct}/${genarateNameId({
+                      name: topProduct.name,
+                      id: topProduct.id
+                    })})}`}
+                  >
                     <TopSearchCard>
                       <TopSearchCardImageWrap>
                         <TopSearchCardImage src={getImageUrl(topProduct.image)} alt={topProduct.name} />

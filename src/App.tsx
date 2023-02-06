@@ -2,6 +2,7 @@ import useRouteElement from 'hooks/useRouteElement'
 import { ToastContainer } from 'react-toastify'
 import GlobalStyles from 'globalStyle.styled'
 import 'react-toastify/dist/ReactToastify.css'
+import ScrollToTop from 'components/ScrollToTop'
 
 const App = () => {
   const elements = useRouteElement()
@@ -9,6 +10,7 @@ const App = () => {
   return (
     <>
       {elements}
+      <ScrollToTop />
       <ToastContainer />
       <GlobalStyles />
     </>

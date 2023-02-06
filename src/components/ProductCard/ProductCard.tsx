@@ -15,23 +15,22 @@ import {
 } from './ProductCard.styled'
 import routePaths from 'constants/routePaths'
 import type { Product } from 'types/product.type'
-import { formatCurrency, getPriceAfterSale, formatNumberToSocialStyle, getImageUrl } from 'utils/utils'
+import { formatCurrency, getPriceAfterSale, formatNumberToSocialStyle, getImageUrl, genarateNameId } from 'utils/utils'
 interface Props {
   type?: 'default' | 'details'
-  product?: Product
+  product: Product
 }
 
 const ProductCard = ({ type = 'default', product }: Props) => {
-  if (!product) return null
-
   const isHaveSale = Boolean(product.is_sale)
   const priceAfterSale = formatCurrency(
     isHaveSale ? getPriceAfterSale(product.price, product.percent_sale) : product.price
   )
   const priceBeforeSale = isHaveSale && formatCurrency(product.price)
+  const nameId = genarateNameId({ name: product.name, id: product.id })
 
   return (
-    <Link to={`${routePaths.detailsProduct}/${product.id}`}>
+    <Link to={`${routePaths.detailsProduct}/${nameId}`}>
       <Container>
         <ImageProductWrap>
           <ImageProduct src={getImageUrl(product.image)} alt='' />

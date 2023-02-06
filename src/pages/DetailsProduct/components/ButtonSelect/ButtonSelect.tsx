@@ -1,11 +1,16 @@
 import { Container } from './ButtonSelect.styled'
 
-interface Props {
+interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
+  active: boolean
 }
 
-const ButtonSelect = ({ children }: Props) => {
-  return <Container>{children}</Container>
+const ButtonSelect = ({ children, active, ...rest }: Props) => {
+  return (
+    <Container {...rest} active={active}>
+      {children}
+    </Container>
+  )
 }
 
 export default ButtonSelect

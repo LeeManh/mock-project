@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -36,6 +36,8 @@ import LoadingDots from 'components/LoadingDots/LoadingDots'
 import { getIdFromNameId } from 'utils/utils'
 import routePaths from 'constants/routePaths'
 import { detailsProductSchema, DetailsProductSchema } from 'utils/rules'
+import cartApis, { BodyAddToCart } from 'apis/cart.api'
+import { toast } from 'react-toastify'
 
 const colors = ['Xanh', 'Đen', 'Nâu']
 const sizes = ['38', '39', '40', '41']
@@ -74,8 +76,22 @@ const DetailsProduct = () => {
     }
   })
 
+  const addToCartMutation = useMutation({
+    onSuccess: (response) => {
+      toast.success('Thêm sản phẩm vào giỏ hàng thành công')
+    },
+    onError(error) {
+      console.log(error)
+    },
+    mutationFn: (body: BodyAddToCart) => cartApis.addToCart(body)
+  })
+
   const onSumbitAddToCart = (data: DetailsProductSchema) => {
-    console.log(data)
+    const _data = { ...data, idProduct }
+
+    // console.log(_data)
+    // Call api để thêm vảo giỏ hàng
+    addToCartMutation.mutate(_data)
   }
 
   const isActiveButton = (name: keyof DetailsProductSchema, value: string) => {

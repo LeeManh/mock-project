@@ -16,7 +16,7 @@ const fetchListTopSellProducts = () => http.get<SuccessResponse<Product[]>>('lis
 const fetchListProduct = (params: ProductListConfig = {}) => http.get<ListProductResponse>('list-product', { params })
 
 const fetchDetailsProduct = (idProduct: string) =>
-  http.get<SuccessResponse<ProductDetails>>(`detail-product/${idProduct}`)
+  http.get<SuccessResponse<{ data: ProductDetails } & { category: Category }>>(`detail-product/${idProduct}`)
 
 const productApis = {
   fetchListCategory,

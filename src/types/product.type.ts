@@ -35,12 +35,13 @@ export interface Product {
   rating: number
   is_sale: 0 | 1
   percent_sale: number
+  price_promotion: number
 }
 
 export interface ProductDetails extends Product {
   description: string
-  sizes: string[]
-  colors: string[]
+  sizes?: string
+  colors?: string
 }
 
 export type ListProductResponse = SuccessResponse<{

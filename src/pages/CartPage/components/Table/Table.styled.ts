@@ -15,6 +15,8 @@ export const HeaderTabel = styled(SectionWrap)`
 `
 export const ProductTabel = styled.div`
   width: 40%;
+  display: flex;
+  gap: 1rem;
 `
 export const PriceTabel = styled.div`
   text-align: center;

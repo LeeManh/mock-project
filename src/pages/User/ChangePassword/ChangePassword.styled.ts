@@ -13,11 +13,12 @@ export const Content = styled.div`
 export const FormChangePassword = styled.form``
 export const ItemForm = styled.div`
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   margin-bottom: 3rem;
 `
 export const LabelForm = styled.div`
   text-align: right;
   width: 20%;
   margin-right: 2rem;
+  margin-top: 1.5rem;
 `

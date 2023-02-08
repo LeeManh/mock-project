@@ -12,6 +12,7 @@ import { Container, ListSortButton } from './SortFilter.styled'
 const SortFilter = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
+
   const queryConfig = useQueryConfig()
 
   const tittleSortPrice =

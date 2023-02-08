@@ -94,8 +94,8 @@ const Home = () => {
             </Slide>
           </BannerSlideWrap>
           <SideBannerWrap>
-            <img src='https://cf.shopee.vn/file/da61368b47b7490bdb304f9780b174dd_xhdpi' alt='' />
-            <img src='https://cf.shopee.vn/file/18a8dec3a146454b0e7fd1e03b75e198_xhdpi' alt='' />
+            <img src={listBanner && getImageUrl(listBanner[0].image)} alt='' />
+            <img src={listBanner && getImageUrl(listBanner[1].image)} alt='' />
           </SideBannerWrap>
         </BannerWrap>
 
@@ -122,23 +122,25 @@ const Home = () => {
             }}
           >
             {listCategory &&
-              listCategory.map((category) => (
-                <SwiperSlide key={category.id}>
-                  <Link
-                    to={{
-                      pathname: `${routePaths.categoryProduct}/${genarateNameId({
-                        name: category.name,
-                        id: String(category.id)
-                      })}`
-                    }}
-                  >
-                    <CategoryItem>
-                      <img src={getImageUrl(category.image)} alt={category.name} />
-                      <span>{category.name}</span>
-                    </CategoryItem>
-                  </Link>
-                </SwiperSlide>
-              ))}
+              listCategory.map((category) => {
+                return (
+                  <SwiperSlide key={category.id}>
+                    <Link
+                      to={{
+                        pathname: `${routePaths.categoryProduct}/${genarateNameId({
+                          name: category.name,
+                          id: String(category.id)
+                        })}`
+                      }}
+                    >
+                      <CategoryItem>
+                        <img src={getImageUrl(category.image)} alt={category.name} />
+                        <span>{category.name}</span>
+                      </CategoryItem>
+                    </Link>
+                  </SwiperSlide>
+                )
+              })}
           </Slide>
         </CategoryWrap>
 
@@ -174,28 +176,28 @@ const Home = () => {
             }}
           >
             {listTopSellProduct &&
-              listTopSellProduct.map((topProduct) => (
-                <SwiperSlide key={topProduct.id}>
-                  <Link
-                    to={`${routePaths.detailsProduct}/${genarateNameId({
-                      name: topProduct.name,
-                      id: topProduct.id
-                    })})}`}
-                  >
-                    <TopSearchCard>
-                      <TopSearchCardImageWrap>
-                        <TopSearchCardImage src={getImageUrl(topProduct.image)} alt={topProduct.name} />
-                        <IconTop />
-                        <TopSearchCardNumber>
-                          Bán {formatNumberToSocialStyle(topProduct.numberSell)} + / tháng
-                        </TopSearchCardNumber>
-                      </TopSearchCardImageWrap>
+              listTopSellProduct.map((topProduct) => {
+                const images = JSON.parse(topProduct.image)
+                const nameId = genarateNameId({ name: topProduct.name, id: topProduct.id })
 
-                      <TopSearchCardTitle>{topProduct.name}</TopSearchCardTitle>
-                    </TopSearchCard>
-                  </Link>
-                </SwiperSlide>
-              ))}
+                return (
+                  <SwiperSlide key={topProduct.id}>
+                    <Link to={`${routePaths.detailsProduct}/${nameId}})}`}>
+                      <TopSearchCard>
+                        <TopSearchCardImageWrap>
+                          <TopSearchCardImage src={getImageUrl(images[0])} alt={topProduct.name} />
+                          <IconTop />
+                          <TopSearchCardNumber>
+                            Bán {formatNumberToSocialStyle(topProduct.numberSell)} + / tháng
+                          </TopSearchCardNumber>
+                        </TopSearchCardImageWrap>
+
+                        <TopSearchCardTitle>{topProduct.name}</TopSearchCardTitle>
+                      </TopSearchCard>
+                    </Link>
+                  </SwiperSlide>
+                )
+              })}
           </Slide>
         </TopSearchWrap>
 

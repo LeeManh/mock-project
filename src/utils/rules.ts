@@ -70,12 +70,23 @@ export const userSchema = yup.object({
 export type UserSchema = yup.InferType<typeof userSchema>
 
 export const detailsProductSchema = yup.object({
-  color: yup.string().required('Vui lòng chọn màu sắc'),
-  size: yup.string().required('Vui lòng chọn kích cỡ'),
+  isHaveColor: yup.boolean(),
+  color: yup.string().when('isHaveColor', {
+    is: (val: string) => !!val,
+    then: yup.string().required('Vui lòng chọn màu sắc'),
+    otherwise: yup.string()
+  }),
+  isHaveSize: yup.boolean(),
+  size: yup.string().when('isHaveSize', {
+    is: (val: string) => !!val,
+    then: yup.string().required('Vui lòng chọn kích cỡ'),
+    otherwise: yup.string()
+  }),
   quantity: yup.string().test('smallest-number-1', 'Số lượng nhỏ nhất là 1', function (value, context) {
     const { originalValue } = context as yup.TestContext & TestContextExtended
 
     return originalValue && +(originalValue as string) >= 1
   })
 })
+
 export type DetailsProductSchema = yup.InferType<typeof detailsProductSchema>

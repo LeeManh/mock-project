@@ -1,6 +1,8 @@
 import type { MenuProps } from 'antd'
 import { Dropdown, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
+
 import images from 'assets/images'
 import {
   ArrowDownIcon,
@@ -53,10 +55,12 @@ const userMenu: MenuProps['items'] = [
 const NavbarHeader = () => {
   const { isAuthenticated, user } = useAppSelector(selectAuth)
   const dispatch = useAppDispatch()
+  const queryClient = useQueryClient()
 
   const logoutMutation = useMutation({
     onSuccess: () => {
       dispatch(logoutSuccess())
+      queryClient.removeQueries({ queryKey: ['list-cart'], exact: true })
     },
     mutationFn: () => authApis.logoutAccount()
   })

@@ -96,6 +96,8 @@ const UserProfile = () => {
       const formData = new FormData()
       formData.append('image', file)
 
+      console.log(file)
+
       uploadAvartarMutation.mutate(formData)
     }
     for (const [key, value] of objectEntries(data)) {

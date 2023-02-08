@@ -1,14 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import omit from 'lodash/omit'
+import omitBy from 'lodash/omitBy'
+import isEmpty from 'lodash/isEmpty'
+import { useEffect, useState } from 'react'
 
 import { ErrorMessage, Wrapper } from 'globalStyle.styled'
 import ThumbsGallery from 'components/ThumbsGallery'
 import CustomBreadcrumb from 'components/CustomBreadcrumb'
-import ButtonSelect from './components/ButtonSelect/ButtonSelect'
+import ButtonSelect from './components/ButtonSelect'
 import InputNumber from 'components/InputNumber'
 import {
   ColorSelectWrap,
@@ -33,17 +37,18 @@ import Description from './components/Description'
 import Button from 'components/Button'
 import productApis from 'apis/product.api'
 import LoadingDots from 'components/LoadingDots/LoadingDots'
-import { getIdFromNameId } from 'utils/utils'
+import { genarateNameId, getIdFromNameId } from 'utils/utils'
 import routePaths from 'constants/routePaths'
 import { detailsProductSchema, DetailsProductSchema } from 'utils/rules'
 import cartApis, { BodyAddToCart } from 'apis/cart.api'
-import { toast } from 'react-toastify'
-
-const colors = ['Xanh', 'Đen', 'Nâu']
-const sizes = ['38', '39', '40', '41']
+import { useAppSelector } from 'hooks/useApp'
+import { selectAuth } from 'features/auth/authSlice'
+import Message from 'components/Message'
 
 const DetailsProduct = () => {
   const params = useParams()
+  const { isAuthenticated } = useAppSelector(selectAuth)
+  const navigate = useNavigate()
 
   const idProduct = getIdFromNameId(params.idProduct as string)
 
@@ -51,7 +56,8 @@ const DetailsProduct = () => {
     queryKey: ['details-product', idProduct],
     queryFn: () => productApis.fetchDetailsProduct(idProduct as string)
   })
-  const detailsProduct = dataDetailsProduct?.data.data
+  const detailsProduct = dataDetailsProduct?.data.data.data
+  const category = dataDetailsProduct?.data.data.category
 
   const { data: dataSimilarProducts, isLoading: isLoadingSimilarProducts } = useQuery({
     queryKey: ['similar-product', detailsProduct?.category_id],
@@ -66,32 +72,36 @@ const DetailsProduct = () => {
     setValue,
     getValues,
     trigger,
+    reset,
     formState: { errors }
   } = useForm<DetailsProductSchema>({
     resolver: yupResolver(detailsProductSchema),
     defaultValues: {
+      isHaveColor: false,
+      isHaveSize: false,
       color: '',
       size: '',
       quantity: '1'
     }
   })
 
+  useEffect(() => {
+    detailsProduct?.colors && setValue('isHaveColor', true)
+    detailsProduct?.colors && setValue('isHaveSize', true)
+  }, [detailsProduct, setValue])
+
   const addToCartMutation = useMutation({
     onSuccess: (response) => {
-      toast.success('Thêm sản phẩm vào giỏ hàng thành công')
-    },
-    onError(error) {
-      console.log(error)
+      setShowMessage(true)
+      reset()
     },
     mutationFn: (body: BodyAddToCart) => cartApis.addToCart(body)
   })
 
   const onSumbitAddToCart = (data: DetailsProductSchema) => {
-    const _data = { ...data, idProduct: +idProduct }
+    const _data = omitBy(omit(data, ['isHaveColor', 'isHaveSize']), isEmpty)
 
-    // console.log(_data)
-    // Call api để thêm vảo giỏ hàng
-    addToCartMutation.mutate(_data)
+    addToCartMutation.mutate({ ..._data, id_product: +detailsProduct!.id })
   }
 
   const isActiveButton = (name: keyof DetailsProductSchema, value: string) => {
@@ -109,15 +119,24 @@ const DetailsProduct = () => {
     trigger(name)
   }
 
+  const [showMessage, setShowMessage] = useState(false)
+
   if (isLoadingDetailsProduct || isLoadingSimilarProducts) return <LoadingDots />
 
   if (!detailsProduct) return null
 
   const itemsBreadcrumb: { path: string; title: string }[] = [
     { path: `${routePaths.home}`, title: 'Shoppe' },
-    { path: `${routePaths.categoryProduct}/${detailsProduct.category_id}`, title: `${detailsProduct.category_id}` },
+    {
+      path: `${routePaths.categoryProduct}/${genarateNameId({
+        name: category!.name,
+        id: String(detailsProduct.category_id)
+      })}`,
+      title: `${category?.name}`
+    },
     { path: '', title: `${detailsProduct.name}` }
   ]
+  const images = JSON.parse(detailsProduct.image)
 
   return (
     <Container>
@@ -126,7 +145,7 @@ const DetailsProduct = () => {
 
         <Content>
           <ThumbsGalleryWrap>
-            <ThumbsGallery images={[detailsProduct.image, detailsProduct.image]} />
+            <ThumbsGallery images={images} />
           </ThumbsGalleryWrap>
 
           <InforWrap as={'form'} onSubmit={handleSubmit(onSumbitAddToCart)}>
@@ -140,41 +159,45 @@ const DetailsProduct = () => {
             />
 
             <MainInforWrap>
-              <ColorSelectWrap>
-                <TitleInfor>Màu sắc</TitleInfor>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                  <ListSelectButton>
-                    {colors.map((color, index) => (
-                      <ButtonSelect
-                        key={index}
-                        onClick={() => onClickSelectButton('color', color)}
-                        active={isActiveButton('color', color)}
-                      >
-                        {color}
-                      </ButtonSelect>
-                    ))}
-                  </ListSelectButton>
-                  <ErrorMessage>{errors.color?.message}</ErrorMessage>
-                </div>
-              </ColorSelectWrap>
+              {detailsProduct.colors && (
+                <ColorSelectWrap>
+                  <TitleInfor>Màu sắc</TitleInfor>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                    <ListSelectButton>
+                      {JSON.parse(detailsProduct.colors).map((color: string, index: number) => (
+                        <ButtonSelect
+                          key={index}
+                          onClick={() => onClickSelectButton('color', color)}
+                          active={isActiveButton('color', color)}
+                        >
+                          {color}
+                        </ButtonSelect>
+                      ))}
+                    </ListSelectButton>
+                    <ErrorMessage>{errors.color?.message}</ErrorMessage>
+                  </div>
+                </ColorSelectWrap>
+              )}
 
-              <SizeSelectWrap>
-                <TitleInfor>Size</TitleInfor>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                  <ListSelectButton>
-                    {sizes.map((size, index) => (
-                      <ButtonSelect
-                        key={index}
-                        onClick={() => onClickSelectButton('size', size)}
-                        active={isActiveButton('size', size)}
-                      >
-                        {size}
-                      </ButtonSelect>
-                    ))}
-                  </ListSelectButton>
-                  <ErrorMessage>{errors.size?.message}</ErrorMessage>
-                </div>
-              </SizeSelectWrap>
+              {detailsProduct?.sizes && (
+                <SizeSelectWrap>
+                  <TitleInfor>Size</TitleInfor>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                    <ListSelectButton>
+                      {JSON.parse(detailsProduct.sizes).map((size: string, index: number) => (
+                        <ButtonSelect
+                          key={index}
+                          onClick={() => onClickSelectButton('size', size)}
+                          active={isActiveButton('size', size)}
+                        >
+                          {size}
+                        </ButtonSelect>
+                      ))}
+                    </ListSelectButton>
+                    <ErrorMessage>{errors.size?.message}</ErrorMessage>
+                  </div>
+                </SizeSelectWrap>
+              )}
 
               <SelectQuantityWrap>
                 <TitleInfor>Số Lượng</TitleInfor>
@@ -202,11 +225,17 @@ const DetailsProduct = () => {
             </MainInforWrap>
 
             <ListButtonAction>
-              <Button typeBtn='default' size='large' type='submit'>
+              <Button
+                typeBtn='default'
+                size='large'
+                type='submit'
+                onClick={() => !isAuthenticated && navigate(routePaths.login)}
+                disabled={addToCartMutation.isLoading}
+              >
                 <FontAwesomeIcon icon={faCartPlus} />
                 Thêm vào giỏ hàng
               </Button>
-              <Button typeBtn='primary' size='large'>
+              <Button typeBtn='primary' size='large' onClick={() => !isAuthenticated && navigate(routePaths.login)}>
                 Mua ngay
               </Button>
             </ListButtonAction>
@@ -217,6 +246,7 @@ const DetailsProduct = () => {
 
         <SimilarProduct similarProducts={similarProducts} categoryId={detailsProduct.category_id} />
       </Wrapper>
+      <Message show={showMessage} setShow={setShowMessage} message='Thêm sản phẩm thành công' />
     </Container>
   )
 }

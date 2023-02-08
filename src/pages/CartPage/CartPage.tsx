@@ -5,26 +5,33 @@ import LoadingDots from 'components/LoadingDots/LoadingDots'
 import { Wrapper } from 'globalStyle.styled'
 import { Container } from './CartPage.styled'
 import EmptyCart from './components/EmptyCart'
-import { useState } from 'react'
 import Table from './components/Table'
 import PaymentFooter from './components/PaymentFooter'
+import type { ExtraCartItem } from 'types/cart.type'
+import { useAppDispatch } from 'hooks/useApp'
+import { setListCart } from 'features/cart/cartSlice'
 
 const CartPage = () => {
-  // call api to fetch items in cart user
-  // const { data: dataCart, isLoading: isLoadingDataCart } = useQuery({
-  //   queryKey: ['items-cart'],
-  //   queryFn: () => cartApis.fetchCart()
-  // })
-  // const itemsCart = dataCart?.data.data
+  const dispatch = useAppDispatch()
 
-  // if (isLoadingDataCart) return <LoadingDots />
+  const { data: dataCart, isLoading: isLoadingDataCart } = useQuery({
+    queryKey: ['list-cart'],
+    queryFn: () => cartApis.fetchListCart()
+  })
+  const listCart = dataCart?.data.data || []
 
-  const itemsCart: any[] = [1, 2, 3, 4, 5]
+  if (isLoadingDataCart) return <LoadingDots />
+
+  const extraListCart: ExtraCartItem[] = listCart
+    ? listCart.map((item) => ({ ...item, checked: false, disabled: false }))
+    : []
+
+  dispatch(setListCart(extraListCart))
 
   return (
     <Container>
       <Wrapper>
-        {itemsCart && (itemsCart as any[]).length > 0 ? (
+        {extraListCart && extraListCart.length > 0 ? (
           <>
             <Table />
             <PaymentFooter />

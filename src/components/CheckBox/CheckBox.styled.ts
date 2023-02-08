@@ -25,7 +25,7 @@ export const CheckBoxShow = styled.div`
   cursor: pointer;
   position: relative;
 
-  ${(props: { isChecked: boolean }) => {
+  ${(props: { isChecked: boolean | undefined }) => {
     if (props.isChecked) {
       return css`
         background-color: ${colors['orange']};

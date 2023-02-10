@@ -62,21 +62,25 @@ const UserProfile = () => {
       const userResponse = response.data.data.user
       saveUserLS(userResponse)
       dispatch(updateUser(userResponse))
-      toast.success('Cập nhật thông tin thành công 🎉.', { autoClose: 1500, position: 'top-center' })
+      toast.success('Cập nhật thông tin thành công 🎉.', { autoClose: 1000 })
       refetch()
     },
-    onError: (error) => {}
+    onError: (error) => {
+      toast.success('Cập nhật thất bại .', { autoClose: 1000 })
+    }
   })
 
   const uploadAvartarMutation = useMutation({
     mutationFn: (avatar: FormData) => userApi.uploadAvatar(avatar),
     onSuccess: (response) => {
-      toast.success('Cập nhật thông tin thành công 🎉.', { autoClose: 1500, position: 'top-center' })
-
+      const userResponse = response.data.data.user
+      saveUserLS(userResponse)
+      dispatch(updateUser(userResponse))
+      toast.success('Cập nhật avartar thành công 🎉.', { autoClose: 1000 })
       refetch()
     },
     onError: (error) => {
-      console.log(error)
+      toast.success('Cập nhật thất bại .', { autoClose: 1000 })
     }
   })
 
@@ -93,12 +97,7 @@ const UserProfile = () => {
     let _data: Partial<ProfileFromData> = {}
 
     if (file) {
-      const formData = new FormData()
-      formData.append('image', file)
-
-      console.log(file)
-
-      uploadAvartarMutation.mutate(formData)
+      uploadAvartarMutation.mutate(file as any)
     }
     for (const [key, value] of objectEntries(data)) {
       if (profile![key] !== value) {

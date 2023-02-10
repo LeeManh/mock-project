@@ -15,7 +15,7 @@ const updateProfile = (body: BodyUpdateProfile) =>
   http.post<SuccessResponse<{ user: User }>>('update-user', { ...body, _method: 'put' })
 
 const uploadAvatar = (avatar: FormData) =>
-  http.post<SuccessResponse<User>>(
+  http.post<SuccessResponse<{ user: User }>>(
     'update-user',
     { avatar, _method: 'put' },
     {

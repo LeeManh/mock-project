@@ -37,7 +37,12 @@ const InputFile = ({ onChange }: Props) => {
         onClick={(e) => ((e.target as HTMLInputElement).value = '')}
       />
 
-      <Button typeBtn='primary' onClick={onClickSelectAvatar} style={{ marginTop: '2rem', width: '10rem' }}>
+      <Button
+        typeBtn='primary'
+        type='button'
+        onClick={onClickSelectAvatar}
+        style={{ marginTop: '2rem', width: '10rem' }}
+      >
         Chọn Ảnh
       </Button>
     </>

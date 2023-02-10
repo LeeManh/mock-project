@@ -56,5 +56,5 @@ export const FormModal = styled.div`
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 `

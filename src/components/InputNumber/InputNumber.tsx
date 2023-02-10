@@ -35,8 +35,8 @@ const InputNumber = forwardRef<HTMLInputElement, Props>((props, ref) => {
 
   return (
     <Container style={styleContainer}>
-      <Input {...rest} ref={ref} onChange={handleChange} value={value || localValue} />
-      <ErrorMessage>{errorMessage}</ErrorMessage>
+      <Input {...rest} ref={ref} onChange={handleChange} value={value || localValue} isError={Boolean(errorMessage)} />
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </Container>
   )
 })

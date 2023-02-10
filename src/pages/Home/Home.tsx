@@ -7,37 +7,19 @@ import { useQuery } from '@tanstack/react-query'
 import colors from 'constants/colors'
 import { SeeAllLink } from 'globalStyle.styled'
 import { SwiperSlide } from 'swiper/react'
-import {
-  BannerWrap,
-  CategoryWrap,
-  Container,
-  HomeWrap,
-  SideBannerWrap,
-  BannerSlideWrap,
-  CategoryItem,
-  TopSearchWrap,
-  HeaderSection,
-  TopSearchCard,
-  TopSearchCardImage,
-  TopSearchCardNumber,
-  TopSearchCardTitle,
-  IconTop,
-  ListProductWrap,
-  Title,
-  ListDiscoveryProduct,
-  TopSearchCardImageWrap
-} from './Home.styled'
+import * as S from './Home.styled'
 import routePaths from 'constants/routePaths'
 import Button from 'components/Button'
 import useQueryConfig from 'hooks/useQueryConfig'
 import productApis from 'apis/product.api'
 import { getImageUrl, formatNumberToSocialStyle, genarateNameId } from 'utils/utils'
+import LoadingDots from 'components/LoadingDots/LoadingDots'
 
 const Home = () => {
   const navigate = useNavigate()
   const queryConfig = useQueryConfig()
 
-  const { data: dataListCategory } = useQuery({
+  const { data: dataListCategory, isLoading: isLoadingListCategory } = useQuery({
     queryKey: ['list-category', queryConfig],
     queryFn: () => productApis.fetchListCategory(),
     keepPreviousData: true,
@@ -45,7 +27,7 @@ const Home = () => {
   })
   const listCategory = dataListCategory?.data.data
 
-  const { data: dataListBanner } = useQuery({
+  const { data: dataListBanner, isLoading: isLoadingListBanner } = useQuery({
     queryKey: ['list-banner'],
     queryFn: () => productApis.fetchListBanner(),
     keepPreviousData: true,
@@ -53,7 +35,7 @@ const Home = () => {
   })
   const listBanner = dataListBanner?.data.data
 
-  const { data: dataListTopSellProduct } = useQuery({
+  const { data: dataListTopSellProduct, isLoading: isLoadingListTopSellProduct } = useQuery({
     queryKey: ['list-top-sell-products'],
     queryFn: () => productApis.fetchListTopSellProducts(),
     keepPreviousData: true,
@@ -61,7 +43,7 @@ const Home = () => {
   })
   const listTopSellProduct = dataListTopSellProduct?.data.data
 
-  const { data: dataListProducts } = useQuery({
+  const { data: dataListProducts, isLoading: isLoadingListProducts } = useQuery({
     queryKey: ['list-products', queryConfig],
     queryFn: () => productApis.fetchListProduct(),
     keepPreviousData: true,
@@ -69,11 +51,19 @@ const Home = () => {
   })
   const listProducts = dataListProducts?.data.data.data
 
+  if (
+    [isLoadingListCategory, isLoadingListBanner, isLoadingListTopSellProduct, isLoadingListProducts].some(
+      (item) => item
+    )
+  ) {
+    return <LoadingDots />
+  }
+
   return (
-    <Container>
-      <HomeWrap>
-        <BannerWrap>
-          <BannerSlideWrap>
+    <S.Container>
+      <S.HomeWrap>
+        <S.BannerWrap>
+          <S.BannerSlideWrap>
             <Slide
               navigation={true}
               pagination={{
@@ -92,17 +82,17 @@ const Home = () => {
                   </SwiperSlide>
                 ))}
             </Slide>
-          </BannerSlideWrap>
-          <SideBannerWrap>
+          </S.BannerSlideWrap>
+          <S.SideBannerWrap>
             <img src={listBanner && getImageUrl(listBanner[0].image)} alt='' />
             <img src={listBanner && getImageUrl(listBanner[1].image)} alt='' />
-          </SideBannerWrap>
-        </BannerWrap>
+          </S.SideBannerWrap>
+        </S.BannerWrap>
 
-        <CategoryWrap>
-          <HeaderSection>
-            <Title>DANH MỤC</Title>
-          </HeaderSection>
+        <S.CategoryWrap>
+          <S.HeaderSection>
+            <S.Title>DANH MỤC</S.Title>
+          </S.HeaderSection>
 
           <Slide
             slidesPerView={2}
@@ -133,29 +123,29 @@ const Home = () => {
                         })}`
                       }}
                     >
-                      <CategoryItem>
+                      <S.CategoryItem>
                         <img src={getImageUrl(category.image)} alt={category.name} />
                         <span>{category.name}</span>
-                      </CategoryItem>
+                      </S.CategoryItem>
                     </Link>
                   </SwiperSlide>
                 )
               })}
           </Slide>
-        </CategoryWrap>
+        </S.CategoryWrap>
 
-        <TopSearchWrap>
-          <HeaderSection>
-            <Title bold={true} color={colors.orange}>
+        <S.TopSearchWrap>
+          <S.HeaderSection>
+            <S.Title bold={true} color={colors.orange}>
               Sản phẩm bán chạy
-            </Title>
+            </S.Title>
             <Link to={routePaths.topProducts}>
               <SeeAllLink>
                 <span>Xem tất cả</span>
                 <RightOutlined />
               </SeeAllLink>
             </Link>
-          </HeaderSection>
+          </S.HeaderSection>
 
           <Slide
             slidesPerView={2}
@@ -183,34 +173,34 @@ const Home = () => {
                 return (
                   <SwiperSlide key={topProduct.id}>
                     <Link to={`${routePaths.detailsProduct}/${nameId}})}`}>
-                      <TopSearchCard>
-                        <TopSearchCardImageWrap>
-                          <TopSearchCardImage src={getImageUrl(images[0])} alt={topProduct.name} />
-                          <IconTop />
-                          <TopSearchCardNumber>
+                      <S.TopSearchCard>
+                        <S.TopSearchCardImageWrap>
+                          <S.TopSearchCardImage src={getImageUrl(images[0])} alt={topProduct.name} />
+                          <S.IconTop />
+                          <S.TopSearchCardNumber>
                             Bán {formatNumberToSocialStyle(topProduct.numberSell)} + / tháng
-                          </TopSearchCardNumber>
-                        </TopSearchCardImageWrap>
+                          </S.TopSearchCardNumber>
+                        </S.TopSearchCardImageWrap>
 
-                        <TopSearchCardTitle>{topProduct.name}</TopSearchCardTitle>
-                      </TopSearchCard>
+                        <S.TopSearchCardTitle>{topProduct.name}</S.TopSearchCardTitle>
+                      </S.TopSearchCard>
                     </Link>
                   </SwiperSlide>
                 )
               })}
           </Slide>
-        </TopSearchWrap>
+        </S.TopSearchWrap>
 
-        <ListProductWrap>
-          <HeaderSection>
-            <Title bold={true} color={colors.orange}>
+        <S.ListProductWrap>
+          <S.HeaderSection>
+            <S.Title bold={true} color={colors.orange}>
               Danh sách sản phẩm
-            </Title>
-          </HeaderSection>
+            </S.Title>
+          </S.HeaderSection>
 
-          <ListDiscoveryProduct>
+          <S.ListDiscoveryProduct>
             {listProducts && listProducts.map((product) => <ProductCard key={product.id} product={product} />)}
-          </ListDiscoveryProduct>
+          </S.ListDiscoveryProduct>
 
           <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
             <Button
@@ -221,9 +211,9 @@ const Home = () => {
               Xem Thêm
             </Button>
           </div>
-        </ListProductWrap>
-      </HomeWrap>
-    </Container>
+        </S.ListProductWrap>
+      </S.HomeWrap>
+    </S.Container>
   )
 }
 

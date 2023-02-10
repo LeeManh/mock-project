@@ -19,8 +19,8 @@ export const DotsWrap = styled.div`
   gap: 0.6rem;
 `
 export const Dot = styled(motion.div)`
-  width: 1rem;
-  height: 1rem;
+  width: 10px;
+  height: 10px;
   background-color: ${colors['orange-light']};
   border-radius: 50%;
 `

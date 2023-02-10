@@ -59,7 +59,7 @@ const ItemOrder = ({ order }: Props) => {
               Hủy Đơn Hàng
             </S.ButtonAction>
           )}
-          {[orderStaus.Cancelled, orderStaus.Delivered].includes(order.delivery_status as any) && (
+          {[orderStaus.Cancelled, orderStaus.Received].includes(order.delivery_status as any) && (
             <S.ButtonAction
               onClick={() => buyOrderAgainMutation.mutate(+order.id)}
               isLoading={buyOrderAgainMutation.isLoading}

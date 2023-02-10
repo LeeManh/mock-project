@@ -25,8 +25,8 @@ const items: TabsProps['items'] = [
     label: `Đang vận chuyển`
   },
   {
-    key: `${orderStaus.Delivered}`,
-    label: `Đã giao`
+    key: `${orderStaus.Received}`,
+    label: `Đã nhận`
   },
   {
     key: `${orderStaus.Cancelled}`,

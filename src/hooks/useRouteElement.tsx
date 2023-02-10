@@ -1,28 +1,31 @@
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
+import { lazy } from 'react'
 
 import routePaths from 'constants/routePaths'
-import Login from 'pages/Login'
 import AuthLayout from 'layouts/AuthLayout'
-import Register from 'pages/Register'
 import MainLayout from 'layouts/MainLayout'
-import Home from 'pages/Home'
-import DetailsProduct from 'pages/DetailsProduct'
-import CategoryProducts from 'pages/CategoryProducts'
 import CartLayout from 'layouts/CartLayout'
-import CartPage from 'pages/CartPage'
 import UserLayout from 'layouts/UserLayout'
-import UserProfile from 'pages/User/UserProfile'
-import UserAddress from 'pages/User/UserAddress'
-import ChangePassword from 'pages/User/ChangePassword'
-import UserPurchase from 'pages/User/UserPurchase'
-import TopProducts from 'pages/TopProducts'
-import { useAppSelector } from './useApp'
-import NotFound from 'pages/NotFound'
-import SimilarProductsPage from 'pages/SimilarProductsPage'
-import AllProductsPage from 'pages/AllProductsPage'
-import ResultSearchProductsPage from 'pages/ResultSearchProductsPage'
-import CheckOutPage from 'pages/CheckOutPage'
 import CheckOutLayout from 'layouts/CheckOutLayout'
+
+import { useAppSelector } from './useApp'
+
+const Login = lazy(() => import('pages/Login'))
+const Register = lazy(() => import('pages/Register'))
+const Home = lazy(() => import('pages/Home'))
+const DetailsProduct = lazy(() => import('pages/DetailsProduct'))
+const CategoryProducts = lazy(() => import('pages/CategoryProducts'))
+const CartPage = lazy(() => import('pages/CartPage'))
+const UserProfile = lazy(() => import('pages/User/UserProfile'))
+const UserAddress = lazy(() => import('pages/User/UserAddress'))
+const ChangePassword = lazy(() => import('pages/User/ChangePassword'))
+const UserPurchase = lazy(() => import('pages/User/UserPurchase'))
+const TopProducts = lazy(() => import('pages/TopProducts'))
+const NotFound = lazy(() => import('pages/NotFound'))
+const SimilarProductsPage = lazy(() => import('pages/SimilarProductsPage'))
+const AllProductsPage = lazy(() => import('pages/AllProductsPage'))
+const ResultSearchProductsPage = lazy(() => import('pages/ResultSearchProductsPage'))
+const CheckOutPage = lazy(() => import('pages/CheckOutPage'))
 
 const ProtectedRoute = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)

@@ -77,7 +77,7 @@ const SideFilter = () => {
                     trigger('price_max')
                   }}
                   placeholder='₫ TỪ'
-                  style={{ textAlign: 'left', fontSize: '1.2rem' }}
+                  style={{ fontSize: '1.2rem' }}
                 />
               )
             }}
@@ -97,7 +97,7 @@ const SideFilter = () => {
                     trigger('price_min')
                   }}
                   placeholder='₫ TỪ'
-                  style={{ textAlign: 'left', fontSize: '1.2rem' }}
+                  style={{ fontSize: '1.2rem' }}
                 />
               )
             }}

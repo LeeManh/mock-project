@@ -3,6 +3,7 @@ import axios from 'axios'
 import apiConfigs from 'constants/apiConfigs'
 import type { AxiosError } from 'axios'
 import HttpStatusCode from 'constants/httpStatusCode'
+import { Product } from 'types/product.type'
 
 export function formatCurrency(currency: number) {
   return new Intl.NumberFormat('de-DE').format(currency)
@@ -36,6 +37,9 @@ export function getImageUrl(url: string) {
 
 export function getPriceAfterSale(price: number, percentSale: number) {
   return price - (percentSale / 100) * price
+}
+export const getFinalPrice = (price: number, percentSale: number, is_sale: 0 | 1) => {
+  return !!is_sale ? getPriceAfterSale(price, percentSale) : price
 }
 
 type PickByValue<T, V> = Pick<T, { [K in keyof T]: T[K] extends V ? K : never }[keyof T]>

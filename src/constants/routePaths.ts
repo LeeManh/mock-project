@@ -10,6 +10,7 @@ const routePaths = {
   detailsProduct: '/details',
   categoryProduct: '/category',
   cart: '/cart',
+  checkout: '/checkout',
   user: '/user',
   userAccount: 'account',
   userProfile: 'profile',

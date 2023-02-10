@@ -21,6 +21,8 @@ import NotFound from 'pages/NotFound'
 import SimilarProductsPage from 'pages/SimilarProductsPage'
 import AllProductsPage from 'pages/AllProductsPage'
 import ResultSearchProductsPage from 'pages/ResultSearchProductsPage'
+import CheckOutPage from 'pages/CheckOutPage'
+import CheckOutLayout from 'layouts/CheckOutLayout'
 
 const ProtectedRoute = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
@@ -92,7 +94,7 @@ const useRouteElement = () => {
       )
     },
     {
-      path: '/cart',
+      path: routePaths.cart,
       element: <ProtectedRoute />,
       children: [
         {
@@ -101,6 +103,20 @@ const useRouteElement = () => {
             <CartLayout>
               <CartPage />
             </CartLayout>
+          )
+        }
+      ]
+    },
+    {
+      path: routePaths.checkout,
+      element: <ProtectedRoute />,
+      children: [
+        {
+          index: true,
+          element: (
+            <CheckOutLayout>
+              <CheckOutPage />
+            </CheckOutLayout>
           )
         }
       ]

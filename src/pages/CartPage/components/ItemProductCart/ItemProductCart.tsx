@@ -39,9 +39,16 @@ const ItemProductCart = ({ item, index }: Props) => {
 
   const changeQuanityMutation = useMutation({
     onSuccess: () => {
-      queryClient.removeQueries({ queryKey: ['list-cart'], exact: true })
+      queryClient.invalidateQueries({ queryKey: ['list-cart'] })
     },
     mutationFn: () => cartApis.updateQuantity(item.id, quantity)
+  })
+
+  const deleteItemCartMutation = useMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+    },
+    mutationFn: () => cartApis.deleteItemCart(item.id)
   })
 
   return (
@@ -84,6 +91,7 @@ const ItemProductCart = ({ item, index }: Props) => {
       </PriceTabel>
       <QuantityTabel>
         <InputNumber
+          style={{ textAlign: 'center', height: '3.2rem' }}
           styleContainer={{ maxWidth: '8rem', display: 'inline-block' }}
           maxValue={String(item.product.quantity)}
           value={String(quantity)}
@@ -95,7 +103,9 @@ const ItemProductCart = ({ item, index }: Props) => {
       </QuantityTabel>
       <TotalTabel>₫{formatCurrency(total)}</TotalTabel>
       <ActionsTabel>
-        <Button type='text'>Xóa</Button>
+        <Button type='text' onClick={() => deleteItemCartMutation.mutate()}>
+          Xóa
+        </Button>
       </ActionsTabel>
     </Container>
   )

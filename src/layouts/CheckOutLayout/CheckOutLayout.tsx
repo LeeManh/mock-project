@@ -1,17 +1,16 @@
 import Footer from 'components/Footer'
 import HeaderCartLayout from 'layouts/CartLayout/HeaderCartLayout'
-import HeaderMainLayoutMobile from 'layouts/MainLayout/HeaderMainLayoutMobile'
+
 import React from 'react'
 
 interface Props {
   children?: React.ReactNode
 }
 
-const CartLayout = ({ children }: Props) => {
+const CheckOutLayout = ({ children }: Props) => {
   return (
     <>
-      <HeaderCartLayout />
-      <HeaderMainLayoutMobile />
+      <HeaderCartLayout title='Thanh toán' showSearch={false} />
 
       {children}
 
@@ -20,4 +19,4 @@ const CartLayout = ({ children }: Props) => {
   )
 }
 
-export default CartLayout
+export default CheckOutLayout

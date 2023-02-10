@@ -1,15 +1,16 @@
-import { SuccessResponse } from './utils.type'
+import type { OrderStaus } from './order.type'
+import type { SuccessResponse } from './utils.type'
 export interface ProductListConfig {
   page?: string
   limit?: string
   order?: 'desc' | 'asc'
   sort_by?: 'ctime' | 'sales' | 'price'
-  exclude?: string
   rating_filter?: number
   price_max?: string
   price_min?: string
   keyword?: string
   category?: string
+  delivery_status?: OrderStaus
 }
 
 export interface Category {

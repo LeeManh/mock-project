@@ -7,9 +7,8 @@ export const Container = styled.div`
 export const Input = styled.input`
   height: 100%;
   width: 100%;
-  height: 3.2rem;
+  height: 4rem;
   width: 100%;
-  text-align: center;
   outline: none;
   border: 1px solid ${colors.gray};
   padding: 0 1rem;

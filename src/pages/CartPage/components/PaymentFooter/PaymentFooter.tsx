@@ -1,12 +1,22 @@
+import { useNavigate } from 'react-router-dom'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+
 import Button from 'components/Button'
 import CheckBox from 'components/CheckBox'
+import CustomModal from 'components/CustomModal'
+import { ModalButton, ModalFooter } from 'components/CustomModal/CustomModal.styled'
 import { handleCheckAllCart, selectCart } from 'features/cart/cartSlice'
 import { useAppDispatch, useAppSelector } from 'hooks/useApp'
 import { formatCurrency, getPriceAfterSale } from 'utils/utils'
 import { PaymentWrap, PriceTotal, RemoveAll, RightPayment } from './PaymentFooter.styled'
+import cartApis from 'apis/cart.api'
+import routePaths from 'constants/routePaths'
 
 const PaymentFooter = () => {
   const dispatch = useAppDispatch()
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const { isCheckAll, numberChecked, listCart } = useAppSelector(selectCart)
 
@@ -19,14 +29,44 @@ const PaymentFooter = () => {
 
     return sum + price
   }, 0)
-
   const totalBefore = listCart.reduce((sum, item) => {
     const price = item.checked ? item.product.price : 0
 
     return sum + price
   }, 0)
-
   const totalPriceSave = totalPrice - totalBefore
+  const listIdItemCartChecked = listCart.reduce((arr: number[], item) => {
+    return item.checked ? [...arr, item.id] : arr
+  }, [])
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const showModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const deleteItemsCartMutation = useMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+    },
+    mutationFn: (idMutilItemCart: string) => cartApis.deleteItemsCart(idMutilItemCart)
+  })
+
+  const handleOk = () => {
+    const idMutilItemCart = JSON.stringify(listIdItemCartChecked).slice(1, -1)
+
+    deleteItemsCartMutation.mutate(idMutilItemCart)
+
+    setIsModalOpen(false)
+  }
+
+  const handleCancel = () => {
+    setIsModalOpen(false)
+  }
+  const handleBuy = () => {
+    if (numberChecked === 0) return
+
+    navigate(routePaths.checkout)
+  }
 
   return (
     <PaymentWrap>
@@ -37,7 +77,7 @@ const PaymentFooter = () => {
           checked={isCheckAll}
           onChange={() => dispatch(handleCheckAllCart())}
         />
-        <RemoveAll>Xóa Tất Cả</RemoveAll>
+        <RemoveAll onClick={showModal}>Xóa Tất Cả</RemoveAll>
       </div>
       <RightPayment>
         <div>Tổng thanh toán ({numberChecked} Sản phẩm) :</div>
@@ -48,10 +88,31 @@ const PaymentFooter = () => {
             <span>₫{formatCurrency(totalPriceSave)}</span>
           </div>
         </div>
-        <Button typeBtn='primary' style={{ width: '100%', maxWidth: '20rem' }}>
+        <Button
+          typeBtn='primary'
+          style={{ width: '100%', maxWidth: '20rem' }}
+          disabled={numberChecked === 0}
+          onClick={handleBuy}
+        >
           Mua hàng
         </Button>
       </RightPayment>
+
+      <CustomModal
+        title={`Bạn có muốn bỏ ${listIdItemCartChecked.length} sản phẩm không`}
+        open={isModalOpen}
+        closable={false}
+        footer={
+          <ModalFooter>
+            <ModalButton typeBtn='primary' onClick={handleCancel}>
+              Trở lại
+            </ModalButton>
+            <ModalButton typeBtn='default' onClick={handleOk}>
+              Có
+            </ModalButton>
+          </ModalFooter>
+        }
+      />
     </PaymentWrap>
   )
 }

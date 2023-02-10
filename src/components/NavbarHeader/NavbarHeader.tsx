@@ -60,7 +60,7 @@ const NavbarHeader = () => {
   const logoutMutation = useMutation({
     onSuccess: () => {
       dispatch(logoutSuccess())
-      queryClient.removeQueries({ queryKey: ['list-cart'], exact: true })
+      queryClient.removeQueries({ queryKey: ['list-cart'] })
     },
     mutationFn: () => authApis.logoutAccount()
   })

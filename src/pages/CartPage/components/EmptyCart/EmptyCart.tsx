@@ -29,9 +29,11 @@ const EmptyCart = () => {
       <ImageEmpty src={images.cartEmpty} alt='' />
       <TextEmpty>Giỏ hàng của bạn còn trống</TextEmpty>
 
-      <Button typeBtn='primary' style={{ minWidth: '16rem', textTransform: 'uppercase' }}>
-        <Link to={routePaths.home}>Mua ngay</Link>
-      </Button>
+      <Link to={routePaths.home}>
+        <Button typeBtn='primary' style={{ minWidth: '16rem', textTransform: 'uppercase' }}>
+          Mua ngay
+        </Button>
+      </Link>
     </Container>
   )
 }

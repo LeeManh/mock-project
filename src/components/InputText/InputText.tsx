@@ -47,7 +47,7 @@ export default function InputText<
           </IconEyeWrap>
         )}
       </InputWrap>
-      {register && <ErrorMessage style={styleErrorMessage}>{errorMessage}</ErrorMessage>}
+      {register && errorMessage && <ErrorMessage style={styleErrorMessage}>{errorMessage}</ErrorMessage>}
     </Container>
   )
 }

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import omit from 'lodash/omit'
@@ -49,6 +49,7 @@ const DetailsProduct = () => {
   const params = useParams()
   const { isAuthenticated } = useAppSelector(selectAuth)
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const idProduct = getIdFromNameId(params.idProduct as string)
 
@@ -84,7 +85,7 @@ const DetailsProduct = () => {
       quantity: '1'
     }
   })
-
+  const [showMessage, setShowMessage] = useState(false)
   useEffect(() => {
     detailsProduct?.colors && setValue('isHaveColor', true)
     detailsProduct?.colors && setValue('isHaveSize', true)
@@ -92,6 +93,7 @@ const DetailsProduct = () => {
 
   const addToCartMutation = useMutation({
     onSuccess: (response) => {
+      queryClient.invalidateQueries({ queryKey: ['list-cart'] })
       setShowMessage(true)
       reset()
     },
@@ -118,8 +120,20 @@ const DetailsProduct = () => {
     }
     trigger(name)
   }
+  const onBuyNow = (data: DetailsProductSchema) => {
+    // const data = getValues()
+    // const _data = omitBy(omit(data, ['isHaveColor', 'isHaveSize']), isEmpty)
+    console.log(data)
 
-  const [showMessage, setShowMessage] = useState(false)
+    // addToCartMutation.mutate(
+    //   { ..._data, id_product: +detailsProduct!.id },
+    //   {
+    //     onSuccess: (response) => {
+    //       navigate(`${routePaths.cart}`, { state: { idItemCart: response.data.data.id } })
+    //     }
+    //   }
+    // )
+  }
 
   if (isLoadingDetailsProduct || isLoadingSimilarProducts) return <LoadingDots />
 
@@ -212,6 +226,7 @@ const DetailsProduct = () => {
                             {...field}
                             maxValue={String(detailsProduct.quantity)}
                             styleContainer={{ width: '8rem', height: '3.2rem' }}
+                            style={{ textAlign: 'center' }}
                             allowStartWithZezo={false}
                           />
                         )
@@ -223,19 +238,28 @@ const DetailsProduct = () => {
                 </div>
               </SelectQuantityWrap>
             </MainInforWrap>
-
             <ListButtonAction>
               <Button
                 typeBtn='default'
                 size='large'
                 type='submit'
-                onClick={() => !isAuthenticated && navigate(routePaths.login)}
+                onClick={() => {
+                  !isAuthenticated && navigate(routePaths.login)
+                }}
                 disabled={addToCartMutation.isLoading}
               >
                 <FontAwesomeIcon icon={faCartPlus} />
                 Thêm vào giỏ hàng
               </Button>
-              <Button typeBtn='primary' size='large' onClick={() => !isAuthenticated && navigate(routePaths.login)}>
+              <Button
+                type='button'
+                typeBtn='primary'
+                size='large'
+                onClick={() => {
+                  !isAuthenticated && navigate(routePaths.login)
+                  handleSubmit(onBuyNow)
+                }}
+              >
                 Mua ngay
               </Button>
             </ListButtonAction>

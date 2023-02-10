@@ -11,12 +11,12 @@ const useQueryConfig = () => {
       limit: queryParams.limit,
       order: queryParams.order,
       sort_by: queryParams.sort_by,
-      exclude: queryParams.exclude,
       rating_filter: queryParams.rating_filter,
       price_min: queryParams.price_min,
       price_max: queryParams.price_max,
       keyword: queryParams.keyword,
-      category: queryParams.category
+      category: queryParams.category,
+      delivery_status: queryParams.delivery_status || '1'
     },
     isUndefined
   )

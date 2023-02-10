@@ -15,3 +15,12 @@ export interface ExtraCartItem extends CartItem {
   checked: boolean
   disabled: boolean
 }
+
+export interface ResponseAddToCart {
+  name: string
+  quantity: string
+  price: string
+  percent_sale: string
+  image: string
+  id: number
+}

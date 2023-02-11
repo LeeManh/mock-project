@@ -9,7 +9,7 @@ import { ModalButton, ModalFooter } from 'components/CustomModal/CustomModal.sty
 import { handleCheckAllCart, selectCart } from 'features/cart/cartSlice'
 import { useAppDispatch, useAppSelector } from 'hooks/useApp'
 import { formatCurrency, getPriceAfterSale } from 'utils/utils'
-import { PaymentWrap, PriceTotal, RemoveAll, RightPayment } from './PaymentFooter.styled'
+import * as S from './PaymentFooter.styled'
 import cartApis from 'apis/cart.api'
 import routePaths from 'constants/routePaths'
 import { updateInforCheckout } from 'features/checkout/checkoutSlice'
@@ -80,20 +80,20 @@ const PaymentFooter = () => {
   }
 
   return (
-    <PaymentWrap>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+    <S.PaymentWrap>
+      <S.LeftPayment>
         <CheckBox
           styleContainer={{ marginRight: '2rem' }}
           label={`Chọn Tất Cả (${numberChecked})`}
           checked={isCheckAll}
           onChange={() => dispatch(handleCheckAllCart())}
         />
-        <RemoveAll onClick={showModal}>Xóa Tất Cả</RemoveAll>
-      </div>
-      <RightPayment>
+        <S.RemoveAll onClick={showModal}>Xóa Tất Cả</S.RemoveAll>
+      </S.LeftPayment>
+      <S.RightPayment>
         <div>Tổng thanh toán ({numberChecked} Sản phẩm) :</div>
         <div style={{ textAlign: 'right' }}>
-          <PriceTotal>₫{formatCurrency(totalPrice)}</PriceTotal>
+          <S.PriceTotal>₫{formatCurrency(totalPrice)}</S.PriceTotal>
           <div>
             <span style={{ marginRight: '1rem' }}>Tiết kiệm:</span>
             <span>₫{formatCurrency(totalPriceSave)}</span>
@@ -107,7 +107,7 @@ const PaymentFooter = () => {
         >
           Mua hàng
         </Button>
-      </RightPayment>
+      </S.RightPayment>
 
       <CustomModal
         title={`Bạn có muốn bỏ ${listIdItemCartChecked.length} sản phẩm không`}
@@ -124,7 +124,7 @@ const PaymentFooter = () => {
           </ModalFooter>
         }
       />
-    </PaymentWrap>
+    </S.PaymentWrap>
   )
 }
 

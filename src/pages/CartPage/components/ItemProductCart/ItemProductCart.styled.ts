@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   padding: 2rem 0;
   border-bottom: 1px solid ${colors['gray-light-2']};
+  min-width: 90rem;
 `
 export const ImageProduct = styled.img`
   min-width: 8rem;

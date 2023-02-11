@@ -15,6 +15,7 @@ import { handleCheckAllCart, selectCart } from 'features/cart/cartSlice'
 
 const Table = () => {
   const dispatch = useAppDispatch()
+
   const { isCheckAll, listCart } = useAppSelector(selectCart)
 
   return (

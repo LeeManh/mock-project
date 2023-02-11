@@ -10,10 +10,14 @@ import MenuSideBar from '../MenuSideBar'
 import { selectAuth } from 'features/auth/authSlice'
 import { useAppSelector } from 'hooks/useApp'
 import { getImageUrl } from 'utils/utils'
+import breakPonits from 'constants/breakPoints'
 
 const Container = styled.div`
   width: 20rem;
   flex-shrink: 0;
+  @media screen and (max-width: ${breakPonits.md}) {
+    width: 100%;
+  }
 `
 
 const HeaderSideBar = styled.div`

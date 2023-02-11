@@ -12,6 +12,10 @@ export const SectionWrap = styled.div`
 export const HeaderTabel = styled(SectionWrap)`
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 `
 export const ProductTabel = styled.div`
   width: 40%;
@@ -36,4 +40,5 @@ export const ActionsTabel = styled.div`
 `
 export const BodyTabel = styled(SectionWrap)`
   margin-top: 1rem;
+  overflow-x: auto;
 `

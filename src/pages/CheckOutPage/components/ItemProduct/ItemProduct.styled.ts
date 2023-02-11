@@ -8,6 +8,7 @@ export const Container = styled(Grid)`
   gap: 1rem;
   margin-bottom: 1rem;
   background-color: ${colors.white};
+  min-width: 90rem;
 `
 export const InforProduct = styled.div`
   display: flex;

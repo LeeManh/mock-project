@@ -25,6 +25,7 @@ const ItemProductCart = ({ item, index }: Props) => {
   const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
   const nameId = genarateNameId({ name: item.product.name, id: item.product.id })
+  console.log(item)
 
   const images = JSON.parse(item.product.image)
   const image = getImageUrl(images[0])
@@ -94,7 +95,7 @@ const ItemProductCart = ({ item, index }: Props) => {
           style={{ textAlign: 'center', height: '3.2rem' }}
           styleContainer={{ maxWidth: '8rem', display: 'inline-block' }}
           maxValue={String(item.product.quantity)}
-          value={String(quantity)}
+          value={String(item.quantity)}
           onChange={(e) => setQuantity(e.target.value)}
           onBlur={() => {
             changeQuanityMutation.mutate()

@@ -1,3 +1,4 @@
+import breakPonits from 'constants/breakPoints'
 import colors from 'constants/colors'
 import styled from 'styled-components'
 
@@ -19,6 +20,11 @@ export const RightPayment = styled.div`
   gap: 1rem;
   flex: 1;
   justify-content: flex-end;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
 `
 export const RemoveAll = styled.div`
   cursor: pointer;
@@ -27,4 +33,12 @@ export const PriceTotal = styled.div`
   font-size: 2rem;
   font-weight: 500;
   color: ${colors.orange};
+`
+
+export const LeftPayment = styled.div`
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: ${breakPonits.lg}) {
+    display: none;
+  }
 `

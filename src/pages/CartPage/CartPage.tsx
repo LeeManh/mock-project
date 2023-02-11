@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import keyBy from 'lodash/keyBy'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import cartApis from 'apis/cart.api'
 import LoadingDots from 'components/LoadingDots/LoadingDots'
@@ -11,29 +13,40 @@ import PaymentFooter from './components/PaymentFooter'
 import type { ExtraCartItem } from 'types/cart.type'
 import { useAppDispatch, useAppSelector } from 'hooks/useApp'
 import { selectCart, setListCart } from 'features/cart/cartSlice'
-import { useEffect, useMemo } from 'react'
 
 const CartPage = () => {
   const dispatch = useAppDispatch()
   const { listCart: listCartRedux } = useAppSelector(selectCart)
+  const { state } = useLocation()
 
   const { data: dataCart, isLoading: isLoadingDataCart } = useQuery({
     queryKey: ['list-cart'],
     queryFn: () => cartApis.fetchListCart()
   })
-  const listCart = useMemo(() => dataCart?.data.data || [], [dataCart])
+  const listCart = dataCart?.data.data
 
   useEffect(() => {
+    if (!listCart) return
+
     const extraListCartKeyBy = keyBy(listCartRedux, 'id')
 
-    const extraListCart: ExtraCartItem[] = listCart
-      ? listCart.map((item) => ({ ...item, checked: extraListCartKeyBy[item.id]?.checked || false, disabled: false }))
-      : []
+    const extraListCart: ExtraCartItem[] = listCart.map((item) => {
+      const isChecked = item.id === state?.idItemCart || Boolean(extraListCartKeyBy[item.id]?.checked) || false
 
+      return {
+        ...item,
+        checked: isChecked,
+        disabled: false
+      }
+    })
     dispatch(setListCart(extraListCart))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, listCart])
+  }, [dispatch, listCart, state?.idItemCart])
+
+  useEffect(() => {
+    return () => window.history.replaceState({}, document.title)
+  }, [])
 
   if (isLoadingDataCart) return <LoadingDots />
 

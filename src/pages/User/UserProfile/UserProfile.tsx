@@ -3,15 +3,7 @@ import Button from 'components/Button'
 import InputNumber from 'components/InputNumber'
 import InputText from 'components/InputText'
 import HeaderUserLayout from 'layouts/UserLayout/HeaderUserLayout/HeaderUserLayout'
-import {
-  Container,
-  ContentUser,
-  DescribeUpDate,
-  FormUser,
-  ItemFormUser,
-  LabelForm,
-  UpdateAvatart
-} from './UserProfile.styled'
+import * as S from './UserProfile.styled'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { UserSchema, userSchema } from 'utils/rules'
@@ -119,27 +111,27 @@ const UserProfile = () => {
   if (isLoadingProfile) return null
 
   return (
-    <Container>
+    <S.Container>
       <HeaderUserLayout title='Hồ Sơ Của Tôi' describe='Quản lý thông tin hồ sơ để bảo mật tài khoản' />
 
-      <ContentUser as={'form'} onSubmit={handleSubmit(onSubmit)}>
-        <FormUser>
-          <ItemFormUser>
-            <LabelForm>Email</LabelForm>
+      <S.ContentUser as={'form'} onSubmit={handleSubmit(onSubmit)}>
+        <S.FormUser>
+          <S.ItemFormUser>
+            <S.LabelForm>Email</S.LabelForm>
             <div style={{ width: '100%' }}>{profile?.email}</div>
-          </ItemFormUser>
+          </S.ItemFormUser>
 
-          <ItemFormUser>
-            <LabelForm>
+          <S.ItemFormUser>
+            <S.LabelForm>
               <div style={{ marginTop: '1.5rem' }}>Tên</div>
-            </LabelForm>
+            </S.LabelForm>
             <InputText register={register} name='name' errorMessage={errors.name?.message} />
-          </ItemFormUser>
+          </S.ItemFormUser>
 
-          <ItemFormUser>
-            <LabelForm>
+          <S.ItemFormUser>
+            <S.LabelForm>
               <div style={{ marginTop: '1.5rem' }}>Số điện thoại</div>
-            </LabelForm>
+            </S.LabelForm>
 
             <Controller
               control={control}
@@ -153,30 +145,29 @@ const UserProfile = () => {
                 />
               )}
             />
-          </ItemFormUser>
+          </S.ItemFormUser>
 
-          <Button
+          <S.ButtonSave
             type='submit'
             typeBtn='primary'
-            style={{ marginLeft: '20%', width: '10rem' }}
             isLoading={updateProfileMutation.isLoading || uploadAvartarMutation.isLoading}
           >
             Lưu
-          </Button>
-        </FormUser>
+          </S.ButtonSave>
+        </S.FormUser>
 
-        <UpdateAvatart>
+        <S.UpdateAvatart>
           <Avatar src={previewImage || (profile?.avatar ? getImageUrl(profile.avatar) : null)} size={102} />
 
           <InputFile onChange={onChangeAvatar} />
 
-          <DescribeUpDate>
+          <S.DescribeUpDate>
             <div>Dụng lượng file tối đa 1 MB</div>
             <div>Định dạng:.JPEG, .PNG</div>
-          </DescribeUpDate>
-        </UpdateAvatart>
-      </ContentUser>
-    </Container>
+          </S.DescribeUpDate>
+        </S.UpdateAvatart>
+      </S.ContentUser>
+    </S.Container>
   )
 }
 

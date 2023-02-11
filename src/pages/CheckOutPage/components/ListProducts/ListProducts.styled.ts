@@ -1,3 +1,4 @@
+import breakPonits from 'constants/breakPoints'
 import colors from 'constants/colors'
 import styled from 'styled-components'
 import { TitleSection } from '../../CheckOutPage.styled'
@@ -14,6 +15,10 @@ export const Header = styled(Grid)`
   background-color: ${colors.white};
   padding: 3rem 3rem 2rem;
   gap: 1rem;
+
+  @media screen and (max-width: ${breakPonits.lg}) {
+    display: none;
+  }
 `
 export const TitleHeader = styled(TitleSection)``
 const Title = styled.div`
@@ -26,4 +31,6 @@ export const TitleTotalPrice = styled(Title)`
   text-align: right;
 `
 
-export const Content = styled.div``
+export const Content = styled.div`
+  overflow-x: auto;
+`

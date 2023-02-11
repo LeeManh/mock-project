@@ -1,3 +1,4 @@
+import breakPonits from 'constants/breakPoints'
 import colors from 'constants/colors'
 import styled from 'styled-components'
 
@@ -39,6 +40,12 @@ export const ContentInforUser = styled.div`
   font-size: 1.6rem;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: ${breakPonits.lg}) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 `
 export const NameAddress = styled.div`
   margin-right: 2rem;

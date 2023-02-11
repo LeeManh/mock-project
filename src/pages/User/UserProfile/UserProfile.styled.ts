@@ -1,5 +1,7 @@
+import Button from 'components/Button'
 import styled from 'styled-components'
 import colors from 'constants/colors'
+import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.div`
   background-color: ${colors.white};
@@ -10,10 +12,20 @@ export const Container = styled.div`
 export const ContentUser = styled.div`
   display: flex;
   margin-top: 5rem;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
 `
 export const FormUser = styled.div`
   flex: 1;
   padding-right: 5rem;
+  @media screen and (max-width: ${breakPonits.md}) {
+    width: 100%;
+    padding-right: 0;
+  }
 `
 export const ItemFormUser = styled.div`
   display: flex;
@@ -36,4 +48,17 @@ export const UpdateAvatart = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: ${breakPonits.md}) {
+    order: -1;
+    border: 0;
+  }
+`
+
+export const ButtonSave = styled(Button)`
+  margin-left: 20%;
+  width: 10rem;
+
+  @media screen and (max-width: ${breakPonits.md}) {
+    margin: 0 auto;
+  }
 `

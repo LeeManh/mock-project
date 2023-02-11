@@ -120,20 +120,19 @@ const DetailsProduct = () => {
     }
     trigger(name)
   }
-  const onBuyNow = (data: DetailsProductSchema) => {
-    // const data = getValues()
-    // const _data = omitBy(omit(data, ['isHaveColor', 'isHaveSize']), isEmpty)
-    console.log(data)
+  const onBuyNow = handleSubmit((data: DetailsProductSchema) => {
+    const _data = omitBy(omit(data, ['isHaveColor', 'isHaveSize']), isEmpty)
 
-    // addToCartMutation.mutate(
-    //   { ..._data, id_product: +detailsProduct!.id },
-    //   {
-    //     onSuccess: (response) => {
-    //       navigate(`${routePaths.cart}`, { state: { idItemCart: response.data.data.id } })
-    //     }
-    //   }
-    // )
-  }
+    addToCartMutation.mutate(
+      { ..._data, id_product: +detailsProduct!.id },
+      {
+        onSuccess: (response) => {
+          queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+          navigate(`${routePaths.cart}`, { state: { idItemCart: response.data.data.id } })
+        }
+      }
+    )
+  })
 
   if (isLoadingDetailsProduct || isLoadingSimilarProducts) return <LoadingDots />
 
@@ -225,8 +224,7 @@ const DetailsProduct = () => {
                           <InputNumber
                             {...field}
                             maxValue={String(detailsProduct.quantity)}
-                            styleContainer={{ width: '8rem', height: '3.2rem' }}
-                            style={{ textAlign: 'center' }}
+                            style={{ textAlign: 'center', width: '8rem', height: '3.4rem' }}
                             allowStartWithZezo={false}
                           />
                         )
@@ -257,7 +255,7 @@ const DetailsProduct = () => {
                 size='large'
                 onClick={() => {
                   !isAuthenticated && navigate(routePaths.login)
-                  handleSubmit(onBuyNow)
+                  onBuyNow()
                 }}
               >
                 Mua ngay

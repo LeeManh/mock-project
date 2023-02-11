@@ -1,6 +1,7 @@
 import { Menu } from 'antd'
 import styled from 'styled-components'
 import colors from 'constants/colors'
+import breakPonits from 'constants/breakPoints'
 
 export const MenuCustom = styled(Menu)`
   background-color: transparent;

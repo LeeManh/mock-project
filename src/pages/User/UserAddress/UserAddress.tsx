@@ -63,9 +63,7 @@ const UserAddress = () => {
       toast.success('Cập nhật địa chỉ thành công 🎉.', { autoClose: 1500, position: 'top-center' })
       refetch()
     },
-    onError: (error) => {
-      console.log(error)
-    }
+    onError: (error) => {}
   })
 
   const onSubmit = (data: ProfileFromData) => {

@@ -43,8 +43,6 @@ const TopProducts = () => {
   })
   const listTopSellProduct = dataListTopSellProduct?.data.data
 
-  console.log(listTopSellProduct)
-
   return (
     <Container>
       <Wrapper>

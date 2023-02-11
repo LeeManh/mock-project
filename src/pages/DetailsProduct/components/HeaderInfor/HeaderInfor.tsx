@@ -21,7 +21,7 @@ const HeaderInfor = ({ ratings, numberRatings, numberSold }: Props) => {
         <TextBigHeaderInforItem color={colors.orange} colorBorder={colors.orange}>
           {ratings}
         </TextBigHeaderInforItem>
-        <RateCustom disabled defaultValue={4.7} allowHalf />
+        <RateCustom disabled defaultValue={ratings} allowHalf />
       </HeaderInforItem>
       <HeaderInforItem>
         <TextBigHeaderInforItem colorBorder={colors['gray-drak']} color={colors.black}>

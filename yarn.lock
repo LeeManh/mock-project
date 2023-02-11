@@ -5078,10 +5078,10 @@ fraction.js@^4.2.0:
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.2.0.tgz#448e5109a313a3527f5a3ab2119ec4cf0e0e2950"
   integrity sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==
 
-framer-motion@^8.2.4:
-  version "8.2.4"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-8.2.4.tgz#24e99707b4d98567ce233b4f5a8894470d2da91d"
-  integrity sha512-bd2g3kgb8m0jBi+OOzsKPW4rQCn5gOOlbAlT0iMX6ruQPZ9qzIIABrRj2DFhwW6EcFvfJSP6EVVHSI8SQYBBOw==
+framer-motion@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-9.0.1.tgz#0b63c22bdde1c38ce8da88141bb81ef0137c68e9"
+  integrity sha512-0EP7+b/hnsbrFOum9zU+23Fq2cJJrLOqv/yJ26fIzK4CC33ZAjXZGi1/XyblbgnUF0cxZ/SEDj5IYHeQo42qNg==
   dependencies:
     "@motionone/dom" "^10.15.3"
     hey-listen "^1.0.8"
@@ -8588,6 +8588,11 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-sticky-box@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-sticky-box/-/react-sticky-box-2.0.0.tgz#db3d19f700f2c2fb8405da6973cadd9b74ceea91"
+  integrity sha512-xTy/46lG6GlfdkGL7DoevLj+p3lqjvULZvGkN36/2oM8FrijvFq/zzfAtK0ZSnDxM9Ct6KOr5ZVuejVdDFqEcw==
+
 react-toastify@^9.1.1:
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.1.1.tgz#9280caea4a13dc1739c350d90660a630807bf10b"
@@ -8652,6 +8657,11 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
+
+redux-persist@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-6.0.0.tgz#b4d2972f9859597c130d40d4b146fecdab51b3a8"
+  integrity sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==
 
 redux-thunk@^2.4.2:
   version "2.4.2"

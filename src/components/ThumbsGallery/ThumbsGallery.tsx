@@ -11,6 +11,7 @@ import {
   ThumbnailsImageWrap,
   ThumbnailsWrap
 } from './ThumbsGallery.styled'
+import { getImageUrl } from 'utils/utils'
 
 const numberMaxImage = 5
 
@@ -27,12 +28,12 @@ const ThumbsGallery = ({ images }: Props) => {
   return (
     <Container>
       <ThumbMainImageWrap>
-        <ThumbMainImage src={activeImage} alt='' />
+        <ThumbMainImage src={getImageUrl(activeImage)} alt='' />
       </ThumbMainImageWrap>
       <ThumbnailsWrap>
         {currentImages.map((imageUrl, index) => (
           <ThumbnailsImageWrap key={index} onMouseEnter={() => setActiveImage(currentImages[index])}>
-            <ThumbnailsImage imageUrl={imageUrl} />
+            <ThumbnailsImage imageUrl={getImageUrl(imageUrl)} />
             <BorderThumbnailsImage isActive={activeImage === currentImages[index]} />
           </ThumbnailsImageWrap>
         ))}

@@ -1,48 +1,46 @@
 import { Link } from 'react-router-dom'
-import { Dropdown, MenuProps } from 'antd'
-import styled from 'styled-components'
+import { Dropdown } from 'antd'
+import { useQuery } from '@tanstack/react-query'
 
 import colors from 'constants/colors'
 import NavbarHeader from 'components/NavbarHeader'
 import routePaths from 'constants/routePaths'
 import InputSearch from 'components/InputSearch'
-import images from 'assets/images'
 import { ReactComponent as LogoShopee } from 'assets/svgs/logo-shopee.svg'
 import { CartIcon, Container, HeaderMain, HeaderMainWrap, ShoppingCartIconWrap } from './HeaderMainLayout.styled'
 import useSearchProduct from 'hooks/useSearchProduct'
+import DropDownCart from '../DropDownCart'
+import ItemDropDownCart from '../ItemDropDownCart'
+import cartApis from 'apis/cart.api'
+import { useAppSelector } from 'hooks/useApp'
+import { selectAuth } from 'features/auth/authSlice'
+import EmptyCart from '../EmptyCart'
+import CustomBadge from 'components/CustomBadge'
 
-const ContainerCartEmpty = styled.div`
-  min-height: 26rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-
-  img {
-    width: 10rem;
-    height: 10rem;
-  }
-`
-
-const EmptyCart = () => {
-  return (
-    <ContainerCartEmpty>
-      <img src={images.cart.cartEmpty} alt='cartEmpty' />
-      <div>Chưa có sản phẩm</div>
-    </ContainerCartEmpty>
-  )
-}
-
-const cartMenuEmpty: MenuProps['items'] = [
-  {
-    key: 'cart-1',
-    label: <EmptyCart />
-  }
-]
+const NUMBER_MAX_ITEM_SHOW = 5
 
 const HeaderMainLayout = () => {
+  const { isAuthenticated } = useAppSelector(selectAuth)
   const { keyword, onChange, onSearch } = useSearchProduct()
+
+  const { data: dataListCart } = useQuery({
+    queryKey: ['list-cart'],
+    queryFn: () => cartApis.fetchListCart(),
+    enabled: isAuthenticated
+  })
+  const listCart = dataListCart?.data.data
+
+  const cartItems =
+    listCart && listCart.length > 0
+      ? listCart.slice(0, 5).map((item) => ({ key: item.id, label: <ItemDropDownCart item={item} /> }))
+      : [
+          {
+            key: 'cart-empty',
+            label: <EmptyCart />
+          }
+        ]
+  const numberItemLeft =
+    (listCart && listCart.length > NUMBER_MAX_ITEM_SHOW && listCart.length - NUMBER_MAX_ITEM_SHOW) || 0
 
   return (
     <Container>
@@ -63,22 +61,21 @@ const HeaderMainLayout = () => {
           <ShoppingCartIconWrap>
             <Dropdown
               menu={{
-                items: cartMenuEmpty,
+                items: cartItems,
                 selectable: true,
-                defaultSelectedKeys: ['vn'],
-                style: {
-                  borderRadius: '2px'
-                }
+                defaultSelectedKeys: ['vn']
+              }}
+              dropdownRender={(menu) => {
+                return <DropDownCart menu={menu} numberItemLeft={numberItemLeft} />
               }}
               placement='bottomRight'
               arrow
-              overlayStyle={{
-                minWidth: '40rem'
-              }}
             >
-              <Link to={routePaths.cart}>
-                <CartIcon />
-              </Link>
+              <CustomBadge count={listCart?.length || 0} overflowCount={99} offset={[2, 0]}>
+                <Link to={routePaths.cart}>
+                  <CartIcon />
+                </Link>
+              </CustomBadge>
             </Dropdown>
           </ShoppingCartIconWrap>
         </HeaderMainWrap>

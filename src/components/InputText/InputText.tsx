@@ -12,13 +12,23 @@ interface Props<
   register?: UseFormRegister<TFieldValues>
   name?: TFieldName
   styleContainer?: React.CSSProperties
+  styleErrorMessage?: React.CSSProperties
 }
 
 export default function InputText<
   TFieldValues extends FieldValues = FieldValues,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(props: Props<TFieldValues, TFieldName>) {
-  const { register, errorMessage, type = 'text', isHaveEyeIcon, name, styleContainer, ...rest } = props
+  const {
+    register,
+    errorMessage,
+    type = 'text',
+    isHaveEyeIcon,
+    name,
+    styleContainer,
+    styleErrorMessage,
+    ...rest
+  } = props
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -37,7 +47,7 @@ export default function InputText<
           </IconEyeWrap>
         )}
       </InputWrap>
-      {register && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {register && errorMessage && <ErrorMessage style={styleErrorMessage}>{errorMessage}</ErrorMessage>}
     </Container>
   )
 }

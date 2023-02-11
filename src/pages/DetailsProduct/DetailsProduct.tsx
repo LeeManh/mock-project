@@ -1,13 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
-// import DOMPurify from 'dompurify'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import omit from 'lodash/omit'
+import omitBy from 'lodash/omitBy'
+import isEmpty from 'lodash/isEmpty'
+import { useEffect, useState } from 'react'
 
-import { Wrapper } from 'globalStyle.styled'
+import { ErrorMessage, Wrapper } from 'globalStyle.styled'
 import ThumbsGallery from 'components/ThumbsGallery'
-import Breadcrumb from 'components/Breadcrumb'
-
-import TransportInfor from './components/TransportInfor/TransportInfor'
-import ButtonSelect from './components/ButtonSelect/ButtonSelect'
+import CustomBreadcrumb from 'components/CustomBreadcrumb'
+import ButtonSelect from './components/ButtonSelect'
 import InputNumber from 'components/InputNumber'
 import {
   ColorSelectWrap,
@@ -23,120 +28,247 @@ import {
   SizeSelectWrap,
   ThumbsGalleryWrap,
   Title,
-  TitleInfor,
-  TransportInforWrap,
-  TransportWrap
+  TitleInfor
 } from './DetailsProduct.styled'
 import PriceProduct from './components/PriceProduct'
 import HeaderInfor from './components/HeaderInfor'
 import SimilarProduct from './components/SimilarProduct'
 import Description from './components/Description'
-import { useState } from 'react'
 import Button from 'components/Button'
-import CustomModal from 'components/CustomModal'
-import InputText from 'components/InputText'
-
-const images = [
-  'https://cf.shopee.vn/file/21d36c7f2cbfb403debe58553d70c09a',
-  'https://cf.shopee.vn/file/sg-11134201-22100-wtyxcke4toiv3e',
-  'https://cf.shopee.vn/file/fe44487da9b21ccf832528cb257cfc87',
-  'https://cf.shopee.vn/file/95bbb6de23c72b0fade23bc230aeef88',
-  'https://cf.shopee.vn/file/8b1db52008f3b7f94dbad4a97571e6ce',
-  'https://cf.shopee.vn/file/d2cede28523244f41fa111c7b43a6a18',
-  'https://cf.shopee.vn/file/64f850c79bed81d227fd825a7f5fe78b',
-  'https://cf.shopee.vn/file/5f56d5f3c4594b4d3e9ef3ad3de86eb3'
-]
-const colorsSelect = ['Xám xanh', 'Đen trắng', 'WP xanh', 'WP xanh lá', 'WP kaki']
-
-const sizesSelect = [39, 40, 41, 42, 43]
+import productApis from 'apis/product.api'
+import LoadingDots from 'components/LoadingDots/LoadingDots'
+import { genarateNameId, getIdFromNameId } from 'utils/utils'
+import routePaths from 'constants/routePaths'
+import { detailsProductSchema, DetailsProductSchema } from 'utils/rules'
+import cartApis, { BodyAddToCart } from 'apis/cart.api'
+import { useAppSelector } from 'hooks/useApp'
+import { selectAuth } from 'features/auth/authSlice'
+import Message from 'components/Message'
 
 const DetailsProduct = () => {
-  const [quantity, setQuantity] = useState('1')
-  const [openModalAddress, setOpenModalAddress] = useState(false)
+  const params = useParams()
+  const { isAuthenticated } = useAppSelector(selectAuth)
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
+
+  const idProduct = getIdFromNameId(params.idProduct as string)
+
+  const { data: dataDetailsProduct, isLoading: isLoadingDetailsProduct } = useQuery({
+    queryKey: ['details-product', idProduct],
+    queryFn: () => productApis.fetchDetailsProduct(idProduct as string)
+  })
+  const detailsProduct = dataDetailsProduct?.data.data.data
+  const category = dataDetailsProduct?.data.data.category
+
+  const { data: dataSimilarProducts, isLoading: isLoadingSimilarProducts } = useQuery({
+    queryKey: ['similar-product', detailsProduct?.category_id],
+    queryFn: () => productApis.fetchListProduct({ category: String(detailsProduct!.category_id) }),
+    enabled: Boolean(detailsProduct?.id)
+  })
+  const similarProducts = dataSimilarProducts?.data.data.data
+
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    getValues,
+    trigger,
+    reset,
+    formState: { errors }
+  } = useForm<DetailsProductSchema>({
+    resolver: yupResolver(detailsProductSchema),
+    defaultValues: {
+      isHaveColor: false,
+      isHaveSize: false,
+      color: '',
+      size: '',
+      quantity: '1'
+    }
+  })
+  const [showMessage, setShowMessage] = useState(false)
+  useEffect(() => {
+    detailsProduct?.colors && setValue('isHaveColor', true)
+    detailsProduct?.colors && setValue('isHaveSize', true)
+  }, [detailsProduct, setValue])
+
+  const addToCartMutation = useMutation({
+    onSuccess: (response) => {
+      queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+      setShowMessage(true)
+      reset()
+    },
+    mutationFn: (body: BodyAddToCart) => cartApis.addToCart(body)
+  })
+
+  const onSumbitAddToCart = (data: DetailsProductSchema) => {
+    const _data = omitBy(omit(data, ['isHaveColor', 'isHaveSize']), isEmpty)
+
+    addToCartMutation.mutate({ ..._data, id_product: +detailsProduct!.id })
+  }
+
+  const isActiveButton = (name: keyof DetailsProductSchema, value: string) => {
+    const currentValue = getValues(name)
+    return currentValue === value
+  }
+  const onClickSelectButton = (name: keyof DetailsProductSchema, value: string) => {
+    const currentValue = getValues(name)
+
+    if (currentValue === value) {
+      setValue(name, '')
+    } else {
+      setValue(name, value)
+    }
+    trigger(name)
+  }
+  const onBuyNow = handleSubmit((data: DetailsProductSchema) => {
+    const _data = omitBy(omit(data, ['isHaveColor', 'isHaveSize']), isEmpty)
+
+    addToCartMutation.mutate(
+      { ..._data, id_product: +detailsProduct!.id },
+      {
+        onSuccess: (response) => {
+          queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+          navigate(`${routePaths.cart}`, { state: { idItemCart: response.data.data.id } })
+        }
+      }
+    )
+  })
+
+  if (isLoadingDetailsProduct || isLoadingSimilarProducts) return <LoadingDots />
+
+  if (!detailsProduct) return null
+
+  const itemsBreadcrumb: { path: string; title: string }[] = [
+    { path: `${routePaths.home}`, title: 'Shoppe' },
+    {
+      path: `${routePaths.categoryProduct}/${genarateNameId({
+        name: category!.name,
+        id: String(detailsProduct.category_id)
+      })}`,
+      title: `${category?.name}`
+    },
+    { path: '', title: `${detailsProduct.name}` }
+  ]
+  const images = JSON.parse(detailsProduct.image)
 
   return (
     <Container>
       <Wrapper>
-        <Breadcrumb />
+        <CustomBreadcrumb items={itemsBreadcrumb} />
 
         <Content>
           <ThumbsGalleryWrap>
             <ThumbsGallery images={images} />
           </ThumbsGalleryWrap>
 
-          <InforWrap>
-            <Title>
-              Áo khoác da lộn nam lót lông cừu cổ cao bomber đẹp cao cấp hàng hiệu mặc thu đông siêu ấm áp T&T
-            </Title>
-            <HeaderInfor ratings={4.7} numberRatings={1723} numberSold={5600} />
-            <PriceProduct priceBefore={300000} percentSale={35} />
+          <InforWrap as={'form'} onSubmit={handleSubmit(onSumbitAddToCart)}>
+            <Title>{detailsProduct.name}</Title>
+            <HeaderInfor ratings={detailsProduct.rating} numberRatings={1723} numberSold={detailsProduct.numberSell} />
+
+            <PriceProduct
+              priceBefore={detailsProduct.price}
+              percentSale={detailsProduct.percent_sale}
+              isSale={detailsProduct.is_sale}
+            />
 
             <MainInforWrap>
-              <TransportWrap>
-                <TitleInfor>Vận Chuyển</TitleInfor>
+              {detailsProduct.colors && (
+                <ColorSelectWrap>
+                  <TitleInfor>Màu sắc</TitleInfor>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                    <ListSelectButton>
+                      {JSON.parse(detailsProduct.colors).map((color: string, index: number) => (
+                        <ButtonSelect
+                          key={index}
+                          onClick={() => onClickSelectButton('color', color)}
+                          active={isActiveButton('color', color)}
+                        >
+                          {color}
+                        </ButtonSelect>
+                      ))}
+                    </ListSelectButton>
+                    <ErrorMessage>{errors.color?.message}</ErrorMessage>
+                  </div>
+                </ColorSelectWrap>
+              )}
 
-                <TransportInforWrap>
-                  <TransportInfor type='charge' setOpenModalAddress={setOpenModalAddress} />
-                </TransportInforWrap>
-
-                <CustomModal
-                  title='Địa chỉ nhận hàng'
-                  open={openModalAddress}
-                  onCancel={() => setOpenModalAddress(false)}
-                  footer={null}
-                >
-                  <InputText value='133/2 Nguyễn Văn Trỗi Hà Đông Hà Nội Phường Mộ Lao, Quận Hà Đông, Hà Nội' />
-                  <Button typeBtn='primary' style={{ marginTop: '10px', marginLeft: 'auto' }}>
-                    Cập nhật
-                  </Button>
-                </CustomModal>
-              </TransportWrap>
-
-              <ColorSelectWrap>
-                <TitleInfor>Màu sắc</TitleInfor>
-
-                <ListSelectButton>
-                  {colorsSelect.map((color, index) => (
-                    <ButtonSelect key={index}>{color}</ButtonSelect>
-                  ))}
-                </ListSelectButton>
-              </ColorSelectWrap>
-
-              <SizeSelectWrap>
-                <TitleInfor>Size</TitleInfor>
-
-                <ListSelectButton>
-                  {sizesSelect.map((color, index) => (
-                    <ButtonSelect key={index}>{color}</ButtonSelect>
-                  ))}
-                </ListSelectButton>
-              </SizeSelectWrap>
+              {detailsProduct?.sizes && (
+                <SizeSelectWrap>
+                  <TitleInfor>Size</TitleInfor>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                    <ListSelectButton>
+                      {JSON.parse(detailsProduct.sizes).map((size: string, index: number) => (
+                        <ButtonSelect
+                          key={index}
+                          onClick={() => onClickSelectButton('size', size)}
+                          active={isActiveButton('size', size)}
+                        >
+                          {size}
+                        </ButtonSelect>
+                      ))}
+                    </ListSelectButton>
+                    <ErrorMessage>{errors.size?.message}</ErrorMessage>
+                  </div>
+                </SizeSelectWrap>
+              )}
 
               <SelectQuantityWrap>
                 <TitleInfor>Số Lượng</TitleInfor>
-                <QuantityWrap>
-                  <InputNumber maxValue='19632' value={quantity} styleContainer={{ width: '8rem', height: '3.2rem' }} />
-                  <LimitQuantityNumber>19632 sản phẩm có sẵn</LimitQuantityNumber>
-                </QuantityWrap>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.05rem' }}>
+                  <QuantityWrap>
+                    <Controller
+                      control={control}
+                      name='quantity'
+                      render={({ field }) => {
+                        return (
+                          <InputNumber
+                            {...field}
+                            maxValue={String(detailsProduct.quantity)}
+                            style={{ textAlign: 'center', width: '8rem', height: '3.4rem' }}
+                            allowStartWithZezo={false}
+                          />
+                        )
+                      }}
+                    />
+                    <LimitQuantityNumber>{detailsProduct.quantity} sản phẩm có sẵn</LimitQuantityNumber>
+                  </QuantityWrap>
+                  <ErrorMessage>{errors.quantity?.message}</ErrorMessage>
+                </div>
               </SelectQuantityWrap>
             </MainInforWrap>
-
             <ListButtonAction>
-              <Button typeBtn='default' size='large'>
+              <Button
+                typeBtn='default'
+                size='large'
+                type='submit'
+                onClick={() => {
+                  !isAuthenticated && navigate(routePaths.login)
+                }}
+                disabled={addToCartMutation.isLoading}
+              >
                 <FontAwesomeIcon icon={faCartPlus} />
                 Thêm vào giỏ hàng
               </Button>
-              <Button typeBtn='primary' size='large'>
+              <Button
+                type='button'
+                typeBtn='primary'
+                size='large'
+                onClick={() => {
+                  !isAuthenticated && navigate(routePaths.login)
+                  onBuyNow()
+                }}
+              >
                 Mua ngay
               </Button>
             </ListButtonAction>
           </InforWrap>
         </Content>
 
-        <Description />
+        {detailsProduct?.description && <Description description={detailsProduct.description} />}
 
-        <SimilarProduct />
+        <SimilarProduct similarProducts={similarProducts} categoryId={detailsProduct.category_id} />
       </Wrapper>
+      <Message show={showMessage} setShow={setShowMessage} message='Thêm sản phẩm thành công' />
     </Container>
   )
 }

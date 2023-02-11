@@ -1,70 +1,112 @@
+import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Button } from 'antd'
+import { Link } from 'react-router-dom'
+
 import CheckBox from 'components/CheckBox'
 import InputNumber from 'components/InputNumber'
 import colors from 'constants/colors'
 import { PriceAfterSale, PriceBefore } from 'globalStyle.styled'
-import { ActionsTabel, PriceTabel, ProductTabel, QuantityTabel, TotalTabel } from 'pages/CartPage/CartPage.styled'
-import styled from 'styled-components'
-import { Button } from 'antd'
-import { Link } from 'react-router-dom'
+import { ActionsTabel, PriceTabel, ProductTabel, QuantityTabel, TotalTabel } from '../Table/Table.styled'
 import routePaths from 'constants/routePaths'
+import { formatCurrency, genarateNameId, getImageUrl, getPriceAfterSale } from 'utils/utils'
+import { Container, ImageProduct, TitleProduct } from './ItemProductCart.styled'
+import { useAppDispatch } from 'hooks/useApp'
+import { toggleCheckItemCart } from 'features/cart/cartSlice'
+import cartApis from 'apis/cart.api'
+import type { ExtraCartItem } from 'types/cart.type'
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  border-bottom: 1px solid ${colors['gray-light-2']};
-`
-const ImageProduct = styled.img`
-  min-width: 8rem;
-  max-width: 8rem;
-  height: 8rem;
-  flex-shrink: 0;
-`
-const TitleProduct = styled.div`
-  max-height: 4.8rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-`
+interface Props {
+  item: ExtraCartItem
+  index: number
+}
 
-const ItemProductCart = () => {
+const ItemProductCart = ({ item, index }: Props) => {
+  const dispatch = useAppDispatch()
+  const queryClient = useQueryClient()
+  const nameId = genarateNameId({ name: item.product.name, id: item.product.id })
+  console.log(item)
+
+  const images = JSON.parse(item.product.image)
+  const image = getImageUrl(images[0])
+
+  const priceAfterSale = Boolean(item.product.is_sale)
+    ? getPriceAfterSale(item.product.price, item.product.percent_sale)
+    : item.product.price
+
+  const total = priceAfterSale * item.quantity
+
+  const [quantity, setQuantity] = useState(String(item.quantity))
+
+  const changeQuanityMutation = useMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+    },
+    mutationFn: () => cartApis.updateQuantity(item.id, quantity)
+  })
+
+  const deleteItemCartMutation = useMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+    },
+    mutationFn: () => cartApis.deleteItemCart(item.id)
+  })
+
   return (
     <Container>
-      <CheckBox styleContainer={{ marginRight: '2rem' }} />
+      <CheckBox
+        styleContainer={{ marginRight: '2rem' }}
+        checked={item.checked}
+        onChange={() => dispatch(toggleCheckItemCart(index))}
+      />
 
-      <ProductTabel style={{ display: 'flex', gap: '1rem' }}>
-        <Link to={`${routePaths.detailsProduct}/1`}>
-          <ImageProduct src='https://cf.shopee.vn/file/7f0400781460dc2e5518d377510a4d61_tn' alt='' />
+      <ProductTabel>
+        <Link to={`${routePaths.detailsProduct}/${nameId}`}>
+          <ImageProduct src={image} alt={item.product.name} />
         </Link>
-        <Link to={`${routePaths.detailsProduct}/1`}>
-          <TitleProduct>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim aliquam excepturi voluptatibus harum illum
-            dolorum quis consequuntur iusto eius ratione dicta perferendis porro assumenda, animi est. Repellat incidunt
-            nam reiciendis.
-          </TitleProduct>
-        </Link>
+        <div>
+          <Link to={`${routePaths.detailsProduct}/${nameId})}`}>
+            <TitleProduct>{item.product.name}</TitleProduct>
+          </Link>
+
+          {item?.color && (
+            <div style={{ textTransform: 'capitalize', marginTop: '0.3rem' }}>Màu sắc : {item.color}</div>
+          )}
+          {item?.size && <div style={{ marginTop: '0.3rem' }}>Size : {item.size}</div>}
+        </div>
       </ProductTabel>
       <PriceTabel>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
-          <PriceBefore>
-            <span className='currency'>₫</span>
-            <span className='price'>360.000</span>
-          </PriceBefore>
+          {Boolean(item.product.is_sale) && (
+            <PriceBefore>
+              <span className='currency'>₫</span>
+              <span className='price'>{formatCurrency(item.product.price)}</span>
+            </PriceBefore>
+          )}
+
           <PriceAfterSale fontSizePrice='1.4rem' style={{ color: `${colors.black}` }}>
             <span className='currency'>₫</span>
-            <span className='price'>360.000</span>
+            <span className='price'>{formatCurrency(priceAfterSale)}</span>
           </PriceAfterSale>
         </div>
       </PriceTabel>
       <QuantityTabel>
-        <InputNumber styleContainer={{ maxWidth: '8rem', display: 'inline-block' }} maxValue='1997' value='1' />
+        <InputNumber
+          style={{ textAlign: 'center', height: '3.2rem' }}
+          styleContainer={{ maxWidth: '8rem', display: 'inline-block' }}
+          maxValue={String(item.product.quantity)}
+          value={String(item.quantity)}
+          onChange={(e) => setQuantity(e.target.value)}
+          onBlur={() => {
+            changeQuanityMutation.mutate()
+          }}
+        />
       </QuantityTabel>
-      <TotalTabel>₫360.000</TotalTabel>
+      <TotalTabel>₫{formatCurrency(total)}</TotalTabel>
       <ActionsTabel>
-        <Button type='text'>Xóa</Button>
+        <Button type='text' onClick={() => deleteItemCartMutation.mutate()}>
+          Xóa
+        </Button>
       </ActionsTabel>
     </Container>
   )

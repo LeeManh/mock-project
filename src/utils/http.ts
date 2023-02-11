@@ -6,6 +6,7 @@ import type { ErrorResponse } from 'types/utils.type'
 import type { AuthResponse } from 'types/auth.type'
 import type { AxiosInstance, AxiosError } from 'axios'
 import { clearAuthLS, getAccessTokenLS, saveAccessTokenLS, saveUserLS } from './auth'
+import apiConfigs from 'constants/apiConfigs'
 
 class Http {
   instance: AxiosInstance
@@ -15,8 +16,8 @@ class Http {
     this.access_token = getAccessTokenLS()
 
     this.instance = axios.create({
-      baseURL: 'http://172.16.20.91:82/api/',
-      timeout: 10000,
+      baseURL: apiConfigs.baseUrl,
+      timeout: 20000,
       headers: {
         'Content-type': 'application/json'
       }

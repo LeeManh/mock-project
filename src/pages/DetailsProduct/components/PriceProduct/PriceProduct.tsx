@@ -15,17 +15,18 @@ import {
 interface Props {
   priceBefore: number
   percentSale: number
+  isSale: 0 | 1
 }
 
-const PriceProduct = ({ priceBefore, percentSale }: Props) => {
+const PriceProduct = ({ priceBefore, percentSale, isSale }: Props) => {
   const priceAfterSale = useMemo(() => priceBefore - (priceBefore * percentSale) / 100, [priceBefore, percentSale])
 
   return (
     <PriceSection>
       <PriceWrap>
-        <PriceBeforeSale>₫{formatCurrency(priceBefore)}</PriceBeforeSale>
+        {Boolean(isSale) && <PriceBeforeSale>₫{formatCurrency(priceBefore)}</PriceBeforeSale>}
         <PriceAfterSale>₫{formatCurrency(priceAfterSale)}</PriceAfterSale>
-        <PercentSaleTag>{percentSale}% giảm</PercentSaleTag>
+        {Boolean(isSale) && <PercentSaleTag>{percentSale}% giảm</PercentSaleTag>}
       </PriceWrap>
       <MoreInformation>
         <PriceIcon />

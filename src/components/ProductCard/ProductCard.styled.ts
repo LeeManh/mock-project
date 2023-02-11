@@ -5,6 +5,8 @@ import { ReactComponent as FreeShip } from 'assets/svgs/free-ship.svg'
 import breakPonits from 'constants/breakPoints'
 
 export const Container = styled.div`
+  height: 100%;
+  background-color: red;
   border: 1px solid transparent;
   box-shadow: 0 0.0625rem 0.125rem 0 rgb(0 0 0 / 10%);
   border-radius: 2px;

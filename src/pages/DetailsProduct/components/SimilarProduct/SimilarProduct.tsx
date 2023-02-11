@@ -1,27 +1,38 @@
 import ProductCard from 'components/ProductCard'
 import { RightOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { createSearchParams, Link } from 'react-router-dom'
 
 import { Header, ListSimilarProduct, SimilarProductsWrap, Title } from './SimilarProduct.styled'
 import { SeeAllLink } from 'globalStyle.styled'
 import routePaths from 'constants/routePaths'
+import type { Product } from 'types/product.type'
 
-const SimilarProduct = () => {
+interface Props {
+  similarProducts?: Product[]
+  categoryId: number
+}
+
+const SimilarProduct = ({ similarProducts, categoryId }: Props) => {
   return (
     <SimilarProductsWrap>
       <Header>
         <Title>Sản phẩm tương tự</Title>
         <SeeAllLink>
-          <Link to={routePaths.similarProducts}>Xem tất cả</Link>
+          <Link
+            to={{
+              pathname: routePaths.similarProducts,
+              search: createSearchParams({
+                category: String(categoryId)
+              }).toString()
+            }}
+          >
+            Xem tất cả
+          </Link>
           <RightOutlined />
         </SeeAllLink>
       </Header>
       <ListSimilarProduct>
-        {Array(12)
-          .fill(null)
-          .map((_, index) => (
-            <ProductCard key={index} />
-          ))}
+        {similarProducts && similarProducts.map((product) => <ProductCard key={product.id} product={product} />)}
       </ListSimilarProduct>
     </SimilarProductsWrap>
   )

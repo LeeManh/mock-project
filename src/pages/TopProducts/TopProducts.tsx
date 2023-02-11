@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query'
+import productApis from 'apis/product.api'
 import ProductCard from 'components/ProductCard'
 import breakPonits from 'constants/breakPoints'
 import colors from 'constants/colors'
@@ -33,16 +35,23 @@ const ListTopProducts = styled.div`
 `
 
 const TopProducts = () => {
+  const { data: dataListTopSellProduct } = useQuery({
+    queryKey: ['list-top-sell-products'],
+    queryFn: () => productApis.fetchListTopSellProducts(),
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000
+  })
+  const listTopSellProduct = dataListTopSellProduct?.data.data
+
+  console.log(listTopSellProduct)
+
   return (
     <Container>
       <Wrapper>
         <Title>Sản phẩm bán chạy</Title>
         <ListTopProducts>
-          {Array(12)
-            .fill(null)
-            .map((_, index) => (
-              <ProductCard key={index} />
-            ))}
+          {listTopSellProduct &&
+            listTopSellProduct.map((product) => <ProductCard key={product.id} product={product} />)}
         </ListTopProducts>
       </Wrapper>
     </Container>

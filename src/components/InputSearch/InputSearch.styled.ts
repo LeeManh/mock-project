@@ -40,6 +40,9 @@ export const Input = styled.input`
   outline: none;
   height: 100%;
   padding: 0 1.5rem;
+  &:placeholder-shown {
+    text-overflow: ellipsis;
+  }
 
   @media screen and (max-width: ${breakPonits.md}) {
     padding: 0;

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import type { MenuProps } from 'antd'
 import routePaths from 'constants/routePaths'
 import { MenuCustom } from './MenuSideBar.styled'
+import useWindowSize from 'hooks/useWindowSize'
+import breakPonits from 'constants/breakPoints'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -42,6 +44,9 @@ interface Props extends MenuProps {}
 
 const MenuSideBar = ({ ...rest }: Props) => {
   const navigate = useNavigate()
+  const [width] = useWindowSize()
+
+  const [mode, setMode] = useState<MenuProps['mode']>('inline')
 
   const onClick: MenuProps['onClick'] = (e) => {
     const path = e.keyPath.reverse().join('/')
@@ -49,12 +54,24 @@ const MenuSideBar = ({ ...rest }: Props) => {
     navigate(path)
   }
 
+  useEffect(() => {
+    const breakPoint = +breakPonits.md.replace('px', '')
+
+    if (!!width && width <= breakPoint) {
+      console.log(width, breakPoint)
+
+      setMode('horizontal')
+    } else {
+      setMode('inline')
+    }
+  }, [width])
+
   return (
     <MenuCustom
       onClick={onClick}
       defaultSelectedKeys={['1']}
       defaultOpenKeys={['sub1']}
-      mode='inline'
+      mode={mode}
       items={items}
       {...rest}
     />

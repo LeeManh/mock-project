@@ -1,6 +1,8 @@
 import type { MenuProps } from 'antd'
 import { Dropdown, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
+
 import images from 'assets/images'
 import {
   ArrowDownIcon,
@@ -22,6 +24,7 @@ import { useMutation } from '@tanstack/react-query'
 import authApis from 'apis/auth.api'
 import { logoutSuccess, selectAuth } from 'features/auth/authSlice'
 import { UserOutlined } from '@ant-design/icons'
+import { getImageUrl } from 'utils/utils'
 
 const languages: MenuProps['items'] = [
   {
@@ -52,10 +55,12 @@ const userMenu: MenuProps['items'] = [
 const NavbarHeader = () => {
   const { isAuthenticated, user } = useAppSelector(selectAuth)
   const dispatch = useAppDispatch()
+  const queryClient = useQueryClient()
 
   const logoutMutation = useMutation({
     onSuccess: () => {
       dispatch(logoutSuccess())
+      queryClient.removeQueries({ queryKey: ['list-cart'] })
     },
     mutationFn: () => authApis.logoutAccount()
   })
@@ -124,11 +129,10 @@ const NavbarHeader = () => {
             >
               <AvartarWrap>
                 <Avatar
-                  src={user?.avatar}
+                  src={user?.avatar ? getImageUrl(user.avatar) : null}
                   alt='avatar'
                   size={22}
                   icon={<UserOutlined />}
-                  style={{ background: 'gray' }}
                 />
                 <NameUser>{user?.name || user?.email}</NameUser>
               </AvartarWrap>

@@ -1,6 +1,7 @@
 import ProductCard from 'components/ProductCard'
 import breakPonits from 'constants/breakPoints'
 import styled from 'styled-components'
+import { Product } from 'types/product.type'
 
 const Container = styled.div`
   display: grid;
@@ -18,15 +19,16 @@ const Container = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 `
+interface Props {
+  listProducts: Product[]
+}
 
-const ListProduct = () => {
+const ListProduct = ({ listProducts }: Props) => {
   return (
     <Container>
-      {Array(20)
-        .fill(null)
-        .map((_, index) => (
-          <ProductCard key={index} />
-        ))}
+      {listProducts.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
     </Container>
   )
 }

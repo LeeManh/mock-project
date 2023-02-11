@@ -93,13 +93,15 @@ export const TopSearchCard = styled.div`
   cursor: pointer;
   position: relative;
   padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
 `
 export const TopSearchCardImageWrap = styled.div`
   position: relative;
 `
 export const TopSearchCardImage = styled.img`
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
 `
 export const TopSearchCardNumber = styled.div`
@@ -113,9 +115,15 @@ export const TopSearchCardNumber = styled.div`
   width: calc(100% - 1rem);
 `
 export const TopSearchCardTitle = styled.div`
-  padding: 1rem;
   font-weight: 500;
-  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  padding: 1rem 1rem 0;
+  min-height: 5rem;
 `
 export const IconTop = styled.div`
   background: url(${images.icons.topIcon});

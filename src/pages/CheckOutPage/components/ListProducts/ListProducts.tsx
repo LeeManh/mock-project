@@ -1,12 +1,11 @@
 import * as S from './ListProducts.styled'
 import ItemProduct from '../ItemProduct'
 import { useAppSelector } from 'hooks/useApp'
-import { selectCart } from 'features/cart/cartSlice'
+import { selectInforCheckout } from 'features/checkout/checkoutSlice'
+import type { ExtraCartItem } from 'types/cart.type'
 
 export default function ListProducts() {
-  const { listCart } = useAppSelector(selectCart)
-
-  const listItemCartChecked = listCart.filter((item) => item.checked)
+  const { listCheckout } = useAppSelector(selectInforCheckout)
 
   return (
     <S.Container>
@@ -18,7 +17,7 @@ export default function ListProducts() {
       </S.Header>
 
       <S.Content>
-        {listItemCartChecked.map((item) => (
+        {listCheckout.map((item: ExtraCartItem) => (
           <ItemProduct item={item} key={item.id} />
         ))}
       </S.Content>

@@ -1,19 +1,18 @@
-import type { User } from 'types/user.type'
-import { getUserLS } from 'utils/auth'
 import type { RootState } from 'app/store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-const userLS: User = getUserLS()
+import { ExtraCartItem } from 'types/cart.type'
 
 interface InitialState {
   name: string
   phone: string
   address: string
+  listCheckout: ExtraCartItem[]
 }
 const initialState: InitialState = {
-  name: userLS?.name || '',
-  phone: userLS?.phone || '',
-  address: userLS?.address || ''
+  name: '',
+  phone: '',
+  address: '',
+  listCheckout: []
 }
 
 const checkoutSlice = createSlice({
@@ -21,11 +20,13 @@ const checkoutSlice = createSlice({
   initialState,
   reducers: {
     updateInforCheckout: (state, action: PayloadAction<InitialState>) => {
-      const { address, name, phone } = action.payload
+      const { address, name, phone, listCheckout } = action.payload
 
       state.address = address
       state.name = name
       state.phone = phone
+
+      state.listCheckout = listCheckout ?? state.listCheckout
     }
   }
 })

@@ -12,13 +12,16 @@ import { formatCurrency, getPriceAfterSale } from 'utils/utils'
 import { PaymentWrap, PriceTotal, RemoveAll, RightPayment } from './PaymentFooter.styled'
 import cartApis from 'apis/cart.api'
 import routePaths from 'constants/routePaths'
+import { updateInforCheckout } from 'features/checkout/checkoutSlice'
+import { selectAuth } from 'features/auth/authSlice'
 
 const PaymentFooter = () => {
   const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const { user } = useAppSelector(selectAuth)
 
-  const { isCheckAll, numberChecked, listCart } = useAppSelector(selectCart)
+  const { isCheckAll, numberChecked, listCart, listItemChecked } = useAppSelector(selectCart)
 
   const totalPrice = listCart.reduce((sum, item) => {
     const price = item.checked
@@ -35,7 +38,7 @@ const PaymentFooter = () => {
     return sum + price
   }, 0)
   const totalPriceSave = totalPrice - totalBefore
-  const listIdItemCartChecked = listCart.reduce((arr: number[], item) => {
+  const listIdItemCartChecked = listItemChecked.reduce((arr: number[], item) => {
     return item.checked ? [...arr, item.id] : arr
   }, [])
 
@@ -65,6 +68,14 @@ const PaymentFooter = () => {
   const handleBuy = () => {
     if (numberChecked === 0) return
 
+    dispatch(
+      updateInforCheckout({
+        name: user?.name || '',
+        address: user?.address || '',
+        phone: user?.phone || '',
+        listCheckout: listItemChecked
+      })
+    )
     navigate(routePaths.checkout)
   }
 

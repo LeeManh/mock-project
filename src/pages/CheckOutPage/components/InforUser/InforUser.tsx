@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -14,14 +14,12 @@ import InputNumber from 'components/InputNumber'
 import { userSchema } from 'utils/rules'
 import { useAppDispatch, useAppSelector } from 'hooks/useApp'
 import { selectInforCheckout, updateInforCheckout } from 'features/checkout/checkoutSlice'
-import { selectAuth } from 'features/auth/authSlice'
 
 const inforSchema = userSchema.pick(['address', 'phone', 'name'])
 type InforSchema = yup.InferType<typeof inforSchema>
 
 export default function InforUser() {
   const inforCheckout = useAppSelector(selectInforCheckout)
-  const { user } = useAppSelector(selectAuth)
   const dispatch = useAppDispatch()
 
   const {
@@ -55,18 +53,6 @@ export default function InforUser() {
 
     handleCancel()
   }
-
-  useEffect(() => {
-    if (user) {
-      dispatch(
-        updateInforCheckout({
-          name: user.name,
-          address: user.address,
-          phone: user.phone
-        })
-      )
-    }
-  }, [user, dispatch])
 
   return (
     <S.Container>

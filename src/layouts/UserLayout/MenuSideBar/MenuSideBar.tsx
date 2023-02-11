@@ -58,8 +58,6 @@ const MenuSideBar = ({ ...rest }: Props) => {
     const breakPoint = +breakPonits.md.replace('px', '')
 
     if (!!width && width <= breakPoint) {
-      console.log(width, breakPoint)
-
       setMode('horizontal')
     } else {
       setMode('inline')

@@ -12,9 +12,7 @@ interface Props extends DropDownProps {
 }
 
 const Select = ({ styleContainer, children, items, ...rest }: Props) => {
-  const onClick: MenuProps['onClick'] = (e) => {
-    // console.log('click ', e)
-  }
+  const onClick: MenuProps['onClick'] = (e) => {}
 
   return (
     <Container style={styleContainer}>

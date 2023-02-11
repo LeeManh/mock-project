@@ -25,7 +25,6 @@ const ItemProductCart = ({ item, index }: Props) => {
   const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
   const nameId = genarateNameId({ name: item.product.name, id: item.product.id })
-  console.log(item)
 
   const images = JSON.parse(item.product.image)
   const image = getImageUrl(images[0])

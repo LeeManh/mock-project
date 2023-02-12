@@ -4,18 +4,24 @@ import { Wrapper } from 'globalStyle.styled'
 import InforUser from './components/InforUser'
 import ListProducts from './components/ListProducts'
 import CheckOut from './components/CheckOut'
+import CustomHelmet from 'components/CustomHelmet'
 
 const Container = styled.div``
 
 const CheckOutPage = () => {
   return (
-    <Container>
-      <Wrapper>
-        <InforUser />
-        <ListProducts />
-        <CheckOut />
-      </Wrapper>
-    </Container>
+    <>
+      <CustomHelmet>
+        <title>Shopee Việt Nam | Mua và Bán Trên Ứng Dụng Di Động Hoặc Website</title>
+      </CustomHelmet>
+      <Container>
+        <Wrapper>
+          <InforUser />
+          <ListProducts />
+          <CheckOut />
+        </Wrapper>
+      </Container>
+    </>
   )
 }
 

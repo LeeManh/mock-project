@@ -44,6 +44,7 @@ import cartApis, { BodyAddToCart } from 'apis/cart.api'
 import { useAppSelector } from 'hooks/useApp'
 import { selectAuth } from 'features/auth/authSlice'
 import Message from 'components/Message'
+import CustomHelmet from 'components/CustomHelmet'
 
 const DetailsProduct = () => {
   const params = useParams()
@@ -152,124 +153,133 @@ const DetailsProduct = () => {
   const images = JSON.parse(detailsProduct.image)
 
   return (
-    <Container>
-      <Wrapper>
-        <CustomBreadcrumb items={itemsBreadcrumb} />
+    <>
+      <CustomHelmet>
+        <title>{detailsProduct.name} | Shopee Việt Nam</title>
+      </CustomHelmet>
+      <Container>
+        <Wrapper>
+          <CustomBreadcrumb items={itemsBreadcrumb} />
 
-        <Content>
-          <ThumbsGalleryWrap>
-            <ThumbsGallery images={images} />
-          </ThumbsGalleryWrap>
+          <Content>
+            <ThumbsGalleryWrap>
+              <ThumbsGallery images={images} />
+            </ThumbsGalleryWrap>
 
-          <InforWrap as={'form'} onSubmit={handleSubmit(onSumbitAddToCart)}>
-            <Title>{detailsProduct.name}</Title>
-            <HeaderInfor ratings={detailsProduct.rating} numberRatings={1723} numberSold={detailsProduct.numberSell} />
+            <InforWrap as={'form'} onSubmit={handleSubmit(onSumbitAddToCart)}>
+              <Title>{detailsProduct.name}</Title>
+              <HeaderInfor
+                ratings={detailsProduct.rating}
+                numberRatings={1723}
+                numberSold={detailsProduct.numberSell}
+              />
 
-            <PriceProduct
-              priceBefore={detailsProduct.price}
-              percentSale={detailsProduct.percent_sale}
-              isSale={detailsProduct.is_sale}
-            />
+              <PriceProduct
+                priceBefore={detailsProduct.price}
+                percentSale={detailsProduct.percent_sale}
+                isSale={detailsProduct.is_sale}
+              />
 
-            <MainInforWrap>
-              {detailsProduct.colors && (
-                <ColorSelectWrap>
-                  <TitleInfor>Màu sắc</TitleInfor>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                    <ListSelectButton>
-                      {JSON.parse(detailsProduct.colors).map((color: string, index: number) => (
-                        <ButtonSelect
-                          key={index}
-                          onClick={() => onClickSelectButton('color', color)}
-                          active={isActiveButton('color', color)}
-                        >
-                          {color}
-                        </ButtonSelect>
-                      ))}
-                    </ListSelectButton>
-                    <ErrorMessage>{errors.color?.message}</ErrorMessage>
+              <MainInforWrap>
+                {detailsProduct.colors && (
+                  <ColorSelectWrap>
+                    <TitleInfor>Màu sắc</TitleInfor>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                      <ListSelectButton>
+                        {JSON.parse(detailsProduct.colors).map((color: string, index: number) => (
+                          <ButtonSelect
+                            key={index}
+                            onClick={() => onClickSelectButton('color', color)}
+                            active={isActiveButton('color', color)}
+                          >
+                            {color}
+                          </ButtonSelect>
+                        ))}
+                      </ListSelectButton>
+                      <ErrorMessage>{errors.color?.message}</ErrorMessage>
+                    </div>
+                  </ColorSelectWrap>
+                )}
+
+                {detailsProduct?.sizes && (
+                  <SizeSelectWrap>
+                    <TitleInfor>Size</TitleInfor>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                      <ListSelectButton>
+                        {JSON.parse(detailsProduct.sizes).map((size: string, index: number) => (
+                          <ButtonSelect
+                            key={index}
+                            onClick={() => onClickSelectButton('size', size)}
+                            active={isActiveButton('size', size)}
+                          >
+                            {size}
+                          </ButtonSelect>
+                        ))}
+                      </ListSelectButton>
+                      <ErrorMessage>{errors.size?.message}</ErrorMessage>
+                    </div>
+                  </SizeSelectWrap>
+                )}
+
+                <SelectQuantityWrap>
+                  <TitleInfor>Số Lượng</TitleInfor>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.05rem' }}>
+                    <QuantityWrap>
+                      <Controller
+                        control={control}
+                        name='quantity'
+                        render={({ field }) => {
+                          return (
+                            <InputNumber
+                              {...field}
+                              maxValue={String(detailsProduct.quantity)}
+                              style={{ textAlign: 'center', width: '8rem', height: '3.4rem' }}
+                              allowStartWithZezo={false}
+                            />
+                          )
+                        }}
+                      />
+                      <LimitQuantityNumber>{detailsProduct.quantity} sản phẩm có sẵn</LimitQuantityNumber>
+                    </QuantityWrap>
+                    <ErrorMessage>{errors.quantity?.message}</ErrorMessage>
                   </div>
-                </ColorSelectWrap>
-              )}
+                </SelectQuantityWrap>
+              </MainInforWrap>
+              <ListButtonAction>
+                <Button
+                  typeBtn='default'
+                  size='large'
+                  type='submit'
+                  onClick={() => {
+                    !isAuthenticated && navigate(routePaths.login)
+                  }}
+                  disabled={addToCartMutation.isLoading}
+                >
+                  <FontAwesomeIcon icon={faCartPlus} />
+                  Thêm vào giỏ hàng
+                </Button>
+                <Button
+                  type='button'
+                  typeBtn='primary'
+                  size='large'
+                  onClick={() => {
+                    !isAuthenticated && navigate(routePaths.login)
+                    onBuyNow()
+                  }}
+                >
+                  Mua ngay
+                </Button>
+              </ListButtonAction>
+            </InforWrap>
+          </Content>
 
-              {detailsProduct?.sizes && (
-                <SizeSelectWrap>
-                  <TitleInfor>Size</TitleInfor>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                    <ListSelectButton>
-                      {JSON.parse(detailsProduct.sizes).map((size: string, index: number) => (
-                        <ButtonSelect
-                          key={index}
-                          onClick={() => onClickSelectButton('size', size)}
-                          active={isActiveButton('size', size)}
-                        >
-                          {size}
-                        </ButtonSelect>
-                      ))}
-                    </ListSelectButton>
-                    <ErrorMessage>{errors.size?.message}</ErrorMessage>
-                  </div>
-                </SizeSelectWrap>
-              )}
+          {detailsProduct?.description && <Description description={detailsProduct.description} />}
 
-              <SelectQuantityWrap>
-                <TitleInfor>Số Lượng</TitleInfor>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.05rem' }}>
-                  <QuantityWrap>
-                    <Controller
-                      control={control}
-                      name='quantity'
-                      render={({ field }) => {
-                        return (
-                          <InputNumber
-                            {...field}
-                            maxValue={String(detailsProduct.quantity)}
-                            style={{ textAlign: 'center', width: '8rem', height: '3.4rem' }}
-                            allowStartWithZezo={false}
-                          />
-                        )
-                      }}
-                    />
-                    <LimitQuantityNumber>{detailsProduct.quantity} sản phẩm có sẵn</LimitQuantityNumber>
-                  </QuantityWrap>
-                  <ErrorMessage>{errors.quantity?.message}</ErrorMessage>
-                </div>
-              </SelectQuantityWrap>
-            </MainInforWrap>
-            <ListButtonAction>
-              <Button
-                typeBtn='default'
-                size='large'
-                type='submit'
-                onClick={() => {
-                  !isAuthenticated && navigate(routePaths.login)
-                }}
-                disabled={addToCartMutation.isLoading}
-              >
-                <FontAwesomeIcon icon={faCartPlus} />
-                Thêm vào giỏ hàng
-              </Button>
-              <Button
-                type='button'
-                typeBtn='primary'
-                size='large'
-                onClick={() => {
-                  !isAuthenticated && navigate(routePaths.login)
-                  onBuyNow()
-                }}
-              >
-                Mua ngay
-              </Button>
-            </ListButtonAction>
-          </InforWrap>
-        </Content>
-
-        {detailsProduct?.description && <Description description={detailsProduct.description} />}
-
-        <SimilarProduct similarProducts={similarProducts} categoryId={detailsProduct.category_id} />
-      </Wrapper>
-      <Message show={showMessage} setShow={setShowMessage} message='Thêm sản phẩm thành công' />
-    </Container>
+          <SimilarProduct similarProducts={similarProducts} categoryId={detailsProduct.category_id} />
+        </Wrapper>
+        <Message show={showMessage} setShow={setShowMessage} message='Thêm sản phẩm thành công' />
+      </Container>
+    </>
   )
 }
 

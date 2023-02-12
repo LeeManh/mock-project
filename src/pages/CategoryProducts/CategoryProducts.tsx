@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query'
 import productApis from 'apis/product.api'
 import useQueryConfig from 'hooks/useQueryConfig'
 import { getIdFromNameId } from 'utils/utils'
+import CustomHelmet from 'components/CustomHelmet'
 
 const bannerSlides = [
   'https://cf.shopee.vn/file/24f87e50d38a91df4753548878390b8b',
@@ -41,45 +42,50 @@ const CategoryProducts = () => {
   const pageSize = dataListProducts?.data.data.per_page || 1
 
   return (
-    <Container as={'main'}>
-      <Wrapper>
-        <Slide
-          navigation={true}
-          pagination={{
-            clickable: true
-          }}
-          loop={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false
-          }}
-        >
-          {bannerSlides.map((img, index) => (
-            <SwiperSlide key={index}>
-              <img src={img} alt='banner' style={{ cursor: 'pointer' }} />
-            </SwiperSlide>
-          ))}
-        </Slide>
+    <>
+      <CustomHelmet>
+        <title>Mua sắm online sản phẩm Thời Trang Nam giá tốt | Shopee Việt Nam</title>
+      </CustomHelmet>
+      <Container as={'main'}>
+        <Wrapper>
+          <Slide
+            navigation={true}
+            pagination={{
+              clickable: true
+            }}
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false
+            }}
+          >
+            {bannerSlides.map((img, index) => (
+              <SwiperSlide key={index}>
+                <img src={img} alt='banner' style={{ cursor: 'pointer' }} />
+              </SwiperSlide>
+            ))}
+          </Slide>
 
-        <ContentWrap>
-          <SideFilter />
+          <ContentWrap>
+            <SideFilter />
 
-          <ProductSection>
-            <SortFilter />
-            {listProducts && <ListProduct listProducts={listProducts} />}
+            <ProductSection>
+              <SortFilter />
+              {listProducts && <ListProduct listProducts={listProducts} />}
 
-            <Pagination
-              hideOnSinglePage
-              pageSize={pageSize}
-              current={+currentPage}
-              onChange={(page) => onChangePage(page)}
-              total={total}
-              styleContainer={{ marginTop: '3rem' }}
-            />
-          </ProductSection>
-        </ContentWrap>
-      </Wrapper>
-    </Container>
+              <Pagination
+                hideOnSinglePage
+                pageSize={pageSize}
+                current={+currentPage}
+                onChange={(page) => onChangePage(page)}
+                total={total}
+                styleContainer={{ marginTop: '3rem' }}
+              />
+            </ProductSection>
+          </ContentWrap>
+        </Wrapper>
+      </Container>
+    </>
   )
 }
 

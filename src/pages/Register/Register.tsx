@@ -15,6 +15,7 @@ import { Container, Form, FormContent, TitleForm, Wrap, FormFooter, RulesWrap } 
 import { useAppDispatch } from 'hooks/useApp'
 import { loginOrRegisterSuccess } from 'features/auth/authSlice'
 import Button from 'components/Button'
+import CustomHelmet from 'components/CustomHelmet'
 
 type FormInputs = Pick<AuthSchema, 'email' | 'password' | 'confirm_password'>
 
@@ -57,60 +58,65 @@ const Register = () => {
   }
 
   return (
-    <Container>
-      <Wrap>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <TitleForm>Đăng ký</TitleForm>
+    <>
+      <CustomHelmet>
+        <title>Đăng ký ngay | Shopee Việt Nam</title>
+      </CustomHelmet>
+      <Container>
+        <Wrap>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <TitleForm>Đăng ký</TitleForm>
 
-          <FormContent>
-            <InputText
-              register={register}
-              name='email'
-              placeholder='Email/Số điện thoại/Tên đăng nhập'
-              errorMessage={errors.email?.message}
-            />
-            <InputText
-              register={register}
-              name='password'
-              type='password'
-              placeholder='Mật khẩu'
-              isHaveEyeIcon={true}
-              errorMessage={errors.password?.message}
-            />
-            <InputText
-              register={register}
-              name='confirm_password'
-              type='password'
-              placeholder='Xác nhận mật khẩu'
-              isHaveEyeIcon={true}
-              errorMessage={errors.confirm_password?.message}
-            />
-            <Button
-              typeBtn='primary'
-              isLoading={registerMutation.isLoading}
-              disabled={registerMutation.isLoading}
-              style={{ height: '4rem', textTransform: 'uppercase', gap: '1rem' }}
-            >
-              Đăng ký
-            </Button>
+            <FormContent>
+              <InputText
+                register={register}
+                name='email'
+                placeholder='Email/Số điện thoại/Tên đăng nhập'
+                errorMessage={errors.email?.message}
+              />
+              <InputText
+                register={register}
+                name='password'
+                type='password'
+                placeholder='Mật khẩu'
+                isHaveEyeIcon={true}
+                errorMessage={errors.password?.message}
+              />
+              <InputText
+                register={register}
+                name='confirm_password'
+                type='password'
+                placeholder='Xác nhận mật khẩu'
+                isHaveEyeIcon={true}
+                errorMessage={errors.confirm_password?.message}
+              />
+              <Button
+                typeBtn='primary'
+                isLoading={registerMutation.isLoading}
+                disabled={registerMutation.isLoading}
+                style={{ height: '4rem', textTransform: 'uppercase', gap: '1rem' }}
+              >
+                Đăng ký
+              </Button>
 
-            <RulesWrap>
-              <div>Bằng việc đăng kí, bạn đã đồng ý với Shopee về</div>
-              <div>
-                <span className='link'>Điều khoản dịch vụ</span>
-                <span> & </span>
-                <span className='link'>Chính sách bảo mật</span>
-              </div>
-            </RulesWrap>
-          </FormContent>
+              <RulesWrap>
+                <div>Bằng việc đăng kí, bạn đã đồng ý với Shopee về</div>
+                <div>
+                  <span className='link'>Điều khoản dịch vụ</span>
+                  <span> & </span>
+                  <span className='link'>Chính sách bảo mật</span>
+                </div>
+              </RulesWrap>
+            </FormContent>
 
-          <FormFooter>
-            <span>Bạn đã có tài khoản?</span>
-            <Link to={routePaths.login}>Đăng nhập</Link>
-          </FormFooter>
-        </Form>
-      </Wrap>
-    </Container>
+            <FormFooter>
+              <span>Bạn đã có tài khoản?</span>
+              <Link to={routePaths.login}>Đăng nhập</Link>
+            </FormFooter>
+          </Form>
+        </Wrap>
+      </Container>
+    </>
   )
 }
 

@@ -14,6 +14,7 @@ import { isAxiosUnprocessableEntityError, objectKeys } from 'utils/utils'
 import { useAppDispatch } from 'hooks/useApp'
 import { loginOrRegisterSuccess } from 'features/auth/authSlice'
 import Button from 'components/Button'
+import CustomHelmet from 'components/CustomHelmet'
 
 type FormInputs = Pick<AuthSchema, 'email' | 'password'>
 
@@ -56,48 +57,53 @@ const Login = () => {
   }
 
   return (
-    <Container>
-      <Wrap>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <TitleForm>Đăng nhập</TitleForm>
+    <>
+      <CustomHelmet>
+        <title>Đăng nhập tài khoản - Mua sắm Online | Shopee Việt Nam</title>
+      </CustomHelmet>
+      <Container>
+        <Wrap>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <TitleForm>Đăng nhập</TitleForm>
 
-          <FormContent>
-            <InputText
-              register={register}
-              name='email'
-              placeholder='Email/Số điện thoại/Tên đăng nhập'
-              errorMessage={errors.email?.message}
-            />
-            <InputText
-              register={register}
-              name='password'
-              type='password'
-              placeholder='Mật khẩu'
-              isHaveEyeIcon={true}
-              errorMessage={errors.password?.message}
-            />
+            <FormContent>
+              <InputText
+                register={register}
+                name='email'
+                placeholder='Email/Số điện thoại/Tên đăng nhập'
+                errorMessage={errors.email?.message}
+              />
+              <InputText
+                register={register}
+                name='password'
+                type='password'
+                placeholder='Mật khẩu'
+                isHaveEyeIcon={true}
+                errorMessage={errors.password?.message}
+              />
 
-            <Button
-              typeBtn='primary'
-              isLoading={loginMutation.isLoading}
-              disabled={loginMutation.isLoading}
-              style={{ height: '4rem', textTransform: 'uppercase', gap: '1rem' }}
-            >
-              Đăng nhập
-            </Button>
+              <Button
+                typeBtn='primary'
+                isLoading={loginMutation.isLoading}
+                disabled={loginMutation.isLoading}
+                style={{ height: '4rem', textTransform: 'uppercase', gap: '1rem' }}
+              >
+                Đăng nhập
+              </Button>
 
-            <FormActions>
-              <div>Quên mật khẩu</div>
-            </FormActions>
-          </FormContent>
+              <FormActions>
+                <div>Quên mật khẩu</div>
+              </FormActions>
+            </FormContent>
 
-          <FormFooter>
-            <span>Bạn mới biết đến Shopee?</span>
-            <Link to={routePaths.register}>Đăng ký</Link>
-          </FormFooter>
-        </Form>
-      </Wrap>
-    </Container>
+            <FormFooter>
+              <span>Bạn mới biết đến Shopee?</span>
+              <Link to={routePaths.register}>Đăng ký</Link>
+            </FormFooter>
+          </Form>
+        </Wrap>
+      </Container>
+    </>
   )
 }
 

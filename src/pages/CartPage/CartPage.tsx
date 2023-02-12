@@ -13,6 +13,7 @@ import PaymentFooter from './components/PaymentFooter'
 import type { ExtraCartItem } from 'types/cart.type'
 import { useAppDispatch, useAppSelector } from 'hooks/useApp'
 import { selectCart, setListCart } from 'features/cart/cartSlice'
+import CustomHelmet from 'components/CustomHelmet'
 
 const CartPage = () => {
   const dispatch = useAppDispatch()
@@ -51,18 +52,23 @@ const CartPage = () => {
   if (isLoadingDataCart) return <LoadingDots />
 
   return (
-    <Container>
-      <Wrapper>
-        {listCartRedux && listCartRedux.length > 0 ? (
-          <>
-            <Table />
-            <PaymentFooter />
-          </>
-        ) : (
-          <EmptyCart />
-        )}
-      </Wrapper>
-    </Container>
+    <>
+      <CustomHelmet>
+        <title>Giỏ hàng</title>
+      </CustomHelmet>
+      <Container>
+        <Wrapper>
+          {listCartRedux && listCartRedux.length > 0 ? (
+            <>
+              <Table />
+              <PaymentFooter />
+            </>
+          ) : (
+            <EmptyCart />
+          )}
+        </Wrapper>
+      </Container>
+    </>
   )
 }
 

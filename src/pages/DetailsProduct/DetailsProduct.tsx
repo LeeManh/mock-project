@@ -93,17 +93,23 @@ const DetailsProduct = () => {
   }, [detailsProduct, setValue])
 
   const addToCartMutation = useMutation({
-    onSuccess: (response) => {
-      queryClient.invalidateQueries({ queryKey: ['list-cart'] })
-      setShowMessage(true)
-    },
     mutationFn: (body: BodyAddToCart) => cartApis.addToCart(body)
   })
 
   const onSumbitAddToCart = (data: DetailsProductSchema) => {
     const _data = omitBy(omit(data, ['isHaveColor', 'isHaveSize']), isEmpty)
 
-    addToCartMutation.mutate({ ..._data, id_product: +detailsProduct!.id })
+    addToCartMutation.mutate(
+      { ..._data, id_product: +detailsProduct!.id },
+      {
+        onSuccess: (response) => {
+          console.log('response add', response.data)
+
+          queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+          setShowMessage(true)
+        }
+      }
+    )
   }
 
   const isActiveButton = (name: keyof DetailsProductSchema, value: string) => {
@@ -128,8 +134,9 @@ const DetailsProduct = () => {
       {
         onSuccess: (response) => {
           queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+          console.log('response buy now', response.data)
 
-          navigate(`${routePaths.cart}`, { state: { idItemCart: response.data.id } })
+          navigate(`${routePaths.cart}`, { state: { idItemCart: response.data.data.id } })
         }
       }
     )

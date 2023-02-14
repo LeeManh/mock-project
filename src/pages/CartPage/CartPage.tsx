@@ -20,6 +20,8 @@ const CartPage = () => {
   const { listCart: listCartRedux } = useAppSelector(selectCart)
   const { state } = useLocation()
 
+  console.log(state)
+
   const { data: dataCart, isLoading: isLoadingDataCart } = useQuery({
     queryKey: ['list-cart'],
     queryFn: () => cartApis.fetchListCart()

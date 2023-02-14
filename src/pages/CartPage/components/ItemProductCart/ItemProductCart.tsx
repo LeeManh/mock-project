@@ -94,8 +94,10 @@ const ItemProductCart = ({ item, index }: Props) => {
           style={{ textAlign: 'center', height: '3.2rem' }}
           styleContainer={{ maxWidth: '8rem', display: 'inline-block' }}
           maxValue={String(item.product.quantity)}
-          value={String(item.quantity)}
-          onChange={(e) => setQuantity(e.target.value)}
+          value={String(quantity)}
+          onChange={(e) => {
+            setQuantity(e.target.value)
+          }}
           onBlur={() => {
             changeQuanityMutation.mutate()
           }}

@@ -88,4 +88,5 @@ export const QuantityWrap = styled.div`
 `
 export const LimitQuantityNumber = styled.div`
   color: ${colors['gray-text-2']};
+  white-space: nowrap;
 `

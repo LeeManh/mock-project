@@ -15,6 +15,7 @@ import productApis from 'apis/product.api'
 import { getImageUrl, formatNumberToSocialStyle, genarateNameId } from 'utils/utils'
 import LoadingDots from 'components/LoadingDots/LoadingDots'
 import CustomHelmet from 'components/CustomHelmet'
+import { isArray } from 'lodash'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -59,6 +60,8 @@ const Home = () => {
   ) {
     return <LoadingDots />
   }
+
+  // console.log(dataListProducts)
 
   return (
     <>
@@ -173,6 +176,7 @@ const Home = () => {
               {listTopSellProduct &&
                 listTopSellProduct.map((topProduct) => {
                   const images = JSON.parse(topProduct.image)
+
                   const nameId = genarateNameId({ name: topProduct.name, id: topProduct.id })
 
                   return (
@@ -180,7 +184,7 @@ const Home = () => {
                       <Link to={`${routePaths.detailsProduct}/${nameId}})}`}>
                         <S.TopSearchCard>
                           <S.TopSearchCardImageWrap>
-                            <S.TopSearchCardImage src={getImageUrl(images[0])} alt={topProduct.name} />
+                            <S.TopSearchCardImage src={images ? getImageUrl(images[0]) : ''} alt={topProduct.name} />
                             <S.IconTop />
                             <S.TopSearchCardNumber>
                               Bán {formatNumberToSocialStyle(topProduct.numberSell)} + / tháng

@@ -28,13 +28,13 @@ const ProductCard = ({ type = 'default', product }: Props) => {
   )
   const priceBeforeSale = isHaveSale && formatCurrency(product.price)
   const nameId = genarateNameId({ name: product.name, id: product.id })
-  const images = JSON.parse(product.image)
+  const images = product.image ? JSON.parse(product.image) : ''
 
   return (
     <Link to={`${routePaths.detailsProduct}/${nameId}`}>
       <Container>
         <ImageProductWrap>
-          <ImageProduct src={getImageUrl(images[0])} alt='' />
+          <ImageProduct src={images ? getImageUrl(images[0]) : ''} alt='' />
           {isHaveSale && (
             <SalesTag>
               <SalesPercentTag>{product.percent_sale}%</SalesPercentTag>

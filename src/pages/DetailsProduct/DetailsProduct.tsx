@@ -150,7 +150,7 @@ const DetailsProduct = () => {
     },
     { path: '', title: `${detailsProduct.name}` }
   ]
-  const images = JSON.parse(detailsProduct.image)
+  const images = detailsProduct.image ? JSON.parse(detailsProduct.image) : ''
 
   return (
     <>
@@ -162,9 +162,11 @@ const DetailsProduct = () => {
           <CustomBreadcrumb items={itemsBreadcrumb} />
 
           <Content>
-            <ThumbsGalleryWrap>
-              <ThumbsGallery images={images} />
-            </ThumbsGalleryWrap>
+            {images && (
+              <ThumbsGalleryWrap>
+                <ThumbsGallery images={images} />
+              </ThumbsGalleryWrap>
+            )}
 
             <InforWrap as={'form'} onSubmit={handleSubmit(onSumbitAddToCart)}>
               <Title>{detailsProduct.name}</Title>

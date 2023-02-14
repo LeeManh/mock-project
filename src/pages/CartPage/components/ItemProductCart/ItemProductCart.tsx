@@ -39,9 +39,9 @@ const ItemProductCart = ({ item, index }: Props) => {
 
   const changeQuanityMutation = useMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['list-cart'] })
+      return queryClient.invalidateQueries({ queryKey: ['list-cart'] })
     },
-    mutationFn: () => cartApis.updateQuantity(item.id, quantity)
+    mutationFn: ({ id, quantity }: { id: number; quantity: string }) => cartApis.updateQuantity(id, quantity)
   })
 
   const deleteItemCartMutation = useMutation({
@@ -102,8 +102,13 @@ const ItemProductCart = ({ item, index }: Props) => {
           onChange={(e) => {
             setQuantity(e.target.value)
           }}
-          onBlur={() => {
-            changeQuanityMutation.mutate()
+          allowStartWithZezo={false}
+          onBlur={(e) => {
+            if (!e.target.value) {
+              e.target.value = '1'
+              setQuantity('1')
+            }
+            changeQuanityMutation.mutate({ id: item.id, quantity: e.target.value })
           }}
         />
       </QuantityTabel>

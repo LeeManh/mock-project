@@ -15,7 +15,6 @@ import productApis from 'apis/product.api'
 import { getImageUrl, formatNumberToSocialStyle, genarateNameId } from 'utils/utils'
 import LoadingDots from 'components/LoadingDots/LoadingDots'
 import CustomHelmet from 'components/CustomHelmet'
-import { isArray } from 'lodash'
 
 const Home = () => {
   const navigate = useNavigate()

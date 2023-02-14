@@ -61,13 +61,12 @@ const Home = () => {
     return <LoadingDots />
   }
 
-  // console.log(dataListProducts)
-
   return (
     <>
       <CustomHelmet>
         <title>Shopee Việt Nam | Mua và Bán Trên Ứng Dụng Di Động Hoặc Website</title>
       </CustomHelmet>
+
       <S.Container>
         <S.HomeWrap>
           <S.BannerWrap>

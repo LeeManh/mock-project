@@ -10,7 +10,7 @@ interface Props {
 const ItemProduct = ({ item }: Props) => {
   const product = item.product
 
-  const images = JSON.parse(product.image)
+  const images = product.image ? JSON.parse(product.image) : ''
 
   const price = product.is_sale ? getPriceAfterSale(product.price, product.percent_sale) : product.price
   const total = price * item.quantity
@@ -21,7 +21,7 @@ const ItemProduct = ({ item }: Props) => {
     <S.Container>
       <S.InforProduct>
         <Link to='/'>
-          <S.ImageProduct src={getImageUrl(images[0])} alt='' />
+          <S.ImageProduct src={images ? getImageUrl(images[0]) : ''} alt='' />
         </Link>
         {arrType.length > 0 && <S.NameProduct>{product.name}</S.NameProduct>}
 

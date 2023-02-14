@@ -27,7 +27,7 @@ const ItemProductCart = ({ item, index }: Props) => {
   const nameId = genarateNameId({ name: item.product.name, id: item.product.id })
 
   const images = JSON.parse(item.product.image)
-  const image = getImageUrl(images[0])
+  const image = images ? getImageUrl(images[0]) : ''
 
   const priceAfterSale = Boolean(item.product.is_sale)
     ? getPriceAfterSale(item.product.price, item.product.percent_sale)

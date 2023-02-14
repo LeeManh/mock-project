@@ -13,7 +13,7 @@ interface Props {
 const ItemProduct = ({ productOrder }: Props) => {
   const product = productOrder.product
 
-  const images = JSON.parse(product.image)
+  const images = product.image ? JSON.parse(product.image) : ''
   const priceFinal = getFinalPrice(product.price, product.percent_sale, product.is_sale)
   const nameId = genarateNameId({ name: product.name, id: product.id })
   const arrType = [productOrder.size, productOrder.color].filter((val) => val)
@@ -22,7 +22,7 @@ const ItemProduct = ({ productOrder }: Props) => {
   return (
     <S.Container>
       <Link to={`${routePaths.detailsProduct}/${nameId}`}>
-        <S.ImageProduct src={getImageUrl(images[0])} alt={product.name} />
+        <S.ImageProduct src={images ? getImageUrl(images[0]) : ''} alt={product.name} />
       </Link>
 
       <div>

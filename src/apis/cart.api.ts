@@ -10,7 +10,7 @@ export interface BodyUpdateCart {
   quantity: string
 }
 
-const addToCart = (body: BodyAddToCart) => http.post<SuccessResponse<ResponseAddToCart>>('/add-to-cart', body)
+const addToCart = (body: BodyAddToCart) => http.post<ResponseAddToCart>('/add-to-cart', body)
 const fetchListCart = () => http.get<SuccessResponse<CartItem[]>>('/list-cart')
 const updateQuantity = (idItemCart: number, quantity: string) => http.patch(`/update-cart/${idItemCart}`, { quantity })
 const deleteItemCart = (idItemCart: number) => http.delete(`/delete-cart/${idItemCart}`)

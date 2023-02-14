@@ -74,7 +74,6 @@ const DetailsProduct = () => {
     setValue,
     getValues,
     trigger,
-    reset,
     formState: { errors }
   } = useForm<DetailsProductSchema>({
     resolver: yupResolver(detailsProductSchema),
@@ -86,6 +85,7 @@ const DetailsProduct = () => {
       quantity: '1'
     }
   })
+
   const [showMessage, setShowMessage] = useState(false)
   useEffect(() => {
     detailsProduct?.colors && setValue('isHaveColor', true)
@@ -96,7 +96,6 @@ const DetailsProduct = () => {
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ['list-cart'] })
       setShowMessage(true)
-      reset()
     },
     mutationFn: (body: BodyAddToCart) => cartApis.addToCart(body)
   })
@@ -129,7 +128,8 @@ const DetailsProduct = () => {
       {
         onSuccess: (response) => {
           queryClient.invalidateQueries({ queryKey: ['list-cart'] })
-          navigate(`${routePaths.cart}`, { state: { idItemCart: response.data.data.id } })
+
+          navigate(`${routePaths.cart}`, { state: { idItemCart: response.data.id } })
         }
       }
     )

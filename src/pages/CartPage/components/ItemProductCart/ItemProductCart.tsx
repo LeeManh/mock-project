@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
@@ -50,6 +50,10 @@ const ItemProductCart = ({ item, index }: Props) => {
     },
     mutationFn: () => cartApis.deleteItemCart(item.id)
   })
+
+  useEffect(() => {
+    setQuantity(String(item.quantity))
+  }, [item.quantity])
 
   return (
     <Container>

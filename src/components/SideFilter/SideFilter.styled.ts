@@ -7,6 +7,7 @@ export const Container = styled.div`
   width: 25rem;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 
   @media screen and (max-width: ${breakPonits.md}) {
     display: none;

@@ -3,14 +3,13 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
 export const Container = styled.div`
-  height: 100vh;
-  display: flex;
-  position: fixed;
-  inset: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
   z-index: 9999;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
 `
 export const DotsWrap = styled.div`
   display: flex;

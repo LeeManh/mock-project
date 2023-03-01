@@ -29,8 +29,6 @@ const ResultSearchProductsPage = () => {
   const total = dataListProducts?.data.data.total || 1
   const pageSize = dataListProducts?.data.data.per_page || 1
 
-  if (isLoading) return <LoadingDots />
-
   return (
     <Container as={'main'}>
       <Wrapper>
@@ -47,20 +45,27 @@ const ResultSearchProductsPage = () => {
             </TitleSearchProduct>
 
             <SortFilter />
-            {listProducts && listProducts.length > 0 ? (
-              <ListProduct listProducts={listProducts} />
-            ) : (
-              <div style={{ marginTop: '2rem', textAlign: 'center' }}>Không có sản phẩm phù hợp ... </div>
-            )}
 
-            <Pagination
-              hideOnSinglePage
-              pageSize={pageSize}
-              current={+currentPage}
-              onChange={(page) => onChangePage(page)}
-              total={total}
-              styleContainer={{ marginTop: '3rem' }}
-            />
+            {isLoading ? (
+              <LoadingDots />
+            ) : (
+              <>
+                {listProducts && listProducts.length > 0 ? (
+                  <ListProduct listProducts={listProducts} />
+                ) : (
+                  <div style={{ marginTop: '2rem', textAlign: 'center' }}>Không có sản phẩm phù hợp ... </div>
+                )}
+
+                <Pagination
+                  hideOnSinglePage
+                  pageSize={pageSize}
+                  current={+currentPage}
+                  onChange={(page) => onChangePage(page)}
+                  total={total}
+                  styleContainer={{ marginTop: '3rem' }}
+                />
+              </>
+            )}
           </ProductSection>
         </ContentWrap>
       </Wrapper>

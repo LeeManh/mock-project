@@ -10,6 +10,7 @@ export const ContentWrap = styled.div`
 `
 export const ProductSection = styled.div`
   width: 100%;
+  position: relative;
 `
 export const TitleSearchProduct = styled.div`
   margin-bottom: 2rem;

@@ -2,6 +2,7 @@ import type { MenuProps } from 'antd'
 import { Dropdown, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 
 import images from 'assets/images'
 import {
@@ -25,6 +26,7 @@ import authApis from 'apis/auth.api'
 import { logoutSuccess, selectAuth } from 'features/auth/authSlice'
 import { UserOutlined } from '@ant-design/icons'
 import { getImageUrl } from 'utils/utils'
+import { changeLanguage, Language, selectLanguage } from 'features/language/language.slice'
 
 const languages: MenuProps['items'] = [
   {
@@ -56,6 +58,9 @@ const NavbarHeader = () => {
   const { isAuthenticated, user } = useAppSelector(selectAuth)
   const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
+  const { t } = useTranslation()
+
+  const language = useAppSelector(selectLanguage)
 
   const logoutMutation = useMutation({
     onSuccess: () => {
@@ -75,9 +80,9 @@ const NavbarHeader = () => {
     <Container>
       <Wrap>
         <LeftNavbar>
-          <NavbarItem>Tải ứng dụng</NavbarItem>
+          <NavbarItem>{t('downloadTheApp')}</NavbarItem>
           <NavbarItem>
-            <span>Kết nối</span>
+            <span>{t('connect')}</span>
             <ImageSocical src={images.icons.facebookSmallIcon} alt='facebookSmallIcon' />
             <ImageSocical src={images.icons.instagramSmallIcon} alt='instagramSmallIcon' />
           </NavbarItem>
@@ -86,18 +91,21 @@ const NavbarHeader = () => {
         <RightNavbar>
           <NavbarItem border={false}>
             <BellIcon />
-            <span>Thông báo</span>
+            <span>{t('notification')}</span>
           </NavbarItem>
 
           <Dropdown
             menu={{
               items: languages,
               selectable: true,
-              defaultSelectedKeys: ['vn'],
+              defaultSelectedKeys: [language],
               style: {
                 borderRadius: '2px'
               },
-              className: 'custom-dropdown'
+              className: 'custom-dropdown',
+              onClick: (event) => {
+                dispatch(changeLanguage(event.key as Language))
+              }
             }}
             placement='bottomRight'
             arrow
@@ -107,10 +115,11 @@ const NavbarHeader = () => {
           >
             <NavbarItem border={false}>
               <GlobalIcon />
-              <span>Tiếng Việt</span>
+              <span>{language === 'vn' ? 'Tiếng Việt' : 'English'}</span>
               <ArrowDownIcon />
             </NavbarItem>
           </Dropdown>
+
           {isAuthenticated ? (
             <Dropdown
               menu={{
@@ -141,10 +150,10 @@ const NavbarHeader = () => {
             <NavbarItem border={false}>
               <LoginAndRegisterWrap>
                 <Link to={routePaths.register} style={{ paddingRight: '1rem', borderRight: `1px solid #ffffff38` }}>
-                  Đăng ký
+                  {t('register')}
                 </Link>
                 <Link to={routePaths.login} style={{ paddingLeft: '1rem' }}>
-                  Đăng nhập
+                  {t('login')}
                 </Link>
               </LoginAndRegisterWrap>
             </NavbarItem>

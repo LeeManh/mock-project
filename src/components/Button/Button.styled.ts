@@ -1,6 +1,5 @@
 import colors from 'constants/colors'
 import styled, { css } from 'styled-components'
-import { boolean } from 'yup'
 import type { Props } from './Button'
 
 export const ButtonContainer = styled.button`

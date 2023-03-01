@@ -3,6 +3,7 @@ import ProductCard from 'components/ProductCard'
 import Slide from 'components/Slide'
 import { Link, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 
 import colors from 'constants/colors'
 import { SeeAllLink } from 'globalStyle.styled'
@@ -19,6 +20,7 @@ import CustomHelmet from 'components/CustomHelmet'
 const Home = () => {
   const navigate = useNavigate()
   const queryConfig = useQueryConfig()
+  const { t } = useTranslation()
 
   const { data: dataListCategory, isLoading: isLoadingListCategory } = useQuery({
     queryKey: ['list-category', queryConfig],
@@ -97,7 +99,7 @@ const Home = () => {
 
           <S.CategoryWrap>
             <S.HeaderSection>
-              <S.Title>DANH MỤC</S.Title>
+              <S.Title>{t('categoryTitle')}</S.Title>
             </S.HeaderSection>
 
             <Slide
@@ -143,11 +145,11 @@ const Home = () => {
           <S.TopSearchWrap>
             <S.HeaderSection>
               <S.Title bold={true} color={colors.orange}>
-                Sản phẩm bán chạy
+                {t('topProductTitle')}
               </S.Title>
               <Link to={routePaths.topProducts}>
                 <SeeAllLink>
-                  <span>Xem tất cả</span>
+                  <span>{t('seeAll')}</span>
                   <RightOutlined />
                 </SeeAllLink>
               </Link>
@@ -201,7 +203,7 @@ const Home = () => {
           <S.ListProductWrap>
             <S.HeaderSection>
               <S.Title bold={true} color={colors.orange}>
-                Danh sách sản phẩm
+                {t('listProductTitle')}
               </S.Title>
             </S.HeaderSection>
 
@@ -215,7 +217,7 @@ const Home = () => {
                 style={{ maxWidth: '20rem', width: '100%' }}
                 onClick={() => navigate(routePaths.allProducts)}
               >
-                Xem Thêm
+                {t('seeMore')}
               </Button>
             </div>
           </S.ListProductWrap>
